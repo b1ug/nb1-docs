@@ -1,0 +1,29 @@
+{
+  "name": "nb1-docs",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Bilingual local-first documentation for nb1",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "packageManager": "npm@11.20.0",
+  "scripts": {
+    "dev": "node scripts/prepare-content.mjs && vitepress dev . --host 127.0.0.1 --port 4175 --strictPort",
+    "build": "node scripts/check-provenance.mjs && node scripts/prepare-content.mjs && vitepress build . && node scripts/check-dist.mjs",
+    "preview": "node scripts/preview.mjs",
+    "check:content": "node scripts/check-provenance.mjs && node scripts/prepare-content.mjs --check",
+    "check:dist": "node scripts/check-dist.mjs --check",
+    "provenance:update": "node scripts/check-provenance.mjs --write",
+    "check:provenance": "node scripts/check-provenance.mjs"
+  },
+  "devDependencies": {
+    "vite": "6.4.6",
+    "vitepress": "1.6.4",
+    "vue": "3.5.45"
+  },
+  "overrides": {
+    "vite": "6.4.6"
+  }
+}

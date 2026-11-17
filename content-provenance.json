@@ -1,0 +1,547 @@
+{
+  "schema_version": 2,
+  "artifact_kind": "documentation-vitepress-source",
+  "recorded_on": "2026-11-17",
+  "site_source": {
+    "repository": "https://github.com/b1ug/nb1-docs",
+    "files": [
+      {
+        "path": ".gitattributes",
+        "bytes": 257,
+        "sha256": "609b04c3e296b3e78d50952685346cad7e68e48561b86309c1ae5beb2f284322"
+      },
+      {
+        "path": ".github/workflows/docs.yml",
+        "bytes": 1844,
+        "sha256": "4d193c37b78103d1e481f9159109d8f9ccd7dadd78443b0f8c509b0c0c3dce9b"
+      },
+      {
+        "path": ".gitignore",
+        "bytes": 97,
+        "sha256": "1ce3d803ec4d4d02350a8e4047e9aa3689f2a22a3d4bdb8504035665e62f030c"
+      },
+      {
+        "path": ".npmrc",
+        "bytes": 59,
+        "sha256": "971c1b5747468c63dd9b68265787d5f7cc10f4b028fd7ba43a6bc224943eb6d2"
+      },
+      {
+        "path": ".vitepress/config.mts",
+        "bytes": 5704,
+        "sha256": "7f9f646b8dd6257fd90c22fafa1fa4ee13a5ebeb1fffe7ccfac79e757547e7a7"
+      },
+      {
+        "path": ".vitepress/search.ts",
+        "bytes": 1013,
+        "sha256": "7a0f05eadc66bd144013315be0f8cf23a911d2bcc211bc0cd8d659fa1bac062a"
+      },
+      {
+        "path": ".vitepress/theme/ASSETS.md",
+        "bytes": 2438,
+        "sha256": "d9702d5c0c515b7520a5aaa2fe21eef6abfa623e76ac81bf3371654299450060"
+      },
+      {
+        "path": ".vitepress/theme/HomeStatus.vue",
+        "bytes": 403,
+        "sha256": "c772b557e95d0b70e58f2aaedb8041d60d7f2ee4654f125efc6392fdc276d7f9"
+      },
+      {
+        "path": ".vitepress/theme/ModelAttribution.vue",
+        "bytes": 1750,
+        "sha256": "ee2a8796c76a86de8eb584940b03ec8fdb34d85c6e3d71b6fc7423f2d0c9b505"
+      },
+      {
+        "path": ".vitepress/theme/NightlabModel.vue",
+        "bytes": 9698,
+        "sha256": "f4c4a631f065b0f80dff0b7270febdf34b924595c3ef0054815b1e3ee7db4be9"
+      },
+      {
+        "path": ".vitepress/theme/SearchFocusGuard.ts",
+        "bytes": 4715,
+        "sha256": "d893ecbbd5b43689bfed87b7d7f71f0caf9901c22c11c149825b4fe06500137f"
+      },
+      {
+        "path": ".vitepress/theme/custom.css",
+        "bytes": 19342,
+        "sha256": "ea4d91ddea5ab113139db3e70ba65af9030ee22099d734d87077f7c7811c612e"
+      },
+      {
+        "path": ".vitepress/theme/index.ts",
+        "bytes": 1462,
+        "sha256": "03aaf7fcf9fa9575163eba16527e55a074644d67395541b52f0697b56c735b72"
+      },
+      {
+        "path": ".vitepress/theme/model.css",
+        "bytes": 9469,
+        "sha256": "baaf4263da4737b1647524809a1cc25331f6eb128eb0a9d0b788e71efd297735"
+      },
+      {
+        "path": "LICENSE",
+        "bytes": 1076,
+        "sha256": "a428d1101807989e11ae625f4316d360a27b2a922f4f6cb6ce5981e8cfeafe93"
+      },
+      {
+        "path": "README.md",
+        "bytes": 5808,
+        "sha256": "6c272b59ec4d6bda8b4e60bcf78671f8be2d4975ab283c39c563e679c17e9570"
+      },
+      {
+        "path": "README.zh-CN.md",
+        "bytes": 4885,
+        "sha256": "e9c33bf11d8944fe055021f683cb7695b06270cf53366253dfe0b95a7da7cfda"
+      },
+      {
+        "path": "assets/nb1-icon.png",
+        "bytes": 4703,
+        "sha256": "cd6f0c2c635e52d8ccf6ffdcf080214e90aa80f4c48cad71c1c350e77f2d45d7"
+      },
+      {
+        "path": "assets/nb1-mascot.webp",
+        "bytes": 7174,
+        "sha256": "0d2ffe4927cb4519744fa691e74ae5aba7a84135cdfc08bf3e083acf05e96dce"
+      },
+      {
+        "path": "docs/agent-notifications.md",
+        "bytes": 3498,
+        "sha256": "75d73445a5afff4e01a1b1af12f586c9c64ade6690780fdf4ceb1ff15ed8b140"
+      },
+      {
+        "path": "docs/agent-notifications.zh-CN.md",
+        "bytes": 3313,
+        "sha256": "7a65fea4ce205750d1ee2118ff45649bab3da4b179a349a865b778ca1ea9262b"
+      },
+      {
+        "path": "docs/agents.md",
+        "bytes": 2752,
+        "sha256": "2e990470ffa4acd8b9a16b84d548c90160dfdcff22d4774ff169d8c921261d1b"
+      },
+      {
+        "path": "docs/agents.zh-CN.md",
+        "bytes": 2536,
+        "sha256": "02263ecabff96ab860ef26aa4c44487b7e3799a6c4ffaede7ec61c6c2b245d75"
+      },
+      {
+        "path": "docs/api-v1-terminology.md",
+        "bytes": 1731,
+        "sha256": "a28d2d95018708a9fde3a04d1ef43c045aa0bcbd3e8e7c995436bf8a660a9445"
+      },
+      {
+        "path": "docs/api-v1-terminology.zh-CN.md",
+        "bytes": 1955,
+        "sha256": "8f8041aaf8c0b7c17ce8fece22f3bddf9ecf099c33d4f901abae46a0e8858207"
+      },
+      {
+        "path": "docs/api-v1.md",
+        "bytes": 37732,
+        "sha256": "9d4c28082a9196542700add9b3211dd71b9733c8a536e080f7d49676cfc4586e"
+      },
+      {
+        "path": "docs/api-v1.zh-CN.md",
+        "bytes": 36472,
+        "sha256": "5e6f8c99e87015fafcbc4acf31f8efdfc294621c0869dac592f0c3c66a98a45f"
+      },
+      {
+        "path": "docs/architecture.md",
+        "bytes": 7466,
+        "sha256": "a42bcc8c8050ce1f857e8ac9a5278f80f812359c022d8658605383ad858dc5eb"
+      },
+      {
+        "path": "docs/architecture.zh-CN.md",
+        "bytes": 6681,
+        "sha256": "fb3e5dfae38cb87ceed455187a45163c0616e66c2e9cb3b0ba812a71c1eb1a3c"
+      },
+      {
+        "path": "docs/browser.md",
+        "bytes": 6964,
+        "sha256": "b90cb31eeee348fd0521d91ed34042257239b536441f14dc60cdab86cb4b1373"
+      },
+      {
+        "path": "docs/browser.zh-CN.md",
+        "bytes": 6150,
+        "sha256": "701465e5a93fba2feb6382604feef5dfde0280e45cccf9c251c3c89a4f888b2b"
+      },
+      {
+        "path": "docs/changelog.md",
+        "bytes": 6780,
+        "sha256": "ae212e7988fb2c091c6cd28c7c47a8438157a4c4656f8d4085e3643205355fb0"
+      },
+      {
+        "path": "docs/changelog.zh-CN.md",
+        "bytes": 6005,
+        "sha256": "e8691b7ccd5f44d068cdc37b0d23515fd946511b879284ceb0fa9a6918164ae0"
+      },
+      {
+        "path": "docs/getting-started.md",
+        "bytes": 3253,
+        "sha256": "d9327351783b6d3a151a2eb851da6734d0f9038274e512fe367fd243c8d8389c"
+      },
+      {
+        "path": "docs/getting-started.zh-CN.md",
+        "bytes": 3158,
+        "sha256": "432ab507db6ca777d483125e469a1f7ea6aed69d3167cd6464d21a2e14467391"
+      },
+      {
+        "path": "docs/install.md",
+        "bytes": 9247,
+        "sha256": "ea61234f7a2a5737e7707a243893edc445035812c48802984e525bd5277f0d2e"
+      },
+      {
+        "path": "docs/install.zh-CN.md",
+        "bytes": 7637,
+        "sha256": "8609362cac82461816b42b5e47ff85e2f2e8dc43e0a10bba5afcf95a8ea19fbb"
+      },
+      {
+        "path": "docs/overview.md",
+        "bytes": 2285,
+        "sha256": "424a67dfc306f5163497af24df4e34164c0d42cc57debeab568eb5205d030e30"
+      },
+      {
+        "path": "docs/overview.zh-CN.md",
+        "bytes": 1998,
+        "sha256": "24f6a2341eb79a0f36998bfaf4bbb7e5842bde39843b4d28e64b06ae61cd281c"
+      },
+      {
+        "path": "docs/support.md",
+        "bytes": 4585,
+        "sha256": "6eb11d8e825883a0884bfdd6496c3c1baeeb1d5ca028827d42709c07f582c976"
+      },
+      {
+        "path": "docs/support.zh-CN.md",
+        "bytes": 3967,
+        "sha256": "3189c89b7a77157cdbd152fd2abd489fa9580b183bd12172c473671caceafc21"
+      },
+      {
+        "path": "package-lock.json",
+        "bytes": 92248,
+        "sha256": "3e049264c9294c989e142dcc628e48d533793a2ee63c801ccf86a0c51c5377fa"
+      },
+      {
+        "path": "package.json",
+        "bytes": 984,
+        "sha256": "8641d1498347817d61090c22ae9dfe2471cf8034e695ae6c966048e501bba968"
+      },
+      {
+        "path": "pages/index.md",
+        "bytes": 2086,
+        "sha256": "9af6f4a7c143a0675a4ad1dc30a0e65fd2ce7561bd7554ca1aaf877791ca9b1d"
+      },
+      {
+        "path": "pages/zh/index.md",
+        "bytes": 1985,
+        "sha256": "9c3a60df9f8ca911ff97458891f86da0f2d3b80e7d835e18fe695e6cc807f4ea"
+      },
+      {
+        "path": "public/LICENSE.txt",
+        "bytes": 1076,
+        "sha256": "a428d1101807989e11ae625f4316d360a27b2a922f4f6cb6ce5981e8cfeafe93"
+      },
+      {
+        "path": "public/api-v1.openapi.json",
+        "bytes": 155406,
+        "sha256": "01225e426ea2cf0c06882c7a13cea5365d9d0a815adec9f04d59b7bc23c76af6"
+      },
+      {
+        "path": "public/assets/fonts/Fredoka-OFL.txt",
+        "bytes": 4388,
+        "sha256": "5c9e7eee5c6b25f4b05b8d53b2e470ea4962f9ced742d044a98f7d95d1375bab"
+      },
+      {
+        "path": "public/assets/fonts/MPLUSRounded1c-OFL.txt",
+        "bytes": 4397,
+        "sha256": "67f64c5509e5151796599e3ad47c3131cbe0c80c4f9430b90236a1249c2eacc9"
+      },
+      {
+        "path": "public/assets/fonts/fredoka-700-latin-ext.woff2",
+        "bytes": 2676,
+        "sha256": "e5272989e860007c4dbb922c687aeea68d74ac0f4bcc6c052f1c21cffaec637d"
+      },
+      {
+        "path": "public/assets/fonts/fredoka-700-latin.woff2",
+        "bytes": 15900,
+        "sha256": "ee61b48acab42fcfee4e1c398b03bbae7e09d1be8471779c440a97dc85118c16"
+      },
+      {
+        "path": "public/assets/fonts/mplusround-500-latin.woff2",
+        "bytes": 22040,
+        "sha256": "9a7980fa96341230341fd240f68d14a327c8b856d260eeff2e426db78b7eab87"
+      },
+      {
+        "path": "public/assets/fonts/mplusround-700-latin.woff2",
+        "bytes": 22708,
+        "sha256": "1688f14412dd12f79daffbb8bd9defe98f555aa5799184b8ddd0ae4583a2851f"
+      },
+      {
+        "path": "public/assets/nb1-icon.png",
+        "bytes": 4703,
+        "sha256": "cd6f0c2c635e52d8ccf6ffdcf080214e90aa80f4c48cad71c1c350e77f2d45d7"
+      },
+      {
+        "path": "public/assets/nb1-mascot.webp",
+        "bytes": 7174,
+        "sha256": "0d2ffe4927cb4519744fa691e74ae5aba7a84135cdfc08bf3e083acf05e96dce"
+      },
+      {
+        "path": "public/llms.txt",
+        "bytes": 2013,
+        "sha256": "9e953d33f7f664c94090ae2c44aa1938708b1304f8c41fe03d01cedbf3c1f5e8"
+      },
+      {
+        "path": "public/nightlab/enclosure-fit.js",
+        "bytes": 21789,
+        "sha256": "33a8c0fba98e078b9497da20289508ff5da08a4cfccc8abafbeec36a336ece99"
+      },
+      {
+        "path": "public/nightlab/light-model.js",
+        "bytes": 23287,
+        "sha256": "7ec7b6aa2d2762a912253065a3180d77dc05d50474cc04d97f027dd77e240313"
+      },
+      {
+        "path": "public/nightlab/model-assets/LICENSE.txt",
+        "bytes": 351,
+        "sha256": "e0a5f70deb9c79bb8533122057d00f6fb20b2c050ee63123e3e6538da329ceea"
+      },
+      {
+        "path": "public/nightlab/model-assets/blink1mk2_enclosure_diffuser_v3k.stl",
+        "bytes": 3940514,
+        "sha256": "297986ee78dee7ce5607b43edd8967cd7b9d509496261214c5c68587d892af18"
+      },
+      {
+        "path": "public/nightlab/model-assets/blink1mk2_enclosure_frame_v3k.stl",
+        "bytes": 1606855,
+        "sha256": "ba0797af2873c0fc4c3477b87cde07ca1b9ec761eda001b21abe101ce035b465"
+      },
+      {
+        "path": "public/nightlab/model-assets/seating-fit.json",
+        "bytes": 3399,
+        "sha256": "04516bf501b32ff8667a1738a99fad4cfde10cb5bcfc30836841115111d0c3c5"
+      },
+      {
+        "path": "public/nightlab/model-assets/source.json",
+        "bytes": 14741,
+        "sha256": "2be0beba07e7a920b6ee60cb4fa1425f0c7ee6ee1f54cc64697f7a4791525656"
+      },
+      {
+        "path": "public/nightlab/source-receipt.json",
+        "bytes": 7174,
+        "sha256": "14aa9a51a9e1996a9f4aa51c53e2d59fe764608eff48373d929f41c91d455074"
+      },
+      {
+        "path": "public/nightlab/vendor/three/LICENSE.txt",
+        "bytes": 1081,
+        "sha256": "8b378ebe60e2fe500158cb0ac71cb5e8b7d92953c2abcc63a0eb90499653b5bc"
+      },
+      {
+        "path": "public/nightlab/vendor/three/OrbitControls.js",
+        "bytes": 40930,
+        "sha256": "a747d56dd959510407777f1800792b2b52c0a435980fd6e40caf303d8a674b9e"
+      },
+      {
+        "path": "public/nightlab/vendor/three/RoomEnvironment.js",
+        "bytes": 4972,
+        "sha256": "77d4d2bed2b60cb98424764264aedd84b56bbf3211e0f48430e15608aeded9dc"
+      },
+      {
+        "path": "public/nightlab/vendor/three/STLLoader.js",
+        "bytes": 10800,
+        "sha256": "5dc2e3c6b77bb6199fa13c261234bede72508ae5c3dcdcad7cc5002e53d53319"
+      },
+      {
+        "path": "public/nightlab/vendor/three/three.core.js",
+        "bytes": 1474799,
+        "sha256": "613e370f76638fdef83926642bf256dc9615684922de1ce1f63a8583e5d78578"
+      },
+      {
+        "path": "public/nightlab/vendor/three/three.module.js",
+        "bytes": 658900,
+        "sha256": "104f56145899722094556490d787aae0617cc2fc3382f31df02d724ea1aee341"
+      },
+      {
+        "path": "public/nightlab/viewer.js",
+        "bytes": 23975,
+        "sha256": "d4dfe04e32537216f1cb4467335a930c36f505fdba6a05aeb9e69686f50a6184"
+      },
+      {
+        "path": "scripts/check-dist.mjs",
+        "bytes": 6363,
+        "sha256": "013aa5ebe068c5c5a2f7717e719b68c1a348941a53162023f046d1bf3850111b"
+      },
+      {
+        "path": "scripts/check-provenance.mjs",
+        "bytes": 2891,
+        "sha256": "dac915a4bf61991acbe7ea7748999abdb853ba74a5cd601ee85054ea151a18a9"
+      },
+      {
+        "path": "scripts/content-map.mjs",
+        "bytes": 871,
+        "sha256": "39c90103c2a0f5cfdfc363f164102908d99083bdc05248b6d247cd98e5f96698"
+      },
+      {
+        "path": "scripts/prepare-content.mjs",
+        "bytes": 3498,
+        "sha256": "7c3481dce5369fd28ba75dbe62d319514b1e13fbc77c4015d555f6d04325eb56"
+      },
+      {
+        "path": "scripts/preview.mjs",
+        "bytes": 630,
+        "sha256": "40bcc0794145247e4b0f5bcfa710b7acbbed8290c621e71e50e2027043fd6b42"
+      },
+      {
+        "path": "scripts/site-config.mjs",
+        "bytes": 266,
+        "sha256": "adfc82089e1edb20704d970fd3e1045791f81aabda06867fdd88738f5cc152bc"
+      }
+    ],
+    "seed_identity": "Source files are identified by their hashes below. The final clean repository commit is recorded separately in dist/site-build.json; no self-referential source commit is claimed."
+  },
+  "public_scope": {
+    "audience": "Users and agent developers of nb1 v0.1.0; English default with Chinese translations.",
+    "publication_status": "public_documentation_source",
+    "framework": "vitepress",
+    "framework_version": "1.6.4",
+    "search": "local, separate English and Chinese indexes",
+    "runtime_policy": "Static local assets, same-origin local search, no analytics, remote fonts, Service Worker, hardware access or startup downloads.",
+    "links": "Clean documentation routes, original source downloads and immutable upstream references; no invented release downloads."
+  },
+  "guide_source": {
+    "repository": "https://github.com/b1ug/nb1",
+    "commit": "535621a689e5a9e35c5e897aadcd4b023d2f157b",
+    "files": [
+      {
+        "path": "README.md",
+        "url": "https://github.com/b1ug/nb1/blob/535621a689e5a9e35c5e897aadcd4b023d2f157b/README.md",
+        "bytes": 7719,
+        "sha256": "764c948372e7996260a2a5ee2c1493adb0f0bb86d9cfddd00b0b1ea434ae550e"
+      },
+      {
+        "path": "README.zh-CN.md",
+        "url": "https://github.com/b1ug/nb1/blob/535621a689e5a9e35c5e897aadcd4b023d2f157b/README.zh-CN.md",
+        "bytes": 5769,
+        "sha256": "a1deed6d5daf29c0f8c429d053d45195faa5846af65ceafb166e33b23a108624"
+      },
+      {
+        "path": "docs/api-v1.md",
+        "url": "https://github.com/b1ug/nb1/blob/535621a689e5a9e35c5e897aadcd4b023d2f157b/docs/api-v1.md",
+        "bytes": 37598,
+        "sha256": "28fdb92964e08cb79bfbc0e8cb84ae90606fd704b8047ebd944954180c7233ce"
+      },
+      {
+        "path": "docs/api-v1-terminology.md",
+        "url": "https://github.com/b1ug/nb1/blob/535621a689e5a9e35c5e897aadcd4b023d2f157b/docs/api-v1-terminology.md",
+        "bytes": 1731,
+        "sha256": "a28d2d95018708a9fde3a04d1ef43c045aa0bcbd3e8e7c995436bf8a660a9445"
+      },
+      {
+        "path": "docs/api-v1.openapi.json",
+        "url": "https://github.com/b1ug/nb1/blob/535621a689e5a9e35c5e897aadcd4b023d2f157b/docs/api-v1.openapi.json",
+        "bytes": 155406,
+        "sha256": "01225e426ea2cf0c06882c7a13cea5365d9d0a815adec9f04d59b7bc23c76af6"
+      },
+      {
+        "path": "docs/install.md",
+        "url": "https://github.com/b1ug/nb1/blob/535621a689e5a9e35c5e897aadcd4b023d2f157b/docs/install.md",
+        "bytes": 8450,
+        "sha256": "a9f7498037f49f431073675175816dc759f3a069e53d92cedab5f48813956eaf"
+      },
+      {
+        "path": "docs/install.zh-CN.md",
+        "url": "https://github.com/b1ug/nb1/blob/535621a689e5a9e35c5e897aadcd4b023d2f157b/docs/install.zh-CN.md",
+        "bytes": 6949,
+        "sha256": "591f09cb6699c4561ed3c38bc0babb1587388ff11784a21b14bfe20a19bb343c"
+      },
+      {
+        "path": "docs/agent-guide.md",
+        "url": "https://github.com/b1ug/nb1/blob/535621a689e5a9e35c5e897aadcd4b023d2f157b/docs/agent-guide.md",
+        "bytes": 5017,
+        "sha256": "fd2ec9ecab4e9251e7ceb49d3b71d47f8c7b89c3fbb9e065914d2d6666d02b77"
+      },
+      {
+        "path": "docs/agent-guide.zh-CN.md",
+        "url": "https://github.com/b1ug/nb1/blob/535621a689e5a9e35c5e897aadcd4b023d2f157b/docs/agent-guide.zh-CN.md",
+        "bytes": 4699,
+        "sha256": "88c0810b62439b93d875875535917c9a59d7ec5a9094c67864c824dce00b06f5"
+      },
+      {
+        "path": "adapters/mcp/README.md",
+        "url": "https://github.com/b1ug/nb1/blob/535621a689e5a9e35c5e897aadcd4b023d2f157b/adapters/mcp/README.md",
+        "bytes": 7161,
+        "sha256": "0ae248b08703cffc106523fe42777f921ae6d12dc26282a69d1e977991e87568"
+      },
+      {
+        "path": "llms.txt",
+        "url": "https://github.com/b1ug/nb1/blob/535621a689e5a9e35c5e897aadcd4b023d2f157b/llms.txt",
+        "bytes": 4937,
+        "sha256": "a35dbb72320e011d1645d0809acaeea0515771acaf042f09b4779ab1243cd548"
+      }
+    ]
+  },
+  "release": {
+    "tag": "v0.1.0",
+    "source": "535621a689e5a9e35c5e897aadcd4b023d2f157b",
+    "url": "https://github.com/b1ug/nb1/releases/tag/v0.1.0",
+    "published_at": "2026-11-17T06:43:43Z",
+    "manifest_sha256": "12232ce0a537f45fb002009bcb2a555893655a30c382c40a3e0a87241914e952",
+    "native_targets": [
+      "darwin-amd64",
+      "darwin-arm64",
+      "linux-amd64",
+      "linux-arm64",
+      "windows-amd64"
+    ],
+    "assets": 13,
+    "scope": "Native software packages; historical physical-device evidence is not renewed by publication."
+  },
+  "api_snapshot": {
+    "repository": "https://github.com/b1ug/nb1",
+    "source_commit": "535621a689e5a9e35c5e897aadcd4b023d2f157b",
+    "files": [
+      {
+        "path": "docs/api-v1.md",
+        "url": "https://github.com/b1ug/nb1/blob/535621a689e5a9e35c5e897aadcd4b023d2f157b/docs/api-v1.md",
+        "bytes": 37598,
+        "sha256": "28fdb92964e08cb79bfbc0e8cb84ae90606fd704b8047ebd944954180c7233ce"
+      },
+      {
+        "path": "docs/api-v1-terminology.md",
+        "url": "https://github.com/b1ug/nb1/blob/535621a689e5a9e35c5e897aadcd4b023d2f157b/docs/api-v1-terminology.md",
+        "bytes": 1731,
+        "sha256": "a28d2d95018708a9fde3a04d1ef43c045aa0bcbd3e8e7c995436bf8a660a9445"
+      },
+      {
+        "path": "docs/api-v1.openapi.json",
+        "url": "https://github.com/b1ug/nb1/blob/535621a689e5a9e35c5e897aadcd4b023d2f157b/docs/api-v1.openapi.json",
+        "bytes": 155406,
+        "sha256": "01225e426ea2cf0c06882c7a13cea5365d9d0a815adec9f04d59b7bc23c76af6"
+      }
+    ],
+    "site_snapshot_transform": "Markdown links are adapted to static-site routes and immutable upstream URLs; the introductory release label is updated. OpenAPI and English terminology are byte-identical to the released source. Chinese descriptions preserve all code tokens and numeric limits."
+  },
+  "brand_assets": {
+    "approved_variant": "B-3",
+    "source_repository": "https://github.com/b1ug/nb1",
+    "source_commit": "535621a689e5a9e35c5e897aadcd4b023d2f157b",
+    "files": [
+      {
+        "path": "assets/nb1-mascot.webp",
+        "source_path": "internal/webui/dist/assets/nb1-mascot.webp",
+        "bytes": 7174,
+        "sha256": "0d2ffe4927cb4519744fa691e74ae5aba7a84135cdfc08bf3e083acf05e96dce"
+      },
+      {
+        "path": "assets/nb1-icon.png",
+        "source_path": "internal/webui/dist/assets/nb1-icon.png",
+        "bytes": 4703,
+        "sha256": "cd6f0c2c635e52d8ccf6ffdcf080214e90aa80f4c48cad71c1c350e77f2d45d7"
+      }
+    ]
+  },
+  "translation_policy": {
+    "reference_pages": [
+      "api-v1",
+      "api-v1-terminology",
+      "architecture"
+    ],
+    "api_tokens": "Protocol names, inline code, code blocks and numeric limits are preserved; Chinese descriptions are translations, not new API aliases.",
+    "anchors": "Both languages use stable English heading IDs generated from the English source."
+  },
+  "historical_evidence_policy": "Physical and notification observations retain their original dates/sources. This documentation build itself opens no hardware and is not a physical qualification."
+}

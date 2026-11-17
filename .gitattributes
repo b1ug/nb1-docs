@@ -1,0 +1,9 @@
+# Content provenance hashes remain stable across native checkouts.
+*.md text eol=lf
+*.json text eol=lf
+*.txt text eol=lf
+LICENSE text eol=lf
+*.png binary
+*.webp binary
+# Preserve the original CAD bytes, including the upstream STL line endings.
+*.stl binary

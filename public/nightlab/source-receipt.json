@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-11-17",
+  "reference": "design-nightlab final Nightlab handoff",
+  "target_base": "579380283d1c19eb42d903592efb432301d63652",
+  "scope": "Optional presentation-only 3D viewer for the nb1 documentation home. No compiler, WASM, transport, simulation, API or device state.",
+  "adaptations": [
+    "Viewer accepts a component-owned stage instead of querying the document.",
+    "Vue mount/unmount owns listeners, observers, animation, WebGL and pending async load cancellation.",
+    "Model notes link to the localized docs architecture attribution.",
+    "Native Vue component retains reference CAD-derived two-face fallback paths and unspecified state.",
+    "Mobile copy pass: visible drag hint shortened; full canvas keyboard/zoom labels and all viewer behavior retained. Native model-details disclosure keeps fixed LED labels, no-device context and attribution discoverable.",
+    "Viewer and Vue links honor the configured project base for static hosting.",
+    "Public CAD metadata omits local paths, physical-device identifiers and private project-note excerpts; a project-note-only code comment and excerpt asset are excluded. Original private handoff is preserved. STL geometry, Three.js, licenses and approved brand artwork are unchanged."
+  ],
+  "policy": {
+    "same_origin_only": true,
+    "csp_changed": false,
+    "wasm": false,
+    "compiler": false,
+    "hardware_access": false,
+    "optional_route": "3D assets load only when the home component mounts; docs routes do not load CAD or Three.js.",
+    "payload_bytes": 7826393,
+    "budgets": "No embedded daemon payload budgets changed; documentation static optional assets are separate."
+  },
+  "licenses": {
+    "CAD_and_derived_model": "CC-BY-SA-4.0; original STL files, model-assets/LICENSE.txt and seating-fit.json unchanged; source.json retains attribution with private project metadata omitted.",
+    "Three.js": "MIT; vendor/three/LICENSE.txt preserved",
+    "brand": "Approved nb1 mascot and favicon unchanged; no new brand artwork."
+  },
+  "files": [
+    {
+      "path": "enclosure-fit.js",
+      "bytes": 21789,
+      "sha256": "33a8c0fba98e078b9497da20289508ff5da08a4cfccc8abafbeec36a336ece99",
+      "reference_path": "design-nightlab/source/enclosure-fit.js",
+      "reference_sha256": "33a8c0fba98e078b9497da20289508ff5da08a4cfccc8abafbeec36a336ece99",
+      "byte_identical": true
+    },
+    {
+      "path": "light-model.js",
+      "bytes": 23287,
+      "sha256": "7ec7b6aa2d2762a912253065a3180d77dc05d50474cc04d97f027dd77e240313",
+      "reference_path": "design-nightlab/source/light-model.js",
+      "reference_sha256": "b8231a6cd4342869cf0f7ea4f3533738b76712e452f3ec9262c436d38ffd731c",
+      "byte_identical": false
+    },
+    {
+      "path": "model-assets/LICENSE.txt",
+      "bytes": 351,
+      "sha256": "e0a5f70deb9c79bb8533122057d00f6fb20b2c050ee63123e3e6538da329ceea",
+      "reference_path": "design-nightlab/source/model-assets/LICENSE.txt",
+      "reference_sha256": "e0a5f70deb9c79bb8533122057d00f6fb20b2c050ee63123e3e6538da329ceea",
+      "byte_identical": true
+    },
+    {
+      "path": "model-assets/blink1mk2_enclosure_diffuser_v3k.stl",
+      "bytes": 3940514,
+      "sha256": "297986ee78dee7ce5607b43edd8967cd7b9d509496261214c5c68587d892af18",
+      "reference_path": "design-nightlab/source/model-assets/blink1mk2_enclosure_diffuser_v3k.stl",
+      "reference_sha256": "297986ee78dee7ce5607b43edd8967cd7b9d509496261214c5c68587d892af18",
+      "byte_identical": true
+    },
+    {
+      "path": "model-assets/blink1mk2_enclosure_frame_v3k.stl",
+      "bytes": 1606855,
+      "sha256": "ba0797af2873c0fc4c3477b87cde07ca1b9ec761eda001b21abe101ce035b465",
+      "reference_path": "design-nightlab/source/model-assets/blink1mk2_enclosure_frame_v3k.stl",
+      "reference_sha256": "ba0797af2873c0fc4c3477b87cde07ca1b9ec761eda001b21abe101ce035b465",
+      "byte_identical": true
+    },
+    {
+      "path": "model-assets/seating-fit.json",
+      "bytes": 3399,
+      "sha256": "04516bf501b32ff8667a1738a99fad4cfde10cb5bcfc30836841115111d0c3c5",
+      "reference_path": "design-nightlab/source/model-assets/seating-fit.json",
+      "reference_sha256": "04516bf501b32ff8667a1738a99fad4cfde10cb5bcfc30836841115111d0c3c5",
+      "byte_identical": true
+    },
+    {
+      "path": "model-assets/source.json",
+      "bytes": 14741,
+      "sha256": "2be0beba07e7a920b6ee60cb4fa1425f0c7ee6ee1f54cc64697f7a4791525656",
+      "reference_path": "design-nightlab/source/model-assets/source.json",
+      "reference_sha256": "34d5d2f9e129cf482be12485b34073ffbb51b8882bc000e13694a9ca503f7761",
+      "byte_identical": false
+    },
+    {
+      "path": "vendor/three/LICENSE.txt",
+      "bytes": 1081,
+      "sha256": "8b378ebe60e2fe500158cb0ac71cb5e8b7d92953c2abcc63a0eb90499653b5bc",
+      "reference_path": "design-nightlab/demo/vendor/three/LICENSE",
+      "reference_sha256": "8b378ebe60e2fe500158cb0ac71cb5e8b7d92953c2abcc63a0eb90499653b5bc",
+      "byte_identical": true
+    },
+    {
+      "path": "vendor/three/OrbitControls.js",
+      "bytes": 40930,
+      "sha256": "a747d56dd959510407777f1800792b2b52c0a435980fd6e40caf303d8a674b9e",
+      "reference_path": "design-nightlab/demo/vendor/three/OrbitControls.js",
+      "reference_sha256": "a747d56dd959510407777f1800792b2b52c0a435980fd6e40caf303d8a674b9e",
+      "byte_identical": true
+    },
+    {
+      "path": "vendor/three/RoomEnvironment.js",
+      "bytes": 4972,
+      "sha256": "77d4d2bed2b60cb98424764264aedd84b56bbf3211e0f48430e15608aeded9dc",
+      "reference_path": "design-nightlab/demo/vendor/three/RoomEnvironment.js",
+      "reference_sha256": "77d4d2bed2b60cb98424764264aedd84b56bbf3211e0f48430e15608aeded9dc",
+      "byte_identical": true
+    },
+    {
+      "path": "vendor/three/STLLoader.js",
+      "bytes": 10800,
+      "sha256": "5dc2e3c6b77bb6199fa13c261234bede72508ae5c3dcdcad7cc5002e53d53319",
+      "reference_path": "design-nightlab/demo/vendor/three/STLLoader.js",
+      "reference_sha256": "5dc2e3c6b77bb6199fa13c261234bede72508ae5c3dcdcad7cc5002e53d53319",
+      "byte_identical": true
+    },
+    {
+      "path": "vendor/three/three.core.js",
+      "bytes": 1474799,
+      "sha256": "613e370f76638fdef83926642bf256dc9615684922de1ce1f63a8583e5d78578",
+      "reference_path": "design-nightlab/demo/vendor/three/three.core.js",
+      "reference_sha256": "613e370f76638fdef83926642bf256dc9615684922de1ce1f63a8583e5d78578",
+      "byte_identical": true
+    },
+    {
+      "path": "vendor/three/three.module.js",
+      "bytes": 658900,
+      "sha256": "104f56145899722094556490d787aae0617cc2fc3382f31df02d724ea1aee341",
+      "reference_path": "design-nightlab/demo/vendor/three/three.module.js",
+      "reference_sha256": "104f56145899722094556490d787aae0617cc2fc3382f31df02d724ea1aee341",
+      "byte_identical": true
+    },
+    {
+      "path": "viewer.js",
+      "bytes": 23975,
+      "sha256": "d4dfe04e32537216f1cb4467335a930c36f505fdba6a05aeb9e69686f50a6184",
+      "reference_path": "design-nightlab/source/studio-3d.js",
+      "reference_sha256": "2864d9f599003cf31b3ac3a6ecb8d9d7663e5aae7972d822fd2ca62094421baa",
+      "byte_identical": false
+    }
+  ]
+}
