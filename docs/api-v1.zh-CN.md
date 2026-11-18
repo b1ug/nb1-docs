@@ -233,7 +233,7 @@ HTTP 错误采用 `{"error":{"code":"...","message":"..."}}`。Action 编译无�
 | `404` | `not_found` | 路由不存在，或找不到对应的已配置设备、保留的 Job、已保存 Pattern。Job 已过期／被淘汰也使用此码；记录不存在不证明它从未执行。 |
 | `405` | `method_not_allowed` | 不支持该方法。`Allow` 列出路由支持的方法；HEAD 不隐含等同于 GET。 |
 | `409` | `job_conflict` | 被保留的 ID 已绑定其他设备或 JSON 输入。查询原 ID；不要为重试结果不确定的任务而另造新 ID。 |
-| `409` | `device_busy` | 设备已被占有／正忙，存在活动执行或检查，或受理时无法入队。这些 v1 提交会拒绝竞争任务，不接受 replace／queue 策略字段。 |
+| `409` | `device_busy` | 所选设备已被占有／正忙，或已有竞争的执行／检查。API v1 拒绝这次提交，不接受 replace／queue 策略字段；另一设备上的工作不会令当前目标变忙。 |
 | `413` | `body_too_large` | HTTP 请求体超过 1 MiB。更小的 ColorInput 或编译后 Pattern 限制被违反时，使用 `400 invalid_request`。 |
 | `415` | `json_required` | 带请求体的操作缺少 Content-Type、格式错误，或不是 `application/json`。 |
 | `422` | `unsupported_capability` | 提交所需能力不在设备的缓存配置中。 |
@@ -277,6 +277,23 @@ nb1 service install --devices DEVICE_SERIAL --start
 服务安装从自身命令行参数与选定配置文件中解析设备和监听地址。若选择了配置文件，会记录其实际绝对路径，并把设备／监听值保存为显式启动参数。这些参数使已经安装的设备选择和地址不会因配置文件编辑而改变。macOS/Linux 托管服务还在受控启动环境中记录选定的 XDG 根目录，使默认库在不同登录环境下保持稳定。库与 Job 缓存设置会在重启时从配置读取。要改变设备列表或监听地址，应显式更新托管服务配置。
 
 跨平台 `service render` 仍要求明确的目标 `--binary` 路径。Windows 服务安装尚不支持。Homebrew 构建默认选择已校验的稳定 `opt/nb1/bin/nb1` 入口；升级包不会自动重启 daemon。显式 `--binary` 路径保持固定，必须保留对应程序。不同升级／回滚约定见[包生命周期](https://github.com/b1ug/nb1/blob/88fc2be8326c076b6f09932054b0c8f11d89c0a0/packaging/homebrew/README.md#upgrades-and-service-paths)。
+
+## 设备执行范围 {#device-execution-scope}
+
+先解析目标 `serial`，再进行受理判断。每只已配置的实体设备都有自己的原生拥有者、worker、活动执行槽、待处理工作与缓存状态。A 设备忙，不阻塞 B 设备上本来可以接受的工作。CLI、HTTP、MCP 与内嵌 Workbench 共用同一设备 worker；换一个客户端不会增加执行槽。
+
+| 事项 | 范围 | 含义 |
+| --- | --- | --- |
+| 原生归属、活动执行和待处理工作 | 一个实体 `serial` | LED 1 与 LED 2 共用执行槽；选择另一个 LED 不能绕过同设备 busy。 |
+| 连接、`active_job`、`queue_depth` 和 RGB 观察 | 一个实体 `serial` | 描述该设备，不是 daemon 全局播放队列。 |
+| 取消 Job | 被取消 Job 已保存的 `serial` | 只改变该 Job 及其设备清理，不取消另一设备的 Job 或待处理工作。 |
+| 保留中的 Job ID | 整个 daemon | 把同一 ID 用于另一个 serial 会冲突；独立执行须有各自 ID。 |
+| 终态 TTL/LRU 缓存 | 整个 daemon | 历史记录保留与待播容量分开；缓存压力不取消已接受的非终态工作。 |
+| 配置、内容库与服务生命周期 | daemon 实例 | 设备共享这些资源。显式关闭 daemon 会影响其受管设备，与取消单个 Job 不同。 |
+
+API v1 是**每设备遇忙拒绝**。Job 在 worker 开始前可能短暂处于 `queued`，设备也会报告 `queue_depth`；这不表示已公开把竞争任务排在忙设备后面的策略。取消尚未开始的 Job 会移除它，不执行该任务的设备写入。
+
+未来的队列容量、等待截止时间、抢占和显式清队必须归属于 Job 冻结后的最终 serial。A 设备不能占用 B 的队列容量或取消其工作。这些公开操作仍属规划；内部替换代码不是公开策略合同，未来抢占是否保留已有待播 Job 仍需定稿。
 
 ## Job ID 与去重 {#job-ids-and-deduplication}
 

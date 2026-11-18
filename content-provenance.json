@@ -132,23 +132,23 @@
       },
       {
         "path": "docs/api-v1.md",
-        "bytes": 38852,
-        "sha256": "7cd3f2ef76c30055fedc20271ab05a789f8f68e31bf6827547d01c0ee0f3abe6"
+        "bytes": 41004,
+        "sha256": "f6fea612ca65f4d9544f8c6fb58ef57b4dafc73b59d4e29c354d4f26e387d03d"
       },
       {
         "path": "docs/api-v1.zh-CN.md",
-        "bytes": 37466,
-        "sha256": "f37e580f4753522468cf47d0b68cc827698058a1ae9748f535ef3f4b078be3e2"
+        "bytes": 39390,
+        "sha256": "f871d5d51bb4279b08ae3e2ea347ecf6e5b985aea7892bef9640033a33da3df2"
       },
       {
         "path": "docs/architecture.md",
-        "bytes": 11331,
-        "sha256": "c73fe218e6cc6fb242f1cc31b66526baf5ef10a8b0f946943fa670e81f821871"
+        "bytes": 12763,
+        "sha256": "5a0b221a12d1926a79388d55620b3fd2aee1f86439734f4665e8bb6342ff210a"
       },
       {
         "path": "docs/architecture.zh-CN.md",
-        "bytes": 9871,
-        "sha256": "80de6dc3d82468217015a7c74c85718220794f76b1c8f8453a9966fea956de51"
+        "bytes": 11188,
+        "sha256": "dc294c9e3a84fda9a5b2bb2c0f8ffcee8fdda3c9da3a5a058963710d5e12539c"
       },
       {
         "path": "docs/browser.md",

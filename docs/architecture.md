@@ -64,6 +64,18 @@ The [Workbench source](https://github.com/b1ug/nb1-workbench) is public frontend
 
 The upcoming v0.1.3 bundle adds deterministic initial device selection and preserves the chosen serial when using its Refresh control or changing language on the current page, including offline or removed targets. A full browser reload or another entry starts a new default selection. It displays count/target and readiness reasons without changing the HTTP schema. Its rules are documented [by version](getting-started.md#choose-among-several-lights); released v0.1.2 retains its own bundled frontend until explicitly upgraded and restarted.
 
+### Per-device execution, shared daemon
+
+The daemon is a common entry point, not one shared playback slot. After a request resolves to a serial, all clients use that device's worker. Two LED channels on one blink(1) share its execution slot; two different serials can operate independently.
+
+| Per physical serial | Shared by the daemon |
+| --- | --- |
+| Native device owner, worker, active slot, pending work, connection and cached state. | Configuration, content library, daemon HTTP/service lifecycle, retained Job ID namespace and terminal TTL/LRU cache. |
+| API v1 busy rejection and cancellation of the Job bound to that serial. | Explicit server shutdown stops accepting work and cleans up the configured devices. |
+| Future queue capacity, waiting deadlines, preemption and queue clearing must stay within the frozen target serial. | Global ID conflicts and terminal-cache retention do not create a shared playback queue. |
+
+A full queue or cancellation on A must not consume B's queue capacity or cancel B. Queue/preemption APIs remain planned, and preserving waiters during future preemption is not yet a public contract. See [device execution scope](api-v1.md#device-execution-scope) for the current reject-only boundary. An MCP adapter closing or a client disconnecting does not stop the daemon or cancel an accepted Job. This backend independence does not imply that one Workbench page monitors multiple Jobs at once.
+
 ## Build dependencies {#build-dependencies}
 
 | Mechanism | What is pinned | Effect on ordinary nb1 builds |
