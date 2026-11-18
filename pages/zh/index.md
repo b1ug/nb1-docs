@@ -44,8 +44,8 @@ features:
 
 一段蓝色通知可以表示 Agent 回合结束，但不推断任务是否成功。保留原 Job ID、检查结果，在不自动重播请求的前提下恢复。[了解 Agent 通知](/zh/agent-notifications)。
 
-::: info nb1 v0.1.0
-[下载正式版](https://github.com/b1ug/nb1/releases/tag/v0.1.0)，或[通过 Homebrew 安装](/zh/install#install-with-homebrew)。CLI、可选 server 和双语调试器共用本地核心；MCP 与 Skill 同版单独下载。
+::: info nb1 v0.1.1
+[下载正式版](https://github.com/b1ug/nb1/releases/tag/v0.1.1)，或[通过 Homebrew 安装](/zh/install#install-with-homebrew)。CLI、可选 server 和双语调试器共用本地核心；MCP 与 Skill 同版单独下载。
 
 独立[浏览器工具](/zh/browser)仍为开发候选。软件与实物边界见[支持范围](/zh/support)。
 :::

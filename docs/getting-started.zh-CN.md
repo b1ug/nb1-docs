@@ -4,11 +4,11 @@
 
 nb1 是同一个程序的两种明确模式：前台 server 让 CLI、HTTP、MCP 与内嵌工作台共用
 设备；direct 无需 server，前台播放一次请求。本页介绍原生工具套件。
-下载匹配平台的 v0.1.0；既有实物证据单独限定于 macOS／MK2／FW204。
+下载匹配平台的 v0.1.1；既有实物证据单独限定于 macOS／MK2／FW204。
 
 ## 启动 server 并播放
 
-[核验并解压 v0.1.0](install.zh-CN.md)后，进入 CLI 目录。把 `DEVICE_SERIAL` 换成
+[核验并解压 v0.1.1](install.zh-CN.md)后，进入 CLI 目录。把 `DEVICE_SERIAL` 换成
 `list` 显示的设备序列号：
 
 ```sh
@@ -63,5 +63,5 @@ direct 始终等待，使用同一设备所有权锁，不接受 `--id`、`--end
 颜色支持名称、Hex3／Hex6、RGB8、HSV／HSB 与本机 `@name` 引用。Action 描述意图，
 由核心编译为 Sequence，再作为 Job 执行。
 
-依据：[nb1 v0.1.0 安装指南](https://github.com/b1ug/nb1/blob/535621a689e5a9e35c5e897aadcd4b023d2f157b/docs/install.zh-CN.md)
-与[当前 API 合同](https://github.com/b1ug/nb1/blob/535621a689e5a9e35c5e897aadcd4b023d2f157b/docs/api-v1.md)。
+依据：[nb1 v0.1.1 安装指南](https://github.com/b1ug/nb1/blob/b5cfe68cbb412d81a80d948b845aee5b0aba586b/docs/install.zh-CN.md)
+与[当前 API 合同](https://github.com/b1ug/nb1/blob/b5cfe68cbb412d81a80d948b845aee5b0aba586b/docs/api-v1.md)。

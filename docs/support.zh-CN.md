@@ -35,7 +35,7 @@
 
 ## 正式软件与硬件证据
 
-[nb1 v0.1.0](https://github.com/b1ug/nb1/releases/tag/v0.1.0) 固定源码 `535621a689e5a9e35c5e897aadcd4b023d2f157b`，依赖 blink1-go v0.0.2、GID v0.0.3 与 colorkit v0.1.0，原生发行使用 Go 1.27.4。
+[nb1 v0.1.1](https://github.com/b1ug/nb1/releases/tag/v0.1.1) 固定源码 `b5cfe68cbb412d81a80d948b845aee5b0aba586b`，依赖 blink1-go v0.0.2、GID v0.0.3 与 colorkit v0.1.0，原生发行使用 Go 1.27.4。
 
 | 范围 | 证据 |
 | --- | --- |
@@ -44,7 +44,7 @@
 | 预编译运行要求 | CLI／server：macOS 15.0+、Linux glibc 2.38+；MCP：macOS 13.0+ 或静态 Linux ELF。Mac 包未经过 Developer ID 公证。 |
 | 实体 blink(1) | 已有限 macOS arm64／MK2／FW204 记录保留原来源、日期和限制；本次发行没有新增实体 USB／相机验证。 |
 
-既有 Mac／MK2 记录出现过可恢复 Darwin I/O 错误。软件 CI 与标签不等于 Linux／Windows 实体 USB、MK3、重启／登录、校准颜色或准确 USB 到发光时序验收。[已记录平台证据](https://github.com/b1ug/nb1/blob/535621a689e5a9e35c5e897aadcd4b023d2f157b/docs/daemon-validation.zh-CN.md)。
+既有 Mac／MK2 记录出现过可恢复 Darwin I/O 错误。软件 CI 与标签不等于 Linux／Windows 实体 USB、MK3、重启／登录、校准颜色或准确 USB 到发光时序验收。[已记录平台证据](https://github.com/b1ug/nb1/blob/b5cfe68cbb412d81a80d948b845aee5b0aba586b/docs/daemon-validation.zh-CN.md)。
 
 ## 配置与设备归属
 

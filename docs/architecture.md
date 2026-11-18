@@ -1,6 +1,6 @@
 # Architecture
 
-`nb1-docs` presents nb1 to users and agent developers through documentation, examples, download guidance, and the separate browser tools. The selected stable VitePress 1.6.4 implementation now builds 22 pages with English by default, complete Chinese counterparts and local search. These guides describe the published nb1 v0.1.0 API and its explicit support boundaries. The private nb1-browser candidate has its own direct WebHID implementation and evidence.
+`nb1-docs` presents nb1 to users and agent developers through documentation, examples, download guidance, and the separate browser tools. The selected stable VitePress 1.6.4 implementation now builds 22 pages with English by default, complete Chinese counterparts and local search. These guides describe the published nb1 v0.1.1 API and its explicit support boundaries. The private nb1-browser candidate has its own direct WebHID implementation and evidence.
 
 Maintained Markdown lives in `docs/` and the home pages in `pages/`. Content preparation creates the ignored `site/` tree with paired heading anchors and local assets; VitePress builds the ignored static `dist/` tree. The build also serves raw Markdown at `/source/<source-path>.txt`, bundled `/api-v1.openapi.json` and `/llms.txt`. `/site-info.json` identifies source pages; `/site-build.json` records output hashes and static-link checks. These are local build records, not browser or hardware acceptance.
 
@@ -29,7 +29,7 @@ Use UTF-8 throughout. The [terminology table](api-v1-terminology.md) supplies sh
 
 The public documentation and embedded workbench share one approved nb1 light companion. Use [`assets/nb1-mascot.webp`](../assets/nb1-mascot.webp) for the character and [`assets/nb1-icon.png`](../assets/nb1-icon.png) for the browser favicon. Both are local, transparent exports of the same approved artwork; website pages use these files without introducing a separate mascot or icon design.
 
-The matching released artwork is maintained in [`nb1/internal/webui/dist/assets/nb1-mascot.webp`](https://github.com/b1ug/nb1/blob/535621a689e5a9e35c5e897aadcd4b023d2f157b/internal/webui/dist/assets/nb1-mascot.webp). This repository keeps the two production exports needed for its documentation site.
+The matching released artwork is maintained in [`nb1/internal/webui/dist/assets/nb1-mascot.webp`](https://github.com/b1ug/nb1/blob/b5cfe68cbb412d81a80d948b845aee5b0aba586b/internal/webui/dist/assets/nb1-mascot.webp). This repository keeps the two production exports needed for its documentation site.
 
 The character is decorative. Device connection, readback, playback, and errors remain explicit text and controls. It is an original project illustration, not an official ThingM or Nintendo asset.
 
@@ -65,4 +65,4 @@ Download pages should identify a released version, platform, and installation me
 
 The core API reference remains the source for protocol behavior. Refresh this repository's copied snapshot and attribution when adopting a new core version. Validate local documentation links and examples before publishing site content.
 
-The API and terminology snapshots come from nb1 v0.1.0 commit `535621a689e5a9e35c5e897aadcd4b023d2f157b`, released 2026-11-17. Its [MIT license](../LICENSE) is included in this repository.
+The API and terminology snapshots come from nb1 v0.1.1 commit `b5cfe68cbb412d81a80d948b845aee5b0aba586b`, released 2026-11-17. Its [MIT license](../LICENSE) is included in this repository.

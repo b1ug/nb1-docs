@@ -77,4 +77,4 @@ Chrome 官方的[扩展 WebHID 指南](https://developer.chrome.com/docs/extensi
 
 浏览器运行逻辑基线：[071f061fb011](https://github.com/b1ug/nb1-browser/tree/071f061fb0115e62ab751c219312489391ff2e9c)。请以实际交付构建中的完整源码身份为准，缩写链接不是发行校验值。固定 Go 来源为 [72c2f097319bc7ce0086204b8e713c8b3f16cbbc](https://github.com/b1ug/nb1/tree/72c2f097319bc7ce0086204b8e713c8b3f16cbbc)。
 
-实际包记录浏览器源码／dirty 状态和产物散列。原生 [nb1 v0.1.0](install.zh-CN.md)与这个私有浏览器候选分开发布；浏览器工具仍未提供公开发行、安装渠道或商店上架。
+实际包记录浏览器源码／dirty 状态和产物散列。原生 [nb1 v0.1.1](install.zh-CN.md)与这个私有浏览器候选分开发布；浏览器工具仍未提供公开发行、安装渠道或商店上架。

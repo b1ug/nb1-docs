@@ -77,4 +77,4 @@ Chrome documents [extension WebHID](https://developer.chrome.com/docs/extensions
 
 Browser runtime source baseline: [071f061fb011](https://github.com/b1ug/nb1-browser/tree/071f061fb0115e62ab751c219312489391ff2e9c) — use the full source identity from the delivered build record; no abbreviated source link is a release checksum. Its bundled Go source is [72c2f097319bc7ce0086204b8e713c8b3f16cbbc](https://github.com/b1ug/nb1/tree/72c2f097319bc7ce0086204b8e713c8b3f16cbbc).
 
-The exact current package records browser source/dirty state and output hashes. The native [nb1 v0.1.0 release](install.md) is separate from this private browser candidate. The browser workbench and companion do not have a public release, installation channel or Web Store listing.
+The exact current package records browser source/dirty state and output hashes. The native [nb1 v0.1.1 release](install.md) is separate from this private browser candidate. The browser workbench and companion do not have a public release, installation channel or Web Store listing.

@@ -1,4 +1,4 @@
-export const coreSource = '535621a689e5a9e35c5e897aadcd4b023d2f157b';
+export const coreSource = 'b5cfe68cbb412d81a80d948b845aee5b0aba586b';
 export const topics = [
   ['getting-started', 'Get started', '入门'],
   ['browser', 'Browser tools', '浏览器工具'],
