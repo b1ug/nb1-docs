@@ -76,6 +76,8 @@ The daemon is a common entry point, not one shared playback slot. After a reques
 
 A full queue or cancellation on A must not consume B's queue capacity or cancel B. Queue/preemption APIs remain planned, and preserving waiters during future preemption is not yet a public contract. See [device execution scope](api-v1.md#device-execution-scope) for the current reject-only boundary. An MCP adapter closing or a client disconnecting does not stop the daemon or cancel an accepted Job. This backend independence does not imply that one Workbench page monitors multiple Jobs at once.
 
+Per-device scheduling is logical isolation, not complete isolation from operating-system or backend failures. The current macOS backend serializes device enumeration and opening: if A blocks while opening, B may wait to reopen. Report I/O on an already-open B handle does not use that enumeration/open lock; this is not a general timing or failure-isolation guarantee.
+
 ## Build dependencies {#build-dependencies}
 
 | Mechanism | What is pinned | Effect on ordinary nb1 builds |

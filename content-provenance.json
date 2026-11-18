@@ -142,13 +142,13 @@
       },
       {
         "path": "docs/architecture.md",
-        "bytes": 12763,
-        "sha256": "5a0b221a12d1926a79388d55620b3fd2aee1f86439734f4665e8bb6342ff210a"
+        "bytes": 13133,
+        "sha256": "c020650886cb75f3940633e123e9b2ca36a6bd2995474772e521da7f7e59a4c3"
       },
       {
         "path": "docs/architecture.zh-CN.md",
-        "bytes": 11188,
-        "sha256": "dc294c9e3a84fda9a5b2bb2c0f8ffcee8fdda3c9da3a5a058963710d5e12539c"
+        "bytes": 11501,
+        "sha256": "4766653bed6169a12cb6bc461f049c6b590cd07ec1c8dc0257f8886a0b5fc0eb"
       },
       {
         "path": "docs/browser.md",
