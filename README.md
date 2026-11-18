@@ -4,7 +4,7 @@
 
 Documentation and examples for [nb1](https://github.com/b1ug/nb1), the local blink(1) control toolkit.
 
-Bilingual documentation for [nb1 v0.1.1](https://github.com/b1ug/nb1/releases/tag/v0.1.1), built with VitePress 1.6.4 and the approved Nightlab presentation. English is the default, with complete Chinese counterparts, local search, the approved nb1 artwork and an optional local 3D model. The static site requests no hardware permission.
+Bilingual documentation preparing for **nb1 v0.1.2**, using merged core `88fc2be8326c076b6f09932054b0c8f11d89c0a0`. Publication is pending; [v0.1.1 remains the published download](https://github.com/b1ug/nb1/releases/tag/v0.1.1). Built with VitePress 1.6.4 and the approved Nightlab presentation. English is the default, with complete Chinese counterparts, local search, the approved nb1 artwork and an optional local 3D model. The static site requests no hardware permission.
 
 Production target: **https://b1ug.github.io/nb1-docs/**. Builds and deployment are distinct: the workflow publishes only a verified main-branch build through GitHub Pages. Deployment status is recorded by the Actions environment.
 
@@ -54,7 +54,7 @@ The build includes raw Markdown as `/source/<source-path>.txt`, the bundled `/ap
 
 ## Sources and scope
 
-The API, OpenAPI, installation and Agent guidance are tied to released core `b5cfe68cbb412d81a80d948b845aee5b0aba586b`. Content provenance records exact upstream and local source hashes. Chinese explanations preserve code identifiers, JSON fields, CLI commands and limits. Historical physical-device and notification records retain their original source and date; the release does not silently renew them.
+The API and OpenAPI draft are tied to merged core `88fc2be8326c076b6f09932054b0c8f11d89c0a0` for the planned v0.1.2 patch. Installation and matching MCP/Skill download examples still use the published v0.1.1 until the new native release and tap inputs exist. No v0.1.2 publication date or archive checksum is claimed. Content provenance records exact upstream and local source hashes. Chinese explanations preserve code identifiers, JSON fields, CLI commands and limits. Historical physical-device and notification records retain their original source and date; the release does not silently renew them.
 
 The [approved nb1 mascot](assets/nb1-mascot.webp) and [favicon](assets/nb1-icon.png) match the embedded workbench. They are the site's only production brand image variants. Language switching is explicit; English remains the default.
 

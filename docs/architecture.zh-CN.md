@@ -2,7 +2,7 @@
 
 [English](architecture.md)
 
-nb1 有三个独立的 Web 交付物：这个静态文档站、由原生 nb1 server 提供的内嵌 Workbench，以及直接使用 WebHID 的独立浏览器工具。它们共享术语和视觉资源，但设备持有者与发布路径不同。本文对应已发布的 nb1 v0.1.1 核心；浏览器开发预览不是新的原生发行版本。
+nb1 有三个独立的 Web 交付物：这个静态文档站、由原生 nb1 server 提供的内嵌 Workbench，以及直接使用 WebHID 的独立浏览器工具。它们共享术语和视觉资源，但设备持有者与发布路径不同。本文草稿对应计划中 v0.1.2 的已合并核心 `88fc2be8326c076b6f09932054b0c8f11d89c0a0`；原生发行尚待完成，安装仍使用已发布 v0.1.1。浏览器开发预览不是新的原生发行版本。
 
 维护的 Markdown 位于 `docs/`，首页位于 `pages/`。内容准备生成被忽略的 `site/`，VitePress 生成被忽略的 `dist/`、本地搜索、原始 Markdown、OpenAPI 与构建记录。文档站不申请硬件权限，也不启动 daemon；装饰用 3D 模型是屏幕示意，不是设备读回。
 
@@ -83,8 +83,8 @@ nb1 Light Reminders Chrome 扩展仍为实验版本，未上架 Web Store，其�
 - **浏览器工具：**维护者负责 WebHID、WASM 打包、扩展权限、预览托管和实验兼容性说明。浏览器发布不代表 Chrome Web Store 接受，也不代表硬件验收完成。
 - **文档：**本仓库负责静态指南、导航、成对翻译与有效链接；更新文档既不打开 USB，也不修改已安装的产物。
 
-公开源码快照分别为 [Workbench 90225555](https://github.com/b1ug/nb1-workbench/tree/90225555dad6ac2a17eac8d46a2469d00a04256e)和 [Browser Tools e2701e05](https://github.com/b1ug/nb1-browser-tools/tree/e2701e05aebcc0858cc328df0e728fd5c0cec2e4)。源码公开不会替换已经随 nb1 v0.1.1 发出的产物；在后续原生发行采用新来源前，已安装产物仍以该发行的 manifest 和 lock 标识。
+公开源码快照分别为 [Workbench 90225555](https://github.com/b1ug/nb1-workbench/tree/90225555dad6ac2a17eac8d46a2469d00a04256e)和 [Browser Tools e2701e05](https://github.com/b1ug/nb1-browser-tools/tree/e2701e05aebcc0858cc328df0e728fd5c0cec2e4)。源码公开不会替换已经随 nb1 v0.1.1 发出的产物；已合并核心 `88fc2be8326c076b6f09932054b0c8f11d89c0a0` 为计划中 v0.1.2 导入了 Workbench 90225555；正式发行尚待完成，已安装 v0.1.1 仍以原发行 manifest 和 lock 标识。
 
 公开的来源说明只包含适当的技术信息：仓库、提交、dirty 状态、API 合同、依赖锁与资源散列。本地规划记录、本机路径、设备序列号和无关私有历史不属于公开网站内容。文档只链接真实存在的目标，不把未公布的源码或预览 URL 当作安装说明。
 
-API 与术语快照来自 nb1 v0.1.1 提交 `b5cfe68cbb412d81a80d948b845aee5b0aba586b`，发行于 2026-11-18；仓库包含其 [MIT 许可证](../LICENSE)。历史硬件和通知证据保留原source与日期，不随公开发布自动扩大。
+API 与术语草稿快照来自计划中 v0.1.2 的已合并提交 `88fc2be8326c076b6f09932054b0c8f11d89c0a0`；实际发行后才绑定发布日期和资产校验值。仓库包含其 [MIT 许可证](../LICENSE)。历史硬件和通知证据保留原source与日期，不随公开发布自动扩大。

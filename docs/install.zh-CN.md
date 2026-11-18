@@ -1,5 +1,7 @@
 # 安装与使用 nb1 v0.1.1
 
+> v0.1.2 准备中：已合并源码 `88fc2be8326c076b6f09932054b0c8f11d89c0a0` 尚待原生发行与 tap 绑定。新版本真实可下载前，下方 v0.1.1 下载与归档名仍是已发布的安装路径。
+
 [English](install.md)
 
 从 [nb1 v0.1.1](https://github.com/b1ug/nb1/releases/tag/v0.1.1) 下载匹配的程序。CLI、本地 server 和完整 Nightlab 调试器都在同一个 `nb1` 可执行文件里。使用预编译程序不需要安装 Go、Node.js 或单独的 Web，也不需要浏览器 WebHID 授权。

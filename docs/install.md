@@ -1,5 +1,7 @@
 # Install and use nb1 v0.1.1
 
+> v0.1.2 preparation: merged source `88fc2be8326c076b6f09932054b0c8f11d89c0a0` is awaiting native publication and tap binding. The v0.1.1 downloads and archive names below remain the published installation path until that release is available.
+
 [简体中文](install.zh-CN.md)
 
 Download the matching executable from [nb1 v0.1.1](https://github.com/b1ug/nb1/releases/tag/v0.1.1). The CLI, local server and complete Nightlab workbench are one `nb1` executable. Prebuilt executables need no Go or Node.js installation, and the embedded page needs no browser WebHID permission.

@@ -82,13 +82,13 @@
       },
       {
         "path": "README.md",
-        "bytes": 7417,
-        "sha256": "f80756b77b5be36aeaf8dcd1fbbf36bbc9d78d17bbf134ec8896aa5bcf9930e5"
+        "bytes": 7754,
+        "sha256": "79192e777a28be15500bc2f7ce5f1028ee9c6234c216e4767261ba91dcfb5e14"
       },
       {
         "path": "README.zh-CN.md",
-        "bytes": 6365,
-        "sha256": "98373094a05b6b0d1f2d4d9bb5949dc7b91326d249aec2951a0d912de2d79896"
+        "bytes": 6626,
+        "sha256": "707fa671356a361acb575918a3096d8840fd9e0aed2b69bfe72ca375bf1c34a7"
       },
       {
         "path": "assets/nb1-icon.png",
@@ -132,23 +132,23 @@
       },
       {
         "path": "docs/api-v1.md",
-        "bytes": 37732,
-        "sha256": "030e3279cf09e4bf8d937a69c3f86b0ec3b8950eeb13e99392fd677150143fd9"
+        "bytes": 37847,
+        "sha256": "14afd33664917fb11a4443fcef2a0016e329bb497acf946e2f333d102aeb59a1"
       },
       {
         "path": "docs/api-v1.zh-CN.md",
-        "bytes": 36472,
-        "sha256": "24826f9f916eb3da43668e9e0229277d4d573ccf904757c8d110cd74d449aeca"
+        "bytes": 36577,
+        "sha256": "e874382dcc5b008b92688c047cf5edca24602610dcf02dc215863c5f11bcc1e6"
       },
       {
         "path": "docs/architecture.md",
-        "bytes": 10567,
-        "sha256": "ad059a699eefc6debac9504a1bef30395bd0bf047d486f3f3a2f5ef531e9de11"
+        "bytes": 10869,
+        "sha256": "7ff0e31428e9a13819e94a024dfaad1cfbd9c110e3508ef6989beb6f89a012c3"
       },
       {
         "path": "docs/architecture.zh-CN.md",
-        "bytes": 9152,
-        "sha256": "f3885f485373e7b1cf469be11d2e2a2b7916611df571d1da570df9f1a7c28491"
+        "bytes": 9418,
+        "sha256": "862b1d04a46da277a3c7aff0b51e2c70d312ad63304abcb9dc58a7201897f3aa"
       },
       {
         "path": "docs/browser.md",
@@ -162,13 +162,13 @@
       },
       {
         "path": "docs/changelog.md",
-        "bytes": 7830,
-        "sha256": "770ed9e278e5a6e22d34b766d4e5467afe0866f53176250bb92e7257cd21bde1"
+        "bytes": 8413,
+        "sha256": "5ad5d453e6a5b7923d211ba4a1c2ff5693b15b30a07d278a40e9dba54713e2cf"
       },
       {
         "path": "docs/changelog.zh-CN.md",
-        "bytes": 6941,
-        "sha256": "995a30500446aca073f5159f9ffd68be25483c4aea53d58c730b27f71986e2a6"
+        "bytes": 7439,
+        "sha256": "860c828e28161ce6ce63d6d31345e93c98166c9e1c18e25868884c16e229ea60"
       },
       {
         "path": "docs/getting-started.md",
@@ -182,13 +182,13 @@
       },
       {
         "path": "docs/install.md",
-        "bytes": 11390,
-        "sha256": "c65738c25a77357416849d4a0eb2c34156bd27823d1705b059bbc07dc5b13e68"
+        "bytes": 11635,
+        "sha256": "d0ce61f3a29651a45bf13a5fa59ef4c320870204b571a3f18d739d5246c391d2"
       },
       {
         "path": "docs/install.zh-CN.md",
-        "bytes": 9542,
-        "sha256": "35f236349f2a583374ed2e7d28221699212cff4ac7043c7e05e00d2198ec0e59"
+        "bytes": 9754,
+        "sha256": "7968e2596256da54aebf7dcdeea2be2a13734cff9215fc5d18ab1c2bff9abf36"
       },
       {
         "path": "docs/overview.md",
@@ -222,13 +222,13 @@
       },
       {
         "path": "pages/index.md",
-        "bytes": 2086,
-        "sha256": "0a68a96b91d90c0dd6daf1640a0ce2bafbd3218487803fec330d1c46ad88aedb"
+        "bytes": 2290,
+        "sha256": "6e74d9d1824cbf4b5be5c8211bcb09549b651876e79320e166ff5b08d16ccf9b"
       },
       {
         "path": "pages/zh/index.md",
-        "bytes": 1985,
-        "sha256": "ede9eb2ed10adcdff3cbd1bfe8bf95bab7914f10a13fd769a7b41b30fcab4e38"
+        "bytes": 2170,
+        "sha256": "0625ca64f077d214762b8738bb1fdb0508bbc834b6faaadff71e6328e3e719a1"
       },
       {
         "path": "public/LICENSE.txt",
@@ -373,7 +373,7 @@
       {
         "path": "scripts/content-map.mjs",
         "bytes": 871,
-        "sha256": "4e1aac8b2b2a4ac57b2952af735d1d7579f2def367f38a33b29a9d3cd6007e32"
+        "sha256": "fe427eac94da2628e3ea7edd54c2ad1d6ff818e1da13eda9e47816da7b380a06"
       },
       {
         "path": "scripts/prepare-content.mjs",
@@ -394,7 +394,7 @@
     "seed_identity": "Source files are identified by their hashes below. The final clean repository commit is recorded separately in dist/site-build.json; no self-referential source commit is claimed."
   },
   "public_scope": {
-    "audience": "Users and agent developers of nb1 v0.1.1; English default with Chinese translations.",
+    "audience": "Documentation draft for planned nb1 v0.1.2 at merged source88; published installation remains v0.1.1 until actual release binding. English default with Chinese translations.",
     "publication_status": "public_documentation_source",
     "framework": "vitepress",
     "framework_version": "1.6.4",
@@ -404,71 +404,71 @@
   },
   "guide_source": {
     "repository": "https://github.com/b1ug/nb1",
-    "commit": "b5cfe68cbb412d81a80d948b845aee5b0aba586b",
+    "commit": "88fc2be8326c076b6f09932054b0c8f11d89c0a0",
     "files": [
       {
         "path": "README.md",
-        "url": "https://github.com/b1ug/nb1/blob/b5cfe68cbb412d81a80d948b845aee5b0aba586b/README.md",
-        "bytes": 8324,
-        "sha256": "e6bfe19399a16003eb86310e4e2d520381d0c6f3bd2ae331a9e7c2317f48c93d"
+        "url": "https://github.com/b1ug/nb1/blob/88fc2be8326c076b6f09932054b0c8f11d89c0a0/README.md",
+        "bytes": 8453,
+        "sha256": "5fcb6cf448f474d92cdf0efde91f400330e27c3445954f846395ac8a537e25a2"
       },
       {
         "path": "README.zh-CN.md",
-        "url": "https://github.com/b1ug/nb1/blob/b5cfe68cbb412d81a80d948b845aee5b0aba586b/README.zh-CN.md",
-        "bytes": 6320,
-        "sha256": "821bcb7955903cd88a0647f992da588d332ee8fa0cad0e17f200bd5b2c6d21b9"
+        "url": "https://github.com/b1ug/nb1/blob/88fc2be8326c076b6f09932054b0c8f11d89c0a0/README.zh-CN.md",
+        "bytes": 6579,
+        "sha256": "4e6d60573513fe8efabd0428f4bb903f77f307542ebe9b148c0375435cde45ec"
       },
       {
         "path": "docs/api-v1.md",
-        "url": "https://github.com/b1ug/nb1/blob/b5cfe68cbb412d81a80d948b845aee5b0aba586b/docs/api-v1.md",
+        "url": "https://github.com/b1ug/nb1/blob/88fc2be8326c076b6f09932054b0c8f11d89c0a0/docs/api-v1.md",
         "bytes": 37598,
         "sha256": "28fdb92964e08cb79bfbc0e8cb84ae90606fd704b8047ebd944954180c7233ce"
       },
       {
         "path": "docs/api-v1-terminology.md",
-        "url": "https://github.com/b1ug/nb1/blob/b5cfe68cbb412d81a80d948b845aee5b0aba586b/docs/api-v1-terminology.md",
+        "url": "https://github.com/b1ug/nb1/blob/88fc2be8326c076b6f09932054b0c8f11d89c0a0/docs/api-v1-terminology.md",
         "bytes": 1731,
         "sha256": "a28d2d95018708a9fde3a04d1ef43c045aa0bcbd3e8e7c995436bf8a660a9445"
       },
       {
         "path": "docs/api-v1.openapi.json",
-        "url": "https://github.com/b1ug/nb1/blob/b5cfe68cbb412d81a80d948b845aee5b0aba586b/docs/api-v1.openapi.json",
+        "url": "https://github.com/b1ug/nb1/blob/88fc2be8326c076b6f09932054b0c8f11d89c0a0/docs/api-v1.openapi.json",
         "bytes": 155406,
         "sha256": "01225e426ea2cf0c06882c7a13cea5365d9d0a815adec9f04d59b7bc23c76af6"
       },
       {
         "path": "docs/install.md",
-        "url": "https://github.com/b1ug/nb1/blob/b5cfe68cbb412d81a80d948b845aee5b0aba586b/docs/install.md",
+        "url": "https://github.com/b1ug/nb1/blob/88fc2be8326c076b6f09932054b0c8f11d89c0a0/docs/install.md",
         "bytes": 12053,
-        "sha256": "c29ef60ef6b81ebae043c62d82f753cd3dd454c38933b5ba96e1e44627388236"
+        "sha256": "5ea1c5d4230cdf218b098645b4eaeb78cbff672faa15eb8b3616b4b58dbc7df4"
       },
       {
         "path": "docs/install.zh-CN.md",
-        "url": "https://github.com/b1ug/nb1/blob/b5cfe68cbb412d81a80d948b845aee5b0aba586b/docs/install.zh-CN.md",
+        "url": "https://github.com/b1ug/nb1/blob/88fc2be8326c076b6f09932054b0c8f11d89c0a0/docs/install.zh-CN.md",
         "bytes": 9346,
-        "sha256": "28f2b657ed6b6c99b1d59f1b4dcd7d84686bfdd5c2bc49aac254baa0c5334d12"
+        "sha256": "2d5b9965debc9a63ca3cdfbf46bfce1d0383693c53282e0d94ed277c4083cc85"
       },
       {
         "path": "docs/agent-guide.md",
-        "url": "https://github.com/b1ug/nb1/blob/b5cfe68cbb412d81a80d948b845aee5b0aba586b/docs/agent-guide.md",
+        "url": "https://github.com/b1ug/nb1/blob/88fc2be8326c076b6f09932054b0c8f11d89c0a0/docs/agent-guide.md",
         "bytes": 5017,
         "sha256": "fd2ec9ecab4e9251e7ceb49d3b71d47f8c7b89c3fbb9e065914d2d6666d02b77"
       },
       {
         "path": "docs/agent-guide.zh-CN.md",
-        "url": "https://github.com/b1ug/nb1/blob/b5cfe68cbb412d81a80d948b845aee5b0aba586b/docs/agent-guide.zh-CN.md",
+        "url": "https://github.com/b1ug/nb1/blob/88fc2be8326c076b6f09932054b0c8f11d89c0a0/docs/agent-guide.zh-CN.md",
         "bytes": 4699,
         "sha256": "88c0810b62439b93d875875535917c9a59d7ec5a9094c67864c824dce00b06f5"
       },
       {
         "path": "adapters/mcp/README.md",
-        "url": "https://github.com/b1ug/nb1/blob/b5cfe68cbb412d81a80d948b845aee5b0aba586b/adapters/mcp/README.md",
+        "url": "https://github.com/b1ug/nb1/blob/88fc2be8326c076b6f09932054b0c8f11d89c0a0/adapters/mcp/README.md",
         "bytes": 7192,
         "sha256": "65e6710e30bd8d66714faab2e118471a819acd0dd3dfcf182a9fe51266f8d192"
       },
       {
         "path": "llms.txt",
-        "url": "https://github.com/b1ug/nb1/blob/b5cfe68cbb412d81a80d948b845aee5b0aba586b/llms.txt",
+        "url": "https://github.com/b1ug/nb1/blob/88fc2be8326c076b6f09932054b0c8f11d89c0a0/llms.txt",
         "bytes": 4937,
         "sha256": "a35dbb72320e011d1645d0809acaeea0515771acaf042f09b4779ab1243cd548"
       }
@@ -494,28 +494,28 @@
   },
   "api_snapshot": {
     "repository": "https://github.com/b1ug/nb1",
-    "source_commit": "b5cfe68cbb412d81a80d948b845aee5b0aba586b",
+    "source_commit": "88fc2be8326c076b6f09932054b0c8f11d89c0a0",
     "files": [
       {
         "path": "docs/api-v1.md",
-        "url": "https://github.com/b1ug/nb1/blob/b5cfe68cbb412d81a80d948b845aee5b0aba586b/docs/api-v1.md",
+        "url": "https://github.com/b1ug/nb1/blob/88fc2be8326c076b6f09932054b0c8f11d89c0a0/docs/api-v1.md",
         "bytes": 37598,
         "sha256": "28fdb92964e08cb79bfbc0e8cb84ae90606fd704b8047ebd944954180c7233ce"
       },
       {
         "path": "docs/api-v1-terminology.md",
-        "url": "https://github.com/b1ug/nb1/blob/b5cfe68cbb412d81a80d948b845aee5b0aba586b/docs/api-v1-terminology.md",
+        "url": "https://github.com/b1ug/nb1/blob/88fc2be8326c076b6f09932054b0c8f11d89c0a0/docs/api-v1-terminology.md",
         "bytes": 1731,
         "sha256": "a28d2d95018708a9fde3a04d1ef43c045aa0bcbd3e8e7c995436bf8a660a9445"
       },
       {
         "path": "docs/api-v1.openapi.json",
-        "url": "https://github.com/b1ug/nb1/blob/b5cfe68cbb412d81a80d948b845aee5b0aba586b/docs/api-v1.openapi.json",
+        "url": "https://github.com/b1ug/nb1/blob/88fc2be8326c076b6f09932054b0c8f11d89c0a0/docs/api-v1.openapi.json",
         "bytes": 155406,
         "sha256": "01225e426ea2cf0c06882c7a13cea5365d9d0a815adec9f04d59b7bc23c76af6"
       }
     ],
-    "site_snapshot_transform": "Markdown links are adapted to static-site routes and immutable upstream URLs; the introductory release label is updated. OpenAPI and English terminology are byte-identical to the released source. Chinese descriptions preserve all code tokens and numeric limits."
+    "site_snapshot_transform": "Markdown links and the introductory draft label are adapted to static-site routes and immutable merged-source URLs. OpenAPI and English terminology remain byte-identical to the merged source. Chinese descriptions preserve code tokens and numeric limits. Published installation links remain v0.1.1 while v0.1.2 is pending."
   },
   "brand_assets": {
     "approved_variant": "B-3",
@@ -545,5 +545,14 @@
     "api_tokens": "Protocol names, inline code, code blocks and numeric limits are preserved; Chinese descriptions are translations, not new API aliases.",
     "anchors": "Both languages use stable English heading IDs generated from the English source."
   },
-  "historical_evidence_policy": "Physical and notification observations retain their original dates/sources. This documentation build itself opens no hardware and is not a physical qualification."
+  "historical_evidence_policy": "Physical and notification observations retain their original dates/sources. This documentation build itself opens no hardware and is not a physical qualification.",
+  "pending_release": {
+    "version": "v0.1.2",
+    "source": "88fc2be8326c076b6f09932054b0c8f11d89c0a0",
+    "publication_status": "merged_source_awaiting_actual_release",
+    "embedded_workbench_source": "90225555dad6ac2a17eac8d46a2469d00a04256e",
+    "public_browser_source": "e2701e05aebcc0858cc328df0e728fd5c0cec2e4",
+    "release_timestamp_and_asset_checksums": "Not recorded before actual publication.",
+    "current_published_installation": "v0.1.1"
+  }
 }

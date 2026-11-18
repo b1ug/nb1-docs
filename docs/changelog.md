@@ -3,8 +3,13 @@
 [简体中文](changelog.zh-CN.md) · [Overview](overview.md)
 
 Development candidates, local verification and published releases are separate
-entries. The current guides describe nb1 v0.1.1; older entries below retain their original dates and qualification. Full sources and file digests are recorded in
+entries. Installation examples currently use the published nb1 v0.1.1; the planned patch is listed separately as unreleased. Older entries retain their original dates and qualification. Full sources and file digests are recorded in
 [content provenance](/content-provenance.json).
+
+## Unreleased — v0.1.2 preparation
+
+- Merged core `88fc2be8326c076b6f09932054b0c8f11d89c0a0` imports the public Workbench source 90225555 and keeps the existing API v1 contract. Native publication and tap binding are pending; this entry has no release timestamp or archive checksum.
+- Clarify the static docs, embedded daemon-backed Workbench and direct WebHID Browser Workbench roles. The extension remains experimental. GitHub Pages projects share an origin, so their URL paths do not isolate WebHID grants.
 
 ## 2026-11-18 — nb1 v0.1.1
 

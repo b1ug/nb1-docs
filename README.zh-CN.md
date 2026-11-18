@@ -4,7 +4,7 @@
 
 [nb1](https://github.com/b1ug/nb1) 的文档与示例仓库，让 blink(1) 通过合适的本地软件形态被人和 Agent 使用。
 
-本文档对应 [nb1 v0.1.1](https://github.com/b1ug/nb1/releases/tag/v0.1.1)，固定核心 `b5cfe68cbb412d81a80d948b845aee5b0aba586b`。VitePress 1.6.4 提供 22 个英中文页面、本地搜索和已批准的 Nightlab 呈现。默认英文，可显式切换中文，静态站点不申请硬件权限。生产目标为 **https://b1ug.github.io/nb1-docs/**；构建与实际部署分开，由 GitHub Pages workflow 记录发布状态。
+本文档正在准备 **nb1 v0.1.2**，对应已合并核心 `88fc2be8326c076b6f09932054b0c8f11d89c0a0`。正式发行尚待完成；[当前已发布下载仍为 v0.1.1](https://github.com/b1ug/nb1/releases/tag/v0.1.1)。VitePress 1.6.4 提供 22 个英中文页面、本地搜索和已批准的 Nightlab 呈现。默认英文，可显式切换中文，静态站点不申请硬件权限。生产目标为 **https://b1ug.github.io/nb1-docs/**；构建与实际部署分开，由 GitHub Pages workflow 记录发布状态。
 
 [English](README.md)
 
@@ -52,7 +52,7 @@ VitePress 固定为稳定版 `1.6.4`，其 Vite 依赖显式覆盖到已修补�
 
 ## 来源与范围
 
-API、OpenAPI、安装和 Agent 指引对应发行核心 `b5cfe68cbb412d81a80d948b845aee5b0aba586b`。[内容来源清单](content-provenance.json)记录上游与本地文件散列。中文保持相同代码标识、字段、命令与限制。历史硬件与通知证据保留原始日期和来源，不随新版本自动扩大。
+API 与 OpenAPI 草稿对应计划中 v0.1.2 的已合并核心 `88fc2be8326c076b6f09932054b0c8f11d89c0a0`。新原生发行和 tap 的真实输入就绪前，安装及匹配 MCP／Skill 下载示例仍使用已发布 v0.1.1；不声明 v0.1.2 的发布时间或归档校验值。[内容来源清单](content-provenance.json)记录上游与本地文件散列。中文保持相同代码标识、字段、命令与限制。历史硬件与通知证据保留原始日期和来源，不随新版本自动扩大。
 
 [nb1 定稿形象](assets/nb1-mascot.webp)和 [favicon](assets/nb1-icon.png) 与内嵌工作台一致，是唯一生产品牌衍生。语言通过显式入口切换，默认保持英文。
 
