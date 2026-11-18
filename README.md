@@ -8,6 +8,8 @@ Bilingual documentation for [nb1 v0.1.2](https://github.com/b1ug/nb1/releases/ta
 
 Production target: **https://b1ug.github.io/nb1-docs/**. Builds and deployment are distinct: the workflow publishes only a verified main-branch build through GitHub Pages. Deployment status is recorded by the Actions environment.
 
+**Next release preview:** the [v0.1.3 device-selection guide](docs/getting-started.md#choose-among-several-lights) describes upcoming CLI and embedded Workbench behavior. v0.1.3 is not published yet; the release links and installation examples still use v0.1.2.
+
 [简体中文](README.zh-CN.md)
 
 ## Read the documentation

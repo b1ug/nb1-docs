@@ -62,6 +62,8 @@ nb1 Light Reminders Chrome 扩展仍为实验版本，未上架 Web Store，其�
 
 [Workbench 仓库](https://github.com/b1ug/nb1-workbench)提供公开前端源码，不是另一个独立托管的设备控制器。daemon 保留原生设备归属与既有 Origin 政策。HTTP 接受请求、缓存 RGB 和实体发光是不同的观察结果。安装或升级 nb1 不会自动替换已经运行的 daemon。
 
+即将到来的 v0.1.3 产物加入确定的首次设备选择，并在当前页面内点击刷新控件或切换语言时保留所选序列号，包括离线或已移除的目标；浏览器整页重新加载或打开另一个入口会重新采用默认选择。页面显示数量／目标及就绪理由，不修改 HTTP schema。[分版本规则](getting-started.zh-CN.md#choose-among-several-lights)说明具体行为；已发布 v0.1.2 在主动升级和重启之前继续使用原内嵌前端。
+
 ## 构建依赖 {#build-dependencies}
 
 | 机制 | 固定什么 | 对普通 nb1 构建的影响 |

@@ -19,6 +19,8 @@ Start with read-only diagnostics from the chosen CLI directory:
 | --- | --- |
 | `control` cannot reach a daemon | Start `nb1 server --devices DEVICE_SERIAL` or explicitly choose `control --direct run`. No automatic startup or USB fallback occurs. |
 | No device appears | Check the cable and native access with `nb1 list`. `control devices` reads the daemon's configured cache, not a fresh USB scan. |
+| Multiple devices require a serial | In v0.1.2, supply `control run SERIAL FILE` or a preferred target. Upcoming v0.1.3 adds deterministic automatic selection; see the [version boundary](getting-started.md#choose-among-several-lights). |
+| Workbench Play is unavailable | In the v0.1.3 preview, read the readiness reason next to Play. Refresh or explicitly choose an online target; a missing target is kept rather than silently replaced. An unknown Job must be checked by its original ID, not replayed. |
 | Device is busy | Release its current controller, including a standalone WebHID page or extension. Do not delete a live ownership lock. |
 | Port is in use | Inspect the existing server, or select a new server `--listen` and matching client `--endpoint`. |
 | Submission timed out | Retain the original endpoint and Job ID. Query that ID before deciding whether playback happened; do not automatically replace it. |

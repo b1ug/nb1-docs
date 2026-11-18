@@ -119,7 +119,15 @@ nb1 control --endpoint http://127.0.0.1:8931 cancel j_7K3XJNY9ZM --wait
 
 Use `nb1 control preview action.json` separately when you want to inspect the compiled plan without playback.
 
-For `control run [SERIAL] FILE` and `control state [SERIAL]`, select the device from an explicit positional serial, root `--device`, `NB1_DEVICE`, or profile `device`, in that order. With none selected, the client reads the daemon's cached device list and uses it only when exactly one device is configured. Multiple devices require an explicit choice. This lookup does not enumerate USB, launch the daemon or switch to direct access.
+For `control run [SERIAL] FILE` and `control state [SERIAL]`, select the device from an explicit positional serial, root `--device`, `NB1_DEVICE`, or profile `device`, in that order. An explicit or preferred target is retained even if offline or missing; a failed or uncertain submission never selects another device.
+
+::: info CLI version boundary
+Released v0.1.2 only infers a target when exactly one device is configured. The following automatic rule is for upcoming v0.1.3, which is not published yet. The HTTP API v1 schema and MCP explicit-serial requirements are unchanged.
+:::
+
+With no selected target, v0.1.3 sorts the daemon's cached configured-device list by serial in ascending byte order and chooses the first `connection: "online"`. If none is online, it chooses the first configured serial so `state` can show its status and `run` can report that target's real error. An empty list is an error. Unknown or missing connection states are not treated as online; an active Job does not remove an online device from selection.
+
+With multiple configured devices, automatic selection writes one short English count/serial/override notice to stderr; stdout remains the original JSON. Selection happens once per invocation. A later `device_busy`, missing/offline target or unknown outcome never redirects or resubmits to another light. This lookup does not enumerate USB, start a daemon, save a new preference or switch to direct access. `control devices` still lists the daemon's configured devices; it does not mean every listed device is online.
 
 `control preview FILE` leaves `serial` absent by default, including when the profile has a preferred device. Add `--serial SERIAL` explicitly for the selected device's cached capability check.
 

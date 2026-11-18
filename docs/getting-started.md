@@ -44,6 +44,26 @@ Stop the foreground server with Ctrl-C. Installing the executable or starting
 For two steady colors, choose **Separate colors** in **Solid** and edit **LED 1 · blink(1)** and **LED 2 · ThingM**. One Play submits the colors as one Sequence. The shared-color setting remains available.
 :::
 
+## Choose among several lights
+
+::: info Version boundary · upcoming v0.1.3
+The behavior below is prepared for v0.1.3, which is not published yet. In v0.1.2, a daemon with multiple configured devices still requires an explicit target. Use `./nb1 version --json` to check your CLI; installing a new binary does not replace an already-running server or its embedded Workbench.
+:::
+
+An explicit positional serial takes priority over `--device`, `NB1_DEVICE`, then profile `device`. With none selected, v0.1.3 reads the daemon's cached configured devices, sorts serials in ascending byte order, and chooses the first whose connection is `online`. If none is online, it chooses the first configured serial: `state` shows that target's status, and `run` reports its real error. This order is not USB insertion order.
+
+For example, replace these example serials with values from `list`, start `./nb1 server --devices 20000002,20000001`, then use another terminal:
+
+```sh
+./nb1 control state
+./nb1 control run action.json --wait
+./nb1 control run 20000002 action.json --wait
+```
+
+The first two commands use the default rule. The third explicitly selects `20000002`, even when another device is online. Automatic selection with multiple configured devices prints the count and selected serial as an English notice on stderr; stdout stays JSON. A busy device, failure or unknown result never sends the request to the next light. HTTP and MCP still require an explicit `serial`; direct mode still requires an explicit or preferred target.
+
+The v0.1.3 embedded Workbench initially uses the same serial order. Choosing a device, using its **Refresh** control or switching language does not play it. That control preserves the current target on the open page, including an offline device. If it disappears from the configuration, its serial remains selected with an explanation until you choose another. **Play** is disabled with a reason while the selected device cannot be confirmed online; retry the check with **Refresh** or choose a device. A full browser reload or opening another Workbench entry starts a new default selection; the device choice is not stored across page loads. An unknown Job keeps its original ID and target and is never automatically replayed.
+
 ## Prefer one direct playback?
 
 After the other controller has released the device:
