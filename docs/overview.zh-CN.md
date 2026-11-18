@@ -2,7 +2,7 @@
 
 [English](overview.md)
 
-[nb1 v0.1.1](https://github.com/b1ug/nb1/releases/tag/v0.1.1) 把 CLI、可选本地 daemon、HTTP API 与双语 Nightlab 调试器放在同一个程序里。可以共用 server，也可以显式直连；安装不会暗中启动服务，客户端也不会静默切换 USB。
+[nb1 v0.1.2](https://github.com/b1ug/nb1/releases/tag/v0.1.2) 把 CLI、可选本地 daemon、HTTP API 与双语 Nightlab 调试器放在同一个程序里。可以共用 server，也可以显式直连；安装不会暗中启动服务，客户端也不会静默切换 USB。
 
 ## 从这里开始
 

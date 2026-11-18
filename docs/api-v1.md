@@ -1,6 +1,6 @@
 # API v1 implementation
 
-The merged source for the upcoming nb1 v0.1.2 patch retains the Action → Sequence → Job execution path through HTTP and `nb1 control`. The new release is pending; published installation examples remain v0.1.1. The running local installation has its own separately tested source version.
+nb1 v0.1.2 provides the Action → Sequence → Job execution path through HTTP and `nb1 control`. The running local installation has its own separately tested source version.
 
 The [OpenAPI 3.1 contract](https://github.com/b1ug/nb1/blob/88fc2be8326c076b6f09932054b0c8f11d89c0a0/docs/api-v1.openapi.json) describes the current HTTP operations, request and response schemas, constraints and software-fixture examples. The valid saved-color name `resolve` has a concrete PUT operation alongside POST color resolution.
 

@@ -4,7 +4,7 @@
 
 Documentation and examples for [nb1](https://github.com/b1ug/nb1), the local blink(1) control toolkit.
 
-Bilingual documentation preparing for **nb1 v0.1.2**, using merged core `88fc2be8326c076b6f09932054b0c8f11d89c0a0`. Publication is pending; [v0.1.1 remains the published download](https://github.com/b1ug/nb1/releases/tag/v0.1.1). Built with VitePress 1.6.4 and the approved Nightlab presentation. English is the default, with complete Chinese counterparts, local search, the approved nb1 artwork and an optional local 3D model. The static site requests no hardware permission.
+Bilingual documentation for [nb1 v0.1.2](https://github.com/b1ug/nb1/releases/tag/v0.1.2), fixed to core `88fc2be8326c076b6f09932054b0c8f11d89c0a0`. Built with VitePress 1.6.4 and the approved Nightlab presentation. English is the default, with complete Chinese counterparts, local search, the approved nb1 artwork and an optional local 3D model. The static site requests no hardware permission.
 
 Production target: **https://b1ug.github.io/nb1-docs/**. Builds and deployment are distinct: the workflow publishes only a verified main-branch build through GitHub Pages. Deployment status is recorded by the Actions environment.
 
@@ -15,7 +15,7 @@ Production target: **https://b1ug.github.io/nb1-docs/**. Builds and deployment a
 | Document | Purpose |
 | --- | --- |
 | [Overview](docs/overview.md) | Choose a local control path and find the guides. |
-| [Get started](docs/getting-started.md) | Install v0.1.1, select a device and explicitly play; preview is optional. |
+| [Get started](docs/getting-started.md) | Install v0.1.2, select a device and explicitly play; preview is optional. |
 | [API v1](docs/api-v1.md) | Fields, defaults, constraints, errors and recovery. |
 | [Agents](docs/agents.md) | Matching MCP tools and the Skill. |
 | [Agent notifications](docs/agent-notifications.md) | Optional Codex turn-ended notifications and their tested scope. |
@@ -54,7 +54,7 @@ The build includes raw Markdown as `/source/<source-path>.txt`, the bundled `/ap
 
 ## Sources and scope
 
-The API and OpenAPI draft are tied to merged core `88fc2be8326c076b6f09932054b0c8f11d89c0a0` for the planned v0.1.2 patch. Installation and matching MCP/Skill download examples still use the published v0.1.1 until the new native release and tap inputs exist. No v0.1.2 publication date or archive checksum is claimed. Content provenance records exact upstream and local source hashes. Chinese explanations preserve code identifiers, JSON fields, CLI commands and limits. Historical physical-device and notification records retain their original source and date; the release does not silently renew them.
+The API, OpenAPI, installation and matching MCP/Skill guidance are tied to released core `88fc2be8326c076b6f09932054b0c8f11d89c0a0`. The normal v0.1.2 release was published on 2026-11-18. The published Homebrew Formula uses that same source. Content provenance records exact upstream and local source hashes. Chinese explanations preserve code identifiers, JSON fields, CLI commands and limits. Historical physical-device and notification records retain their original source and date; the release does not silently renew them.
 
 The [approved nb1 mascot](assets/nb1-mascot.webp) and [favicon](assets/nb1-icon.png) match the embedded workbench. They are the site's only production brand image variants. Language switching is explicit; English remains the default.
 

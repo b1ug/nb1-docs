@@ -2,7 +2,7 @@
 
 [English](browser.md) · [原生安装](install.zh-CN.md) · [架构](architecture.zh-CN.md)
 
-[nb1 Browser Workbench 在线版](https://b1ug.github.io/nb1-browser-tools/)及其[公开源码](https://github.com/b1ug/nb1-browser-tools)是独立的**开发预览**。前台页面通过共享 Go／WASM 编译器直接使用 WebHID；**nb1 Light Reminders** Chrome 扩展仍为实验版本。它们既不是原生 nb1 daemon，也不是这个静态文档站。原生 nb1 v0.1.1 仍是独立的正式安装路径。
+[nb1 Browser Workbench 在线版](https://b1ug.github.io/nb1-browser-tools/)及其[公开源码](https://github.com/b1ug/nb1-browser-tools)是独立的**开发预览**。前台页面通过共享 Go／WASM 编译器直接使用 WebHID；**nb1 Light Reminders** Chrome 扩展仍为实验版本。它们既不是原生 nb1 daemon，也不是这个静态文档站。原生 nb1 v0.1.2 仍是独立的正式安装路径。
 
 ## 先选择谁控制小灯
 
@@ -66,6 +66,6 @@ Preview 可选；保存主机 Pattern 既不播放，也不写设备内存。浏
 
 ## 候选身份
 
-当前公开浏览器源码为 [e2701e05aebcc0858cc328df0e728fd5c0cec2e4](https://github.com/b1ug/nb1-browser-tools/tree/e2701e05aebcc0858cc328df0e728fd5c0cec2e4)。报告问题时使用实际部署包的构建记录和资源散列。Go 编译器输入、前端源码、WASM 和扩展产物可以分别固定来源。分支名、源码链接或 manifest 版本不是发行校验值。
+当前公开浏览器源码为 [e2701e05aebcc0858cc328df0e728fd5c0cec2e4](https://github.com/b1ug/nb1-browser-tools/tree/e2701e05aebcc0858cc328df0e728fd5c0cec2e4)。[在线构建记录](https://b1ug.github.io/nb1-browser-tools/site-build.json)独立固定编译器核心 v0.1.1（`b5cfe68cbb412d81a80d948b845aee5b0aba586b`），原生 v0.1.2 不会暗中替换浏览器编译器。公开托管与英中文软件预览已在不申请 HID 权限的情况下检查，不能当作新的实体设备或扩展提醒验收。报告问题时使用实际部署包的构建记录和资源散列。Go 编译器输入、前端源码、WASM 和扩展产物可以分别固定来源。分支名、源码链接或 manifest 版本不是发行校验值。
 
-原生 [nb1 v0.1.1](install.zh-CN.md)、内嵌 Workbench、浏览器开发预览和扩展包是独立交付物。发布预览不会升级已安装的 daemon、更新旧硬件证据，也不代表 Web Store 上架。
+原生 [nb1 v0.1.2](install.zh-CN.md)、内嵌 Workbench、浏览器开发预览和扩展包是独立交付物。发布预览不会升级已安装的 daemon、更新旧硬件证据，也不代表 Web Store 上架。

@@ -82,13 +82,13 @@
       },
       {
         "path": "README.md",
-        "bytes": 7754,
-        "sha256": "79192e777a28be15500bc2f7ce5f1028ee9c6234c216e4767261ba91dcfb5e14"
+        "bytes": 7597,
+        "sha256": "a062d83ea0d7acfb8179b9ab7edc05e389b74bbd32f239d94653bfb9f70f45be"
       },
       {
         "path": "README.zh-CN.md",
-        "bytes": 6626,
-        "sha256": "707fa671356a361acb575918a3096d8840fd9e0aed2b69bfe72ca375bf1c34a7"
+        "bytes": 6474,
+        "sha256": "b029a166a22478dc714975c7dea8c880975be65b006b8a6d6d89e3e3310be4de"
       },
       {
         "path": "assets/nb1-icon.png",
@@ -113,12 +113,12 @@
       {
         "path": "docs/agents.md",
         "bytes": 2752,
-        "sha256": "48401877d740cbfc35a861adddfa8a7e37a86b24b65c3a1c643199a43a32cded"
+        "sha256": "8134f49b8a70f8536c88720a00b1c0f68a99dada6df0aa4f4242b017f8d20fc9"
       },
       {
         "path": "docs/agents.zh-CN.md",
         "bytes": 2536,
-        "sha256": "fa02e6b647c8ef182f11645a212eb965f47924786794a36800f34a1597caf24d"
+        "sha256": "7bb637e6bb5b11be29948b90f1058b1fbaa857b5b177ec9a5c8786375113c649"
       },
       {
         "path": "docs/api-v1-terminology.md",
@@ -132,83 +132,83 @@
       },
       {
         "path": "docs/api-v1.md",
-        "bytes": 37847,
-        "sha256": "14afd33664917fb11a4443fcef2a0016e329bb497acf946e2f333d102aeb59a1"
+        "bytes": 37732,
+        "sha256": "9c704b007d690dd805793784c86a22d8fe232aba070d28176ea4a39839c5a253"
       },
       {
         "path": "docs/api-v1.zh-CN.md",
-        "bytes": 36577,
-        "sha256": "e874382dcc5b008b92688c047cf5edca24602610dcf02dc215863c5f11bcc1e6"
+        "bytes": 36471,
+        "sha256": "ac83a3bf104d0928eb54913bcd901873c0c59a25b084e77d737537a626a904cb"
       },
       {
         "path": "docs/architecture.md",
-        "bytes": 10869,
-        "sha256": "7ff0e31428e9a13819e94a024dfaad1cfbd9c110e3508ef6989beb6f89a012c3"
+        "bytes": 10787,
+        "sha256": "919028ea7389e3688323f3fda223beab4838204c5a15950665f5cb1db4c1abee"
       },
       {
         "path": "docs/architecture.zh-CN.md",
-        "bytes": 9418,
-        "sha256": "862b1d04a46da277a3c7aff0b51e2c70d312ad63304abcb9dc58a7201897f3aa"
+        "bytes": 9368,
+        "sha256": "d6a3cfa730f8069b435b5630d816b35bd884c1cb5c485335d0cfa23673f5e5be"
       },
       {
         "path": "docs/browser.md",
-        "bytes": 7544,
-        "sha256": "4188808d1021ea9f35028e948a34e0d1d94b98115e2c852f1745f13fdd5a494e"
+        "bytes": 7946,
+        "sha256": "41142eb731d350d9a862548111a61e3c21117725ed34f2085e7508e0ec258dc7"
       },
       {
         "path": "docs/browser.zh-CN.md",
-        "bytes": 6543,
-        "sha256": "88825db9ab91ef9542716307ede8bad4556dd3835cddd0d4ad2cb08854cfa128"
+        "bytes": 6896,
+        "sha256": "7c7cac4821e647ccd7718526202f8746be7670388c91024613d727d6ee9720f5"
       },
       {
         "path": "docs/changelog.md",
-        "bytes": 8413,
-        "sha256": "5ad5d453e6a5b7923d211ba4a1c2ff5693b15b30a07d278a40e9dba54713e2cf"
+        "bytes": 8466,
+        "sha256": "3ef8d4fbdfc90cfa0ecae72236a8ffe9cf98b1219cab4a90e23c8fcf0e176d93"
       },
       {
         "path": "docs/changelog.zh-CN.md",
-        "bytes": 7439,
-        "sha256": "860c828e28161ce6ce63d6d31345e93c98166c9e1c18e25868884c16e229ea60"
+        "bytes": 7499,
+        "sha256": "f087b9754e00f1d76edc27acaadb12e2c79e3c6305968d512c7e7bc3428c7124"
       },
       {
         "path": "docs/getting-started.md",
         "bytes": 3253,
-        "sha256": "d68cf4d6044fc4154f23e97cd3aca406f1d777ee75bfabec072e0627432f015b"
+        "sha256": "36f24d86d103a283f6d68b5a4affe4016cbbaa3e47389eb324e1bd3b75e7e775"
       },
       {
         "path": "docs/getting-started.zh-CN.md",
         "bytes": 3158,
-        "sha256": "a9d267026b290e358a9519733611fe6c17f100131e250c817fdee42be9a16dfc"
+        "sha256": "26960dfdcbf8d56190b583c25773237a09ed6608e3c33a5552399ba689dbd970"
       },
       {
         "path": "docs/install.md",
-        "bytes": 11635,
-        "sha256": "d0ce61f3a29651a45bf13a5fa59ef4c320870204b571a3f18d739d5246c391d2"
+        "bytes": 11390,
+        "sha256": "bb566500fdda2f6ea309e14e1077266a8a82e16f2e9507915c9abe0549137f63"
       },
       {
         "path": "docs/install.zh-CN.md",
-        "bytes": 9754,
-        "sha256": "7968e2596256da54aebf7dcdeea2be2a13734cff9215fc5d18ab1c2bff9abf36"
+        "bytes": 9542,
+        "sha256": "74042cf541888ea6d503d2c21807e1428c4c42646a4e2ec6151475aed5de670d"
       },
       {
         "path": "docs/overview.md",
         "bytes": 2285,
-        "sha256": "d7ab3c9dc0607b4ed8ab7dcdc5b0bf8c2d4f4372bb9b5bc58c485dbc4bd3533f"
+        "sha256": "fa17e4f0367dde569a124d3c37074e2ab47a9a45532e0ca1076e4a3733c4acab"
       },
       {
         "path": "docs/overview.zh-CN.md",
         "bytes": 1998,
-        "sha256": "6307a182a608ab4d37e71b2cda7aaa76bbe4a639ca3f46018b397b08dc740413"
+        "sha256": "b24d853c004c025a0b921bbc3041a7f0aed9e2dccc5a57e438f1c7fc0ba2c599"
       },
       {
         "path": "docs/support.md",
-        "bytes": 4585,
-        "sha256": "ad4e05baf9ae37e37713cec625a7de7967519d60b248266f4c7ce14f33ef7485"
+        "bytes": 4704,
+        "sha256": "cbab51fabe3025e0577ce5514b0500baec11b5df0d0a6c3861d9b1463c32288d"
       },
       {
         "path": "docs/support.zh-CN.md",
-        "bytes": 3967,
-        "sha256": "694a1fcebae4a4954dde8d9230f8d82775fe7b7a840fb5a579354e70c76e38a5"
+        "bytes": 4078,
+        "sha256": "c5ae208ff6b611cfd8c0b513405ec317f2be54f4becbaaed41497b3b823ed70e"
       },
       {
         "path": "package-lock.json",
@@ -222,13 +222,13 @@
       },
       {
         "path": "pages/index.md",
-        "bytes": 2290,
-        "sha256": "6e74d9d1824cbf4b5be5c8211bcb09549b651876e79320e166ff5b08d16ccf9b"
+        "bytes": 2086,
+        "sha256": "647e6477a02a9c737d4b6d1ed06febc3f1dc9bfecf061c1ab7722fb7f1abe035"
       },
       {
         "path": "pages/zh/index.md",
-        "bytes": 2170,
-        "sha256": "0625ca64f077d214762b8738bb1fdb0508bbc834b6faaadff71e6328e3e719a1"
+        "bytes": 1985,
+        "sha256": "492ab5454569479cc696d02ece5ee867cc4a8be3a06aa735a525e4e61a9e04f0"
       },
       {
         "path": "public/LICENSE.txt",
@@ -394,7 +394,7 @@
     "seed_identity": "Source files are identified by their hashes below. The final clean repository commit is recorded separately in dist/site-build.json; no self-referential source commit is claimed."
   },
   "public_scope": {
-    "audience": "Documentation draft for planned nb1 v0.1.2 at merged source88; published installation remains v0.1.1 until actual release binding. English default with Chinese translations.",
+    "audience": "Users and agent developers of released nb1 v0.1.2; English default with Chinese translations.",
     "publication_status": "public_documentation_source",
     "framework": "vitepress",
     "framework_version": "1.6.4",
@@ -475,11 +475,11 @@
     ]
   },
   "release": {
-    "tag": "v0.1.1",
-    "source": "b5cfe68cbb412d81a80d948b845aee5b0aba586b",
-    "url": "https://github.com/b1ug/nb1/releases/tag/v0.1.1",
-    "published_at": "2026-11-18T01:20:11Z",
-    "manifest_sha256": "89900328612d10915aa78b4f0ba07b4ff62122459ebc7f14711139f9da631975",
+    "tag": "v0.1.2",
+    "source": "88fc2be8326c076b6f09932054b0c8f11d89c0a0",
+    "url": "https://github.com/b1ug/nb1/releases/tag/v0.1.2",
+    "published_at": "2026-11-18T04:06:48Z",
+    "manifest_sha256": "e37e23209c20e1d8aace1ead77d2803fc95fd7780a9d0d7429e8e0bc83ade4aa",
     "native_targets": [
       "darwin-amd64",
       "darwin-arm64",
@@ -489,8 +489,8 @@
     ],
     "assets": 13,
     "scope": "Native software packages; historical physical-device evidence is not renewed by publication.",
-    "release_id": 449400457,
-    "tag_object": "acef87c14249330ac9b237a9a04f0fcabc5fd14f"
+    "release_id": 449511857,
+    "tag_object": "df9d2e5e8ebbc64029ea5f0cb9f42714c6260daf"
   },
   "api_snapshot": {
     "repository": "https://github.com/b1ug/nb1",
@@ -515,7 +515,7 @@
         "sha256": "01225e426ea2cf0c06882c7a13cea5365d9d0a815adec9f04d59b7bc23c76af6"
       }
     ],
-    "site_snapshot_transform": "Markdown links and the introductory draft label are adapted to static-site routes and immutable merged-source URLs. OpenAPI and English terminology remain byte-identical to the merged source. Chinese descriptions preserve code tokens and numeric limits. Published installation links remain v0.1.1 while v0.1.2 is pending."
+    "site_snapshot_transform": "Markdown links are adapted to static-site routes and immutable released-source URLs; the introductory release label follows the actual v0.1.2 release. OpenAPI and English terminology remain byte-identical to that source. Chinese descriptions preserve code tokens and numeric limits."
   },
   "brand_assets": {
     "approved_variant": "B-3",
@@ -546,13 +546,31 @@
     "anchors": "Both languages use stable English heading IDs generated from the English source."
   },
   "historical_evidence_policy": "Physical and notification observations retain their original dates/sources. This documentation build itself opens no hardware and is not a physical qualification.",
-  "pending_release": {
-    "version": "v0.1.2",
-    "source": "88fc2be8326c076b6f09932054b0c8f11d89c0a0",
-    "publication_status": "merged_source_awaiting_actual_release",
-    "embedded_workbench_source": "90225555dad6ac2a17eac8d46a2469d00a04256e",
-    "public_browser_source": "e2701e05aebcc0858cc328df0e728fd5c0cec2e4",
-    "release_timestamp_and_asset_checksums": "Not recorded before actual publication.",
-    "current_published_installation": "v0.1.1"
+  "homebrew": {
+    "repository": "https://github.com/b1ug/homebrew-tap",
+    "commit": "f91a33363769b07e8a5a4772202ae3f60d7e8743",
+    "version": "0.1.2",
+    "formula_path": "Formula/nb1.rb",
+    "formula_sha256": "e3128da03150106c2b60cbcac024552bab247172b3e3dcd329a1b346b9f648fc",
+    "source_commit": "88fc2be8326c076b6f09932054b0c8f11d89c0a0",
+    "source_archive_url": "https://github.com/b1ug/nb1/archive/refs/tags/v0.1.2.tar.gz",
+    "source_archive_sha256": "b8b8846b5dbf13ce92c60f815d011962f7599e0a1ea6006a1ac3273b30574254"
+  },
+  "web_deliverables": {
+    "embedded_workbench": {
+      "repository": "https://github.com/b1ug/nb1-workbench",
+      "commit": "90225555dad6ac2a17eac8d46a2469d00a04256e",
+      "delivery": "Verified static bundle embedded in native nb1; same-origin daemon HTTP, no direct WebHID.",
+      "bundle_manifest_sha256": "3c7490a01411dc643b7936bb08cd022fc62fb6c30d7f2c5580b29e61c31c5c01"
+    },
+    "browser_tools": {
+      "repository": "https://github.com/b1ug/nb1-browser-tools",
+      "commit": "e2701e05aebcc0858cc328df0e728fd5c0cec2e4",
+      "preview": "https://b1ug.github.io/nb1-browser-tools/",
+      "channel": "development-preview",
+      "compiler_core_source": "b5cfe68cbb412d81a80d948b845aee5b0aba586b",
+      "extension_status": "experimental; real background reminder acceptance pending; not a Web Store release"
+    },
+    "origin_policy": "GitHub Pages project paths share https://b1ug.github.io; WebHID grants are origin-scoped, not isolated by path. Documentation code performs no HID calls."
   }
 }

@@ -2,9 +2,9 @@
 
 [English](api-v1.md)
 
-本页是计划中 nb1 v0.1.2 已合并源码之英文规范的完整中文对照，依据核心提交 `88fc2be8326c076b6f09932054b0c8f11d89c0a0`。说明文字译为中文，代码标识、字段、枚举、数值和命令保持原样。实际硬件证据按原日期与来源保留；版本进展见[变更记录](changelog.zh-CN.md)。
+本页是nb1 v0.1.2 英文规范的完整中文对照，依据核心提交 `88fc2be8326c076b6f09932054b0c8f11d89c0a0`。说明文字译为中文，代码标识、字段、枚举、数值和命令保持原样。实际硬件证据按原日期与来源保留；版本进展见[变更记录](changelog.zh-CN.md)。
 
-v0.1.2 正式发行尚待完成，安装示例仍使用已发布 v0.1.1。已合并源码通过 HTTP 和 `nb1 control` 提供 Action → Sequence → Job 执行路径。本机正在运行的安装版本有其独立验收过的源码版本。
+nb1 v0.1.2 通过 HTTP 和 `nb1 control` 提供 Action → Sequence → Job 执行路径。本机正在运行的安装版本有其独立验收过的源码版本。
 
 [OpenAPI 3.1 规范](https://github.com/b1ug/nb1/blob/88fc2be8326c076b6f09932054b0c8f11d89c0a0/docs/api-v1.openapi.json)描述当前 HTTP 操作、请求与响应 schema、约束和软件测试样例。`resolve` 是合法的本地颜色名，因此它有明确的 PUT 操作，与 POST 颜色解析操作并存。
 

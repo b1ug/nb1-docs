@@ -2,7 +2,7 @@
 
 [简体中文](overview.zh-CN.md)
 
-[nb1 v0.1.1](https://github.com/b1ug/nb1/releases/tag/v0.1.1) provides a CLI, an optional local daemon, an HTTP API and an embedded bilingual Nightlab workbench in one executable. Use a shared server or explicitly choose direct playback. The installer does not silently start a service, and clients do not silently fall back to USB.
+[nb1 v0.1.2](https://github.com/b1ug/nb1/releases/tag/v0.1.2) provides a CLI, an optional local daemon, an HTTP API and an embedded bilingual Nightlab workbench in one executable. Use a shared server or explicitly choose direct playback. The installer does not silently start a service, and clients do not silently fall back to USB.
 
 ## Find your way
 
