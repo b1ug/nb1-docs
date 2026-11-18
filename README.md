@@ -58,7 +58,17 @@ The API, OpenAPI, installation and Agent guidance are tied to released core `b5c
 
 The [approved nb1 mascot](assets/nb1-mascot.webp) and [favicon](assets/nb1-icon.png) match the embedded workbench. They are the site's only production brand image variants. Language switching is explicit; English remains the default.
 
-The embedded debugger remains in `nb1-web`, packaged into the nb1 executable. This repository supplies documentation for the separate [nb1-browser](docs/browser.md) candidate; it does not take over device ownership or relax the daemon's Origin policy.
+## Choose the right project
+
+| Deliverable | What it provides | Who owns the device? |
+| --- | --- | --- |
+| This documentation site | Static guides, API reference, downloads and examples. | Nobody; the site requests no USB or HID permission. |
+| Embedded nb1 Workbench | The local `/demo/` UI served by the nb1 HTTP server. | The running nb1 daemon owns native USB; the page uses its same-origin API. |
+| Browser tools | A separate development preview using direct WebHID and a shared Go/WASM compiler. | The browser page or experimental extension, after explicit permission and ownership handoff. |
+
+The Workbench frontend is maintained separately and imported into nb1 as a verified static bundle. It is a UI, not another daemon. The browser preview has its own release and compatibility policy; its Chrome extension is experimental, has no Web Store release and still requires user acceptance of its background reminder behavior. See [architecture](docs/architecture.md) and [browser tools](docs/browser.md).
+
+Node.js is required to develop this documentation site or rebuild a frontend. It is not a dependency of an ordinary nb1 Go build. Go modules, optional Git source checkouts and manifest-verified `dist/` assets are different dependency mechanisms; [the build boundary](docs/architecture.md#build-dependencies) explains them. Normal nb1 builds do not need a recursive Git clone or invoke a frontend package manager.
 
 ## License
 

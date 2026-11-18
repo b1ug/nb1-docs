@@ -56,7 +56,17 @@ API、OpenAPI、安装和 Agent 指引对应发行核心 `b5cfe68cbb412d81a80d94
 
 [nb1 定稿形象](assets/nb1-mascot.webp)和 [favicon](assets/nb1-icon.png) 与内嵌工作台一致，是唯一生产品牌衍生。语言通过显式入口切换，默认保持英文。
 
-内嵌调试器仍由 `nb1-web` 管理并随 nb1 打包。本仓库介绍独立的 [nb1-browser](docs/browser.zh-CN.md) 候选，不接管设备或放宽 daemon 的 Origin 限制。
+## 选择合适的项目
+
+| 交付物 | 提供什么 | 谁持有设备？ |
+| --- | --- | --- |
+| 这个文档站 | 静态指南、API 参考、下载与示例。 | 无；文档站不申请 USB 或 HID 权限。 |
+| nb1 内嵌 Workbench | 由 nb1 HTTP server 提供的本机 `/demo/` 页面。 | 已运行的 nb1 daemon 持有原生 USB，页面调用同源 API。 |
+| 浏览器工具 | 独立开发预览，通过共享 Go／WASM 编译器直接使用 WebHID。 | 浏览器页面或实验性扩展，需显式授权并交接控制权。 |
+
+Workbench 前端独立维护，通过校验后的静态产物导入 nb1；它是 UI，不是另一个 daemon。浏览器预览有独立的发布与兼容性政策；Chrome 扩展仍为实验版本，尚未上架 Web Store，其后台提醒行为仍待用户验收。详见[架构](docs/architecture.zh-CN.md)与[浏览器工具](docs/browser.zh-CN.md)。
+
+开发文档站或重建前端需要 Node.js，普通 nb1 Go 构建不需要。Go module、可选 Git 源码检出和经 manifest 校验的 `dist/` 是不同的依赖机制；[构建边界](docs/architecture.zh-CN.md#build-dependencies)具体说明它们的区别。正常 nb1 构建无需递归克隆 Git，也不运行前端包管理器。
 
 ## 许可证
 

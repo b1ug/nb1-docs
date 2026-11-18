@@ -1,21 +1,22 @@
 # Architecture
 
-`nb1-docs` presents nb1 to users and agent developers through documentation, examples, download guidance, and the separate browser tools. The selected stable VitePress 1.6.4 implementation now builds 22 pages with English by default, complete Chinese counterparts and local search. These guides describe the published nb1 v0.1.1 API and its explicit support boundaries. The private nb1-browser candidate has its own direct WebHID implementation and evidence.
+[简体中文](architecture.zh-CN.md)
 
-Maintained Markdown lives in `docs/` and the home pages in `pages/`. Content preparation creates the ignored `site/` tree with paired heading anchors and local assets; VitePress builds the ignored static `dist/` tree. The build also serves raw Markdown at `/source/<source-path>.txt`, bundled `/api-v1.openapi.json` and `/llms.txt`. `/site-info.json` identifies source pages; `/site-build.json` records output hashes and static-link checks. These are local build records, not browser or hardware acceptance.
+nb1 has three separate Web deliverables: this static documentation site, an embedded Workbench served by the native nb1 server, and standalone browser tools that use WebHID. They share terminology and visual assets, but have different device owners and release paths. These guides describe the published nb1 v0.1.1 core; a browser development preview is not a new native release.
+
+Maintained Markdown lives in `docs/` and the home pages in `pages/`. Content preparation creates ignored `site/` content; VitePress produces ignored `dist/` output, local search, raw Markdown, OpenAPI and build receipts. The documentation site requests no hardware permission and does not start a daemon. Its decorative 3D model is a screen illustration, not device readback.
 
 ## Responsibilities
 
-| Component | Responsibility | Connection |
+| Deliverable | Responsibility | Device connection |
 | --- | --- | --- |
-| Public documentation | Installation, concepts, API reference, device capabilities, and troubleshooting. | Static content. |
-| Examples | Action and Sequence inputs, CLI commands, HTTP requests, and agent workflows tied to a core version. | Readers choose where to run them. |
-| Downloads | Release notes, supported platforms, verified release assets, and installation channels. | Links to published distribution sources. |
-| Browser workbench and companion | Explicit WebHID control with shared Go/WASM compilation; separate private candidate. | Browser HID API, independent of native locks. |
-| Embedded debugger | Local device control, preview, Jobs, colors, and Patterns through the running daemon. | Same-origin nb1 HTTP API. |
-| nb1 core | Action compilation, Sequence validation, device ownership, scheduling, Jobs, and local storage. | Native hardware transport. |
+| Documentation | Installation, API reference, examples, compatibility and links to published downloads. | None. Static pages and local search only. |
+| Embedded nb1 Workbench | Local preview, explicit Play, Jobs, colors and Patterns at `/demo/`. | Same-origin HTTP to the running nb1 server; the daemon owns native USB. |
+| Browser tools | A development preview with direct WebHID and a shared Go/WASM compiler. | The foreground page owns its browser HID handle after explicit permission. |
+| Experimental Chrome extension | A separate reminder and direct-control workflow. | The extension has its own permission and lifetime; it is not a native service. |
+| nb1 core and native integrations | Validation, compilation, scheduling, Jobs, storage and device ownership for CLI, HTTP and MCP. | Native transport owned by nb1; MCP uses the daemon API. |
 
-The public site and embedded debugger can share terminology, examples, visual conventions, and translated messages. Their connection flows stay explicit so a user can understand which process controls a device.
+The embedded Workbench is frontend code, not an additional daemon or a separate background process. A native nb1 server serves both API and UI. The standalone browser tools do not obtain the daemon's device handle or automatically share its local library.
 
 ## Languages
 
@@ -33,7 +34,7 @@ The matching released artwork is maintained in [`nb1/internal/webui/dist/assets/
 
 The character is decorative. Device connection, readback, playback, and errors remain explicit text and controls. It is an original project illustration, not an official ThingM or Nintendo asset.
 
-The local site uses a approved Nightlab theme with locally bundled fonts, search and visual assets. Its static documentation build adds no browser HID transport.
+The local site uses the approved Nightlab theme with locally bundled fonts, search and visual assets. Its static documentation build adds no browser HID transport.
 
 ## Documentation and examples
 
@@ -45,24 +46,41 @@ Examples should preserve exact JSON and show the resulting normalized Sequence w
 
 ## Browser HID debugging {#browser-hid-debugging}
 
-The separate private [nb1-browser candidate](browser.md) implements direct WebHID; this documentation site remains static. Its workbench plays nine Actions and finite serial/interval Sequences using the pinned Go compiler and planner through local WASM. Its Chrome extension provides Set/Off and one minute-based timer.
+The separate [browser tools](browser.md) use explicit WebHID access. Their page reuses Go color, Action and Sequence compilation and playback planning through a bundled WASM build. The browser supplies HID transport and timing. These tools have their own development-preview identity and do not change the installed nb1 version.
 
-Device selection is explicit and filtered to blink(1). Browser access does not participate in native nb1 process locks, so the native daemon, direct webpage and extension must hand ownership over deliberately. Granting permission is separate from opening a handle, and a busy native owner can cause open failure.
+Browser access does not participate in native nb1 process locks. Stop or disconnect the existing native or browser controller before opening the same light elsewhere. Permission to select a device and successfully opening it are distinct steps; another owner can still cause an open failure.
 
-Stop prevents future browser Steps; it does not freeze an already sent hardware fade. Off explicitly sends black. Disconnect stops scheduling before closing; an unconfirmed close remains unknown. Hiding or leaving the website stops scheduling without automatic resume. The extension has its own restart/timer policy, not the lifetime of a native system service.
+Screen preview is optional. Explicit Play validates the current draft before sending commands. Stop prevents future Steps, Off explicitly sends black, and Disconnect stops scheduling before closing. An unknown close remains unknown; hiding or leaving the page does not authorize automatic replay on return.
 
-The browser uses the same Action/Sequence vocabulary and portable file envelope, but does not automatically read the native Pattern/color library. No Pattern-row, Flash, Notes or startup-effect writes are exposed. Model/firmware capability reads and device memory APIs remain separate work; MK3 and cross-platform physical behavior are not qualified by software tests.
+The Chrome extension remains experimental, is not listed in the Web Store, and still needs user acceptance of its background reminder behavior. A software or fake-HID test is not proof of physical playback, optical behavior, MK3 support or timer delivery across sleep and restart.
 
 ## Embedded debugger
 
-`nb1-web` owns the compact debugger that is built into nb1. Its browser sends requests to the local daemon for preview, Jobs, state, colors, and Patterns. The daemon owns the native device connection and performs Action compilation and Sequence playback.
+The separately maintained nb1 Workbench frontend is compiled into a verified static bundle and included in nb1. Open the running server's `/demo/` route; no separate frontend server, browser HID permission or frontend installation is needed. The page asks the native server to preview, play and observe Jobs, colors and Patterns.
 
-The public site can document this workflow and link users to the debugger's instructions. Keep loopback and browser-origin behavior aligned with the daemon's actual API. Clearly identify the connected daemon endpoint in local tooling.
+The daemon retains native ownership and its existing Origin policy. An HTTP request being accepted, cached RGB and emitted physical light are distinct observations. Installing or upgrading nb1 does not automatically replace an already running daemon.
+
+## Build dependencies {#build-dependencies}
+
+| Mechanism | What is pinned | Effect on ordinary nb1 builds |
+| --- | --- | --- |
+| Go module | A Go package dependency and its version/checksum in `go.mod` and `go.sum`. | Go resolves required Go code through its module tooling. |
+| Git source checkout or submodule | A separate repository's source commit. A submodule, if used, is a Git-level checkout. | Separate frontend maintenance does not require submodules. This workflow introduces no recursive-clone requirement. |
+| Verified frontend bundle | Reviewed `dist/` files, a complete asset manifest and the host's `manifest.lock.json`. | The checked-in bundle is validated and included with `go:embed`; frontend source and Node.js are not read or executed by an ordinary Go build. |
+
+A frontend update is an explicit maintainer operation: build the frontend with its locked tools, check the file set and source identity, then import the matching `dist/` and lock into nb1. The host checks file hashes, declared sizes, allowed paths and its API contract before serving the bundle. A source-repository merge alone does not update a published executable.
+
+Browser WASM and extension packages are separate build outputs with their own source records. This documentation repository uses Node.js for its own VitePress build; that does not add Node.js to the native runtime or normal Go build.
 
 ## Downloads and maintenance
 
-Download pages should identify a released version, platform, and installation method. Add links when their release assets or package channels exist. Associate API documentation and examples with that version. A development candidate must not be presented as a stable release; historical prereleases remain separate.
+Maintain each delivery path independently:
 
-The core API reference remains the source for protocol behavior. Refresh this repository's copied snapshot and attribution when adopting a new core version. Validate local documentation links and examples before publishing site content.
+- **Core:** Go APIs, native transport, CLI, HTTP, MCP and released binaries follow the nb1 core version.
+- **Workbench:** its maintainers own frontend source, tests, accessibility, translations and bundle production. nb1 maintainers review and pin an imported bundle before a new core release.
+- **Browser tools:** their maintainers own WebHID, WASM packaging, extension permissions, preview hosting and experimental compatibility claims. Browser publication does not imply Chrome Web Store acceptance or completed hardware qualification.
+- **Documentation:** this repository owns static guides, navigation, paired translations and verified links. Updating it neither opens USB nor changes an installed bundle.
 
-The API and terminology snapshots come from nb1 v0.1.1 commit `b5cfe68cbb412d81a80d948b845aee5b0aba586b`, released 2026-11-17. Its [MIT license](../LICENSE) is included in this repository.
+Publish only public technical provenance: repository, commit, dirty state, API contract, dependency lock and asset hashes as appropriate. Local planning records, machine paths, device serials and unrelated private history are not public website content. Documentation should link only to destinations that actually exist; unannounced source or preview URLs are not install instructions.
+
+The API and terminology snapshots come from nb1 v0.1.1 commit `b5cfe68cbb412d81a80d948b845aee5b0aba586b`, released 2026-11-18. Its [MIT license](../LICENSE) is included. Historical hardware and notification evidence retains its original source and date; publication does not silently renew it.

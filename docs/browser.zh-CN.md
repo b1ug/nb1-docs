@@ -1,80 +1,69 @@
 # 在浏览器中使用 blink(1)
 
-[English](browser.md) · [原生安装](install.zh-CN.md) · [支持范围](support.zh-CN.md)
+[English](browser.md) · [原生安装](install.zh-CN.md) · [架构](architecture.zh-CN.md)
 
-独立的私有 [nb1-browser 仓库](https://github.com/b1ug/nb1-browser)已提供浏览器工作台与 Chrome 扩展，直连 WebHID 不需要原生 nb1 客户端。这个文档站仍是静态站点，不申请 USB 授权。
+浏览器工具是独立的**开发预览**。前台页面通过共享 Go／WASM 编译器直接使用 WebHID；Chrome 扩展仍为实验版本。它们既不是原生 nb1 daemon，也不是这个静态文档站。原生 nb1 v0.1.1 仍是独立的正式安装路径。
 
 ## 先选择谁控制小灯
 
-| 入口 | 设备持有者 | 当前行为 |
+| 入口 | 设备持有者 | 范围 |
 | --- | --- | --- |
-| daemon 的 /demo/ 内嵌工作台 | nb1 daemon | 共用原生 CLI／HTTP／MCP Job、本地颜色与 Pattern。 |
-| nb1-browser 网页工作台 | 前台浏览器页面 | 九种 Action 与 serial／interval 有限 Sequence，可选预览、播放、停止和熄灯。 |
-| Chrome 扩展 | 扩展 service worker | Set／Off 与一个分钟级提醒，尚无多 Step Pattern 播放器。 |
-| 这个文档站 | 无 | 仅提供指南与示例。 |
+| `/demo/` 的 nb1 内嵌 Workbench | 原生 nb1 daemon | 与原生客户端共用本机 HTTP API、Job、颜色与 Pattern。 |
+| 独立浏览器页面 | 前台浏览器页面 | 直连 WebHID，九种 Action 与有限 Sequence，可选 Preview、显式 Play、Stop、Off。 |
+| 实验性 Chrome 扩展 | 扩展上下文 | 直连控制与一个提醒流程；没有 Web Store 发行，后台提醒仍待用户验收。 |
+| 这个文档站 | 无 | 静态指南与装饰模型，不申请硬件权限，不提供 daemon。 |
 
-浏览器不参与原生 nb1 进程锁。直连前请停止 daemon，或断开持有同灯的另一个网页／扩展；回到原生 nb1 前先 Disconnect 浏览器持有者。确认框只表示你已完成交接，不能替你停止其他进程。
+浏览器不参与原生 nb1 进程锁。直连 WebHID 前，应先停止或断开持有同灯的其他控制者；回到原生 nb1 前先 Disconnect 浏览器持有者。确认框只表示你已完成交接，不能替你释放另一个进程的设备句柄。
 
 ## 启动评审网页
 
-仓库为私有，请使用已有权限的账号。需要 Git、Python 3、Node.js 22.12+，以及该仓库指定的 Go 工具链：
+以浏览器项目自己的 README 为准，获取已核验的预览地址、源码构建命令及匹配的扩展包。前端、Go／WASM 构建和托管具有独立于原生发行的来源身份。开发预览不是稳定原生下载，这个文档站也不托管 USB 控制器。
 
-~~~sh
-git clone https://github.com/b1ug/nb1-browser.git
-cd nb1-browser
-npm run build
-npm test
-npm run check
-npm run serve
-~~~
+使用支持 WebHID 的桌面浏览器。释放之前的控制者后，显式 Connect 并使用仅过滤 blink(1) 的选择器。允许选择设备不代表已经成功打开；活动的原生持有者仍可能阻止连接。WebHID 需要浏览器所支持的安全来源或回环地址环境。
 
-在受支持的桌面 Chrome 打开 http://127.0.0.1:4176/。这个回环静态服务器与指定端点上的原生 daemon 独立，不安装服务，也不自行打开 USB。
-
-网页默认英文，可显式切换中文。选择动作后调它自己的参数。常亮按两灯同色、分色、**LED 1 · blink(1)**、**LED 2 · ThingM** 排列，字标对应灯体的两个面。Fade／Blink／Breathe／Pulse 使用一个颜色，Alternate／Orbit 使用双色，Off／Rainbow 不需要颜色。交接控制权后，显式 Connect 并使用 Chrome 仅过滤 blink(1) 的选择器。**播放**自动检查当前请求，**预览**可选。编辑或导入高级 JSON 后，原文即为草稿，直到你明确回到动作参数。
+页面默认英文，可切换中文。Solid 依次提供两灯同色、分色、**LED 1 · blink(1)** 与 **LED 2 · ThingM**。**Play** 验证当前草稿，Preview 可选；导入或编辑的 JSON 会保持为草稿，直到你明确返回 Action 控件。
 
 ## 播放、停止与离开
 
-浏览器通过本地随包 WASM 复用固定 Go 颜色／Action／Sequence 编译器和播放计划，不在 JavaScript 中重写灯效数学。
+浏览器通过随包 WASM 复用 Go 颜色、Action、Sequence 编译与播放计划。JavaScript 提供 WebHID 传输和浏览器计时，不代替原生 daemon 的设备归属或 Job 系统。
 
-Stop 取消后续 Step，不能冻结已发出的硬件渐变。Off 停止调度并显式发黑色。Disconnect 先停调度，再关闭句柄，即便在途写入失败也会尝试关闭；无法确认关闭时仍报告结果未知。隐藏或离开页面会停调度，返回不续播、不重放。
+Stop 取消后续 Step，不能冻结已经发出的硬件渐变。Off 停调度并显式发送黑色；Disconnect 先停调度再关闭句柄，未确认关闭时保持未知。隐藏或离开页面会停止调度，返回不授权自动重播。
 
-播放时保持页面可见。浏览器定时误差和 USB 延迟会增加实际时间。浏览器 Sequence 结束不是原生 Job，也不是光学测量；未知写入不会自动重试或追加清理。
+播放期间保持页面可见。浏览器计时与 USB 延迟可能增加实际时长。浏览器 Sequence 结束不是原生 Job，也不是光学测量；未知写入不能显示为成功播放，也不能静默重试。
 
 ## 加载 Chrome 扩展
 
-网页的 **Extension package and instructions** 提供本地构建 ZIP。它的 manifest 为 0.1.0 开发版本，不是商店发行。
+扩展仍为**实验版本**，未上架 Chrome Web Store，后台提醒行为仍待用户验收。它的源码或开发包版本不代表生产就绪，也不会自动等于原生 CLI 版本。
 
-解压后在 chrome://extensions 开启开发者模式，选择**加载已解压的扩展程序**，定位含 manifest.json 的目录。释放其他控制器后从扩展自己的连接页连接。提醒期间可以关闭弹窗；倒计时为 1–1440 的整数分钟，到时颜色保持到 Off。Off 不取消未来提醒，需要时明确取消倒计时。
+只使用与浏览器源码匹配的扩展包及安装／隐私说明。开发包通过 Chrome 的**加载已解压的扩展程序**选择包含 `manifest.json` 的目录；扩展设备权限与网站权限独立，连接前仍应释放其他控制者。
 
-Chrome 117 是扩展 WebHID API 下限。浏览器重启、睡眠、授权变化或设备丢失时不保证提醒送达。扩展不自动重连或补播上个后台会话的倒计时。包校验、回退、移除和授权撤销见仓库的[安装与更新指南](https://github.com/b1ug/nb1-browser/blob/main/docs/DISTRIBUTION.zh-CN.md)。
+浏览器重启、睡眠、授权变化或设备丢失都可能中断提醒，不能依赖扩展保证送达，也不能假设它会重连并补播上一次会话。需要不依赖前台页面的流程时，原生 daemon 是另一条独立路径。平台权限模型见 Chrome 官方[扩展 WebHID 文档](https://developer.chrome.com/docs/extensions/how-to/web-platform/webhid)。
 
 ## 在工具间传递 Sequence
 
-导出使用既有的规范请求封装：
+可移植请求封装使用相同的 Action／Sequence 词汇：
 
 ~~~json
 {"sequence":{"timing":"serial","steps":[{"targets":[{"led":0,"color":"#ff0000"}],"fade_ms":0,"hold_ms":1000}],"repeat":1,"on_finish":"off"}}
 ~~~
 
-导入、导出都不播放。断开浏览器，再显式启动原生 daemon 后，使用匹配 API v1 的 CLI：
+导入与导出不播放。断开浏览器并显式启动原生 daemon 后，匹配 API v1 的 CLI 可以预览或保存文件：
 
 ~~~sh
 ./nb1 control preview light.sequence.json
 ./nb1 control patterns save evening-light light.sequence.json
 ~~~
 
-保存主机 Pattern 不播放，也不写设备内存。浏览器草稿与扩展存储不会自动共享原生文件库。浏览器 Go 编译边界支持显式别名输入，但当前网页不读取原生已存颜色。
+Preview 可选；保存主机 Pattern 既不播放，也不写设备内存。浏览器草稿和扩展存储不会自动共享原生文件库；原生命名颜色与 Pattern 需要显式传递流程。
 
 ## 数据、权限与兼容性
 
-颜色、JSON 与导入文件均在本地处理。网页按来源保存语言选择；扩展在 Chrome 本地 profile 中保存语言、提醒计划和最近状态。没有遥测、CDN、账号或上传服务。manifest 仅申请 storage 与 alarms，blink(1) 过滤的 WebHID 选择器独立处理设备授权；不申请键盘、录屏、辅助功能或全站点访问。详见[隐私说明](https://github.com/b1ug/nb1-browser/blob/main/docs/PRIVACY.zh-CN.md)。
+浏览器页面在本地处理颜色和导入文件，并使用其来源下的存储保存自身偏好。扩展使用独立的 Chrome profile 存储及权限流程。授权前请阅读匹配包的隐私与安装指南；文档本身不能授予权限或检查设备。
 
-现有独立 Chromium 156 检查覆盖软件渲染、消息、Go／WASM 与假 HID。用户已确认释放原生占用后 macOS／MK2 浏览器连接成功；完整真实播放、光学与倒计时生命周期仍待验收。连接成功与原生 Mac／MK2 证据均不能证明 Linux／Windows USB 或 MK3。设备 Pattern RAM、Flash、Notes 和上电效果不在此浏览器候选范围内。
-
-Chrome 官方的[扩展 WebHID 指南](https://developer.chrome.com/docs/extensions/how-to/web-platform/webhid)说明 API 下限与授权流程。浏览器有 API，不代表 nb1 硬件已验收。需要不依赖前台网页运行时，请使用原生 daemon。
+当前浏览器工作是开发预览。软件渲染、Go／WASM 与假 HID 测试不构成实体播放、光学或倒计时生命周期资格。成功连接浏览器或原生 Mac／MK2 证据不能证明 Linux／Windows USB、MK3，或另一实体观察角度。设备 Pattern RAM、Flash、Notes 与上电效果仍不属于此浏览器流程。
 
 ## 候选身份
 
-浏览器运行逻辑基线：[071f061fb011](https://github.com/b1ug/nb1-browser/tree/071f061fb0115e62ab751c219312489391ff2e9c)。请以实际交付构建中的完整源码身份为准，缩写链接不是发行校验值。固定 Go 来源为 [72c2f097319bc7ce0086204b8e713c8b3f16cbbc](https://github.com/b1ug/nb1/tree/72c2f097319bc7ce0086204b8e713c8b3f16cbbc)。
+报告问题时使用实际浏览器包的公开源码提交、构建记录和资源散列。Go 编译器输入、前端源码、WASM 和扩展产物可以分别固定来源。分支名、源码链接或 manifest 版本不是发行校验值。
 
-实际包记录浏览器源码／dirty 状态和产物散列。原生 [nb1 v0.1.1](install.zh-CN.md)与这个私有浏览器候选分开发布；浏览器工具仍未提供公开发行、安装渠道或商店上架。
+原生 [nb1 v0.1.1](install.zh-CN.md)、内嵌 Workbench、浏览器开发预览和扩展包是独立交付物。发布预览不会升级已安装的 daemon、更新旧硬件证据，也不代表 Web Store 上架。

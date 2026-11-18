@@ -82,13 +82,13 @@
       },
       {
         "path": "README.md",
-        "bytes": 5808,
-        "sha256": "fc85e217e9313a82b45f396a08397322567d11b1b4ace4fde6eaf0daa314f1d8"
+        "bytes": 6983,
+        "sha256": "17784e76a7314d0eb0b95e15351ad2b103eafa09f8918042e83c2b2fe0ca2e31"
       },
       {
         "path": "README.zh-CN.md",
-        "bytes": 4885,
-        "sha256": "161332aa0d90c4496afc40a3ee63baad626eafebb94c46b31f82cb021a64664b"
+        "bytes": 5942,
+        "sha256": "c8005490ba7f688f55da3beea0942363a35426c3722183888352cbc37b98f882"
       },
       {
         "path": "assets/nb1-icon.png",
@@ -142,23 +142,23 @@
       },
       {
         "path": "docs/architecture.md",
-        "bytes": 7466,
-        "sha256": "9d6f143e8ad12692f24ee1b98a70225623c9adfeb19da0367cef983a08ffb64c"
+        "bytes": 9345,
+        "sha256": "b5c031c03a6081d055d21ab59a6fa1199aa10201e02dfb52b65a1bd55f5a7f8f"
       },
       {
         "path": "docs/architecture.zh-CN.md",
-        "bytes": 6681,
-        "sha256": "91c19ac3176ce2b563780880a482fa3b124785c5712bc63edee514773ba4b303"
+        "bytes": 8021,
+        "sha256": "501e95b2e4de257c97ff951086d009d512161fe4b928b3e53b87e3c2c86328f9"
       },
       {
         "path": "docs/browser.md",
-        "bytes": 6964,
-        "sha256": "50269083ccd01cbcd5ba3afe64a4ff8450cb127ca9399d4444937295f3fc697a"
+        "bytes": 6512,
+        "sha256": "ff45336be15ab45815ff469be08c743458370bb29235f869c3ee9f91f0aa5d72"
       },
       {
         "path": "docs/browser.zh-CN.md",
-        "bytes": 6150,
-        "sha256": "13184aca8940f11b9e4b7d98d5c7d2f6756a1205af52120c1530becd55143b6d"
+        "bytes": 5523,
+        "sha256": "fd4c966d4d71355ec5918a5cf45d48cf3698de7498028dd1ad2fbc00c83b8dc5"
       },
       {
         "path": "docs/changelog.md",
