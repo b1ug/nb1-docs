@@ -35,12 +35,12 @@ Device RGB is timestamped cached state, not an optical measurement. Job records 
 
 ## Released software and physical evidence
 
-[nb1 v0.1.1](https://github.com/b1ug/nb1/releases/tag/v0.1.1), source `b5cfe68cbb412d81a80d948b845aee5b0aba586b`, uses blink1-go v0.0.2, GID v0.0.3 and colorkit v0.1.0. Its native release builds use Go 1.27.4.
+[nb1 v0.1.2](https://github.com/b1ug/nb1/releases/tag/v0.1.2), source `88fc2be8326c076b6f09932054b0c8f11d89c0a0`, uses blink1-go v0.0.2, GID v0.0.3 and colorkit v0.1.0. Its native release builds use Go 1.27.4.
 
 | Scope | Evidence |
 | --- | --- |
-| [Five native targets and formal publication](https://github.com/b1ug/nb1/actions/runs/44032839229) | CLI/MCP help, version, protocol, system-library inspection, extracted packages and offline daemon/HTTP checks passed on macOS and Linux arm64/amd64 and Windows amd64. All 13 published assets were downloaded and verified. |
-| [Main source tests](https://github.com/b1ug/nb1/actions/runs/44031744295) and [candidate/daemon checks](https://github.com/b1ug/nb1/actions/runs/44031744373) | Sixteen applicable software tasks passed at the released source. Source and binary identities are recorded separately. |
+| [Five native targets and formal publication](https://github.com/b1ug/nb1/actions/runs/44234583008) | CLI/MCP help, version, protocol, system-library inspection, extracted packages and offline daemon/HTTP checks passed on macOS and Linux arm64/amd64 and Windows amd64. All 13 public assets and five inner platform records were downloaded and checked. Actual downloaded Mac CLI/MCP version, help and protocol checks passed without USB access. |
+| [Main source tests](https://github.com/b1ug/nb1/actions/runs/44231909420) and [candidate/daemon checks](https://github.com/b1ug/nb1/actions/runs/44231909402) | Sixteen applicable software tasks passed at the released source. Source and binary identities are recorded separately. |
 | Prebuilt runtime requirements | CLI/server: macOS 15.0+, Linux glibc 2.38+. MCP: macOS 13.0+ or static Linux ELF. Mac packages are not Developer ID notarized. |
 | Physical blink(1) | Historical bounded macOS arm64 / MK2 / FW204 records retain their original source, date and limitations. This release did not add new physical USB or camera tests. |
 

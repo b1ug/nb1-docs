@@ -4,7 +4,7 @@
 
 [nb1](https://github.com/b1ug/nb1) 的文档与示例仓库，让 blink(1) 通过合适的本地软件形态被人和 Agent 使用。
 
-本文档对应 [nb1 v0.1.1](https://github.com/b1ug/nb1/releases/tag/v0.1.1)，固定核心 `b5cfe68cbb412d81a80d948b845aee5b0aba586b`。VitePress 1.6.4 提供 22 个英中文页面、本地搜索和已批准的 Nightlab 呈现。默认英文，可显式切换中文，静态站点不申请硬件权限。生产目标为 **https://b1ug.github.io/nb1-docs/**；构建与实际部署分开，由 GitHub Pages workflow 记录发布状态。
+本文档对应 [nb1 v0.1.2](https://github.com/b1ug/nb1/releases/tag/v0.1.2)，固定发行核心 `88fc2be8326c076b6f09932054b0c8f11d89c0a0`。VitePress 1.6.4 提供 22 个英中文页面、本地搜索和已批准的 Nightlab 呈现。默认英文，可显式切换中文，静态站点不申请硬件权限。生产目标为 **https://b1ug.github.io/nb1-docs/**；构建与实际部署分开，由 GitHub Pages workflow 记录发布状态。
 
 [English](README.md)
 
@@ -13,7 +13,7 @@
 | 内容 | 作用 |
 | --- | --- |
 | [导览](docs/overview.zh-CN.md) | 选择本地控制方式、找到各类指南。 |
-| [入门](docs/getting-started.zh-CN.md) | 安装 v0.1.1、选设备并显式播放，预览可选。 |
+| [入门](docs/getting-started.zh-CN.md) | 安装 v0.1.2、选设备并显式播放，预览可选。 |
 | [API v1](docs/api-v1.zh-CN.md) | 字段、默认、范围、错误与恢复。 |
 | [Agent 接入](docs/agents.zh-CN.md) | 同版 MCP 工具与 Skill。 |
 | [Agent 通知](docs/agent-notifications.zh-CN.md) | 可选 Codex 回合结束通知及已验范围。 |
@@ -52,11 +52,23 @@ VitePress 固定为稳定版 `1.6.4`，其 Vite 依赖显式覆盖到已修补�
 
 ## 来源与范围
 
-API、OpenAPI、安装和 Agent 指引对应发行核心 `b5cfe68cbb412d81a80d948b845aee5b0aba586b`。[内容来源清单](content-provenance.json)记录上游与本地文件散列。中文保持相同代码标识、字段、命令与限制。历史硬件与通知证据保留原始日期和来源，不随新版本自动扩大。
+API、OpenAPI、安装及匹配 MCP／Skill 指引对应发行核心 `88fc2be8326c076b6f09932054b0c8f11d89c0a0`。v0.1.2 正常发行于 2026-11-18 公开；已发布 Homebrew Formula 使用同一源码。[内容来源清单](content-provenance.json)记录上游与本地文件散列。中文保持相同代码标识、字段、命令与限制。历史硬件与通知证据保留原始日期和来源，不随新版本自动扩大。
 
 [nb1 定稿形象](assets/nb1-mascot.webp)和 [favicon](assets/nb1-icon.png) 与内嵌工作台一致，是唯一生产品牌衍生。语言通过显式入口切换，默认保持英文。
 
-内嵌调试器仍由 `nb1-web` 管理并随 nb1 打包。本仓库介绍独立的 [nb1-browser](docs/browser.zh-CN.md) 候选，不接管设备或放宽 daemon 的 Origin 限制。
+## 选择合适的项目
+
+| 交付物 | 提供什么 | 谁持有设备？ |
+| --- | --- | --- |
+| 这个文档站 | 静态指南、API 参考、下载与示例。 | 无；文档站不申请 USB 或 HID 权限。 |
+| [nb1 Embedded Workbench](https://github.com/b1ug/nb1-workbench) | 由 nb1 HTTP server 提供的本机 `/demo/` 页面。 | 已运行的 nb1 daemon 持有原生 USB，页面调用同源 API。 |
+| [nb1 Browser Workbench](https://github.com/b1ug/nb1-browser-tools) | 独立开发预览，通过共享 Go／WASM 编译器直接使用 WebHID。 | 浏览器页面或实验性扩展，需显式授权并交接控制权。 |
+
+Workbench 前端独立维护，通过校验后的静态产物导入 nb1；它是 UI，不是另一个 daemon。[在线浏览器预览](https://b1ug.github.io/nb1-browser-tools/)有独立的发布与兼容性政策；它的 **nb1 Light Reminders** Chrome 扩展仍为实验版本，尚未上架 Web Store，其后台提醒行为仍待用户验收。详见[架构](docs/architecture.zh-CN.md)与[浏览器工具](docs/browser.zh-CN.md)。
+
+文档站与浏览器预览都是 GitHub Pages 项目，共享 `https://b1ug.github.io` 来源。WebHID 授权按 origin 生效，不按项目路径隔离。文档代码不调用 HID，但所在路径并不提供独立的浏览器权限边界。
+
+开发文档站或重建前端需要 Node.js，普通 nb1 Go 构建不需要。Go module、可选 Git 源码检出和经 manifest 校验的 `dist/` 是不同的依赖机制；[构建边界](docs/architecture.zh-CN.md#build-dependencies)具体说明它们的区别。正常 nb1 构建无需递归克隆 Git，也不运行前端包管理器。
 
 ## 许可证
 

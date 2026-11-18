@@ -35,12 +35,12 @@
 
 ## 正式软件与硬件证据
 
-[nb1 v0.1.1](https://github.com/b1ug/nb1/releases/tag/v0.1.1) 固定源码 `b5cfe68cbb412d81a80d948b845aee5b0aba586b`，依赖 blink1-go v0.0.2、GID v0.0.3 与 colorkit v0.1.0，原生发行使用 Go 1.27.4。
+[nb1 v0.1.2](https://github.com/b1ug/nb1/releases/tag/v0.1.2) 固定源码 `88fc2be8326c076b6f09932054b0c8f11d89c0a0`，依赖 blink1-go v0.0.2、GID v0.0.3 与 colorkit v0.1.0，原生发行使用 Go 1.27.4。
 
 | 范围 | 证据 |
 | --- | --- |
-| [五个原生目标与正式发布](https://github.com/b1ug/nb1/actions/runs/44032839229) | macOS／Linux arm64、amd64 及 Windows amd64 的 CLI／MCP help、版本、协议、系统依赖、解包与离线 daemon／HTTP 检查通过；13 个公开文件已下载核验。 |
-| [主干测试](https://github.com/b1ug/nb1/actions/runs/44031744295)与[候选／daemon 检查](https://github.com/b1ug/nb1/actions/runs/44031744373) | 发行源码的十六项适用软件任务通过；源码和二进制身份分别记录。 |
+| [五个原生目标与正式发布](https://github.com/b1ug/nb1/actions/runs/44234583008) | macOS／Linux arm64、amd64 及 Windows amd64 的 CLI／MCP help、版本、协议、系统依赖、解包与离线 daemon／HTTP 检查通过；13 个公开文件与五平台包内记录已下载核验；实际下载的 Mac CLI／MCP 版本、help 与协议检查通过，没有访问 USB。 |
+| [主干测试](https://github.com/b1ug/nb1/actions/runs/44231909420)与[候选／daemon 检查](https://github.com/b1ug/nb1/actions/runs/44231909402) | 发行源码的十六项适用软件任务通过；源码和二进制身份分别记录。 |
 | 预编译运行要求 | CLI／server：macOS 15.0+、Linux glibc 2.38+；MCP：macOS 13.0+ 或静态 Linux ELF。Mac 包未经过 Developer ID 公证。 |
 | 实体 blink(1) | 已有限 macOS arm64／MK2／FW204 记录保留原来源、日期和限制；本次发行没有新增实体 USB／相机验证。 |
 

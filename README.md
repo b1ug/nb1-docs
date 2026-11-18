@@ -4,7 +4,7 @@
 
 Documentation and examples for [nb1](https://github.com/b1ug/nb1), the local blink(1) control toolkit.
 
-Bilingual documentation for [nb1 v0.1.1](https://github.com/b1ug/nb1/releases/tag/v0.1.1), built with VitePress 1.6.4 and the approved Nightlab presentation. English is the default, with complete Chinese counterparts, local search, the approved nb1 artwork and an optional local 3D model. The static site requests no hardware permission.
+Bilingual documentation for [nb1 v0.1.2](https://github.com/b1ug/nb1/releases/tag/v0.1.2), fixed to core `88fc2be8326c076b6f09932054b0c8f11d89c0a0`. Built with VitePress 1.6.4 and the approved Nightlab presentation. English is the default, with complete Chinese counterparts, local search, the approved nb1 artwork and an optional local 3D model. The static site requests no hardware permission.
 
 Production target: **https://b1ug.github.io/nb1-docs/**. Builds and deployment are distinct: the workflow publishes only a verified main-branch build through GitHub Pages. Deployment status is recorded by the Actions environment.
 
@@ -15,7 +15,7 @@ Production target: **https://b1ug.github.io/nb1-docs/**. Builds and deployment a
 | Document | Purpose |
 | --- | --- |
 | [Overview](docs/overview.md) | Choose a local control path and find the guides. |
-| [Get started](docs/getting-started.md) | Install v0.1.1, select a device and explicitly play; preview is optional. |
+| [Get started](docs/getting-started.md) | Install v0.1.2, select a device and explicitly play; preview is optional. |
 | [API v1](docs/api-v1.md) | Fields, defaults, constraints, errors and recovery. |
 | [Agents](docs/agents.md) | Matching MCP tools and the Skill. |
 | [Agent notifications](docs/agent-notifications.md) | Optional Codex turn-ended notifications and their tested scope. |
@@ -54,11 +54,23 @@ The build includes raw Markdown as `/source/<source-path>.txt`, the bundled `/ap
 
 ## Sources and scope
 
-The API, OpenAPI, installation and Agent guidance are tied to released core `b5cfe68cbb412d81a80d948b845aee5b0aba586b`. Content provenance records exact upstream and local source hashes. Chinese explanations preserve code identifiers, JSON fields, CLI commands and limits. Historical physical-device and notification records retain their original source and date; the release does not silently renew them.
+The API, OpenAPI, installation and matching MCP/Skill guidance are tied to released core `88fc2be8326c076b6f09932054b0c8f11d89c0a0`. The normal v0.1.2 release was published on 2026-11-18. The published Homebrew Formula uses that same source. Content provenance records exact upstream and local source hashes. Chinese explanations preserve code identifiers, JSON fields, CLI commands and limits. Historical physical-device and notification records retain their original source and date; the release does not silently renew them.
 
 The [approved nb1 mascot](assets/nb1-mascot.webp) and [favicon](assets/nb1-icon.png) match the embedded workbench. They are the site's only production brand image variants. Language switching is explicit; English remains the default.
 
-The embedded debugger remains in `nb1-web`, packaged into the nb1 executable. This repository supplies documentation for the separate [nb1-browser](docs/browser.md) candidate; it does not take over device ownership or relax the daemon's Origin policy.
+## Choose the right project
+
+| Deliverable | What it provides | Who owns the device? |
+| --- | --- | --- |
+| This documentation site | Static guides, API reference, downloads and examples. | Nobody; the site requests no USB or HID permission. |
+| [nb1 Embedded Workbench](https://github.com/b1ug/nb1-workbench) | The local `/demo/` UI served by the nb1 HTTP server. | The running nb1 daemon owns native USB; the page uses its same-origin API. |
+| [nb1 Browser Workbench](https://github.com/b1ug/nb1-browser-tools) | A separate development preview using direct WebHID and a shared Go/WASM compiler. | The browser page or experimental extension, after explicit permission and ownership handoff. |
+
+The Workbench frontend is maintained separately and imported into nb1 as a verified static bundle. It is a UI, not another daemon. The [hosted browser preview](https://b1ug.github.io/nb1-browser-tools/) has its own release and compatibility policy. Its **nb1 Light Reminders** Chrome extension is experimental, has no Web Store release and still requires user acceptance of its background reminder behavior. See [architecture](docs/architecture.md) and [browser tools](docs/browser.md).
+
+The documentation and browser preview are GitHub Pages projects on the same `https://b1ug.github.io` origin. WebHID grants are scoped to the origin, not its project paths. This documentation code makes no HID calls; its path does not isolate browser permissions.
+
+Node.js is required to develop this documentation site or rebuild a frontend. It is not a dependency of an ordinary nb1 Go build. Go modules, optional Git source checkouts and manifest-verified `dist/` assets are different dependency mechanisms; [the build boundary](docs/architecture.md#build-dependencies) explains them. Normal nb1 builds do not need a recursive Git clone or invoke a frontend package manager.
 
 ## License
 

@@ -5,11 +5,11 @@
 nb1 is one executable with two explicit modes: a foreground server shares a
 device with CLI, HTTP, MCP and the embedded workbench; direct mode plays one
 request without a server. This guide describes the native toolkit.
-Download v0.1.1 for your platform; recorded physical-device evidence is separately scoped to macOS / MK2 / FW204.
+Download v0.1.2 for your platform; recorded physical-device evidence is separately scoped to macOS / MK2 / FW204.
 
 ## Start a server and play
 
-After [verifying and unpacking v0.1.1](install.md), enter its CLI
+After [verifying and unpacking v0.1.2](install.md), enter its CLI
 directory. Replace `DEVICE_SERIAL` with the serial printed by `list`:
 
 ```sh
@@ -70,4 +70,4 @@ Continue with the [API reference](api-v1.md) and [terminology](api-v1-terminolog
 Colors include names, Hex3/Hex6, RGB8, HSV/HSB and local `@name` references.
 Actions describe intent; the core compiles them into Sequences and executes Jobs.
 
-Source: [nb1 v0.1.1 installation](https://github.com/b1ug/nb1/blob/b5cfe68cbb412d81a80d948b845aee5b0aba586b/docs/install.md) and [HTTP API](https://github.com/b1ug/nb1/blob/b5cfe68cbb412d81a80d948b845aee5b0aba586b/docs/api-v1.md).
+Source: [nb1 v0.1.2 installation](https://github.com/b1ug/nb1/blob/88fc2be8326c076b6f09932054b0c8f11d89c0a0/docs/install.md) and [HTTP API](https://github.com/b1ug/nb1/blob/88fc2be8326c076b6f09932054b0c8f11d89c0a0/docs/api-v1.md).

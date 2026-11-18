@@ -2,8 +2,13 @@
 
 [English](changelog.md) · [产品导览](overview.zh-CN.md)
 
-开发候选、本地验收和已发布版本分别记录。当前指南对应 nb1 v0.1.1；以下历史条目保留原日期与范围。
+开发候选、本地验收和已发布版本分别记录。当前安装示例使用 nb1 v0.1.2；以下历史条目保留原日期与范围。
 新的 API v1 发行。完整来源与文件散列见[内容来源记录](/content-provenance.json)。
+
+## 2026-11-18 — nb1 v0.1.2
+
+- [v0.1.2 正常发行](https://github.com/b1ug/nb1/releases/tag/v0.1.2)固定源码 `88fc2be8326c076b6f09932054b0c8f11d89c0a0`，于 2026-11-18T04:06:48Z 公开。它导入公开 Workbench 源码 90225555，保留 API v1 合同；内嵌模型说明保留公开技术来源与许可证，不包含前身的内部开发材料。
+- 明确静态文档、内嵌 daemon Workbench 和直连 WebHID 浏览器工作台的职责。扩展仍为实验版本；GitHub Pages 项目共享 origin，URL 路径不隔离 WebHID 授权。
 
 ## 2026-11-18 — nb1 v0.1.1
 

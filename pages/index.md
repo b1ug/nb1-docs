@@ -44,8 +44,8 @@ The same vocabulary works from the CLI, HTTP clients and agents. [Get started](/
 
 A blue notification can mean an agent turn ended. It does not guess whether your task succeeded. Keep the original Job ID, inspect its result, and recover without automatically replaying a request. [Agent notifications](/agent-notifications).
 
-::: info nb1 v0.1.1
-[Download the release](https://github.com/b1ug/nb1/releases/tag/v0.1.1) or [install with Homebrew](/install#install-with-homebrew). The CLI, optional server and bilingual workbench share one local core. MCP and the Skill are matching optional downloads.
+::: info nb1 v0.1.2
+[Download the release](https://github.com/b1ug/nb1/releases/tag/v0.1.2) or [install with Homebrew](/install#install-with-homebrew). The CLI, optional server and bilingual workbench share one local core. MCP and the Skill are matching optional downloads.
 
 The separate [browser tools](/browser) remain development candidates. See [support](/support) for software and physical-device boundaries.
 :::

@@ -1,80 +1,71 @@
 # Use blink(1) from a browser
 
-[简体中文](browser.zh-CN.md) · [Native installation](install.md) · [Support](support.md)
+[简体中文](browser.zh-CN.md) · [Native installation](install.md) · [Architecture](architecture.md)
 
-The separate private [nb1-browser repository](https://github.com/b1ug/nb1-browser) now provides a browser workbench and a Chrome companion. No native nb1 client is required for their direct WebHID connection. This documentation site remains static and does not request USB permission.
+[nb1 Browser Workbench](https://b1ug.github.io/nb1-browser-tools/) and its [public source](https://github.com/b1ug/nb1-browser-tools) are a separate **development preview**. Their foreground page uses WebHID directly, with a shared Go/WASM compiler; the **nb1 Light Reminders** Chrome extension is experimental. Neither is the native nb1 daemon or this static documentation site. Native nb1 v0.1.2 remains an independent supported installation path.
 
 ## Choose who controls the light
 
-| Entry point | Device owner | Current behavior |
+| Entry point | Device owner | Scope |
 | --- | --- | --- |
-| Native embedded workbench at your daemon's /demo/ | nb1 daemon | Shared native CLI/HTTP/MCP Jobs, local colors and Patterns. |
-| nb1-browser workbench | Foreground browser page | Nine Actions and finite serial/interval Sequences, optional Preview, Play, Stop and Off. |
-| Chrome companion | Extension service worker | Set/Off and one minute-based reminder; no multi-Step Pattern player yet. |
-| This documentation site | None | Guides and examples only. |
+| Embedded nb1 Workbench at `/demo/` | Native nb1 daemon | Uses the same local HTTP API, Jobs, colors and Patterns as native clients. |
+| Standalone browser page | Foreground browser page | Direct WebHID; nine Actions and finite Sequences, optional Preview, explicit Play, Stop and Off. |
+| Experimental Chrome extension | Extension context | Direct control and one reminder workflow; no Web Store release or completed user acceptance of background reminders. |
+| This documentation site | None | Static guides and a decorative model; no hardware permission or daemon. |
 
-A browser does not share native nb1 process locks. Before direct WebHID access, stop the daemon or disconnect the other page/extension holding the same light. Before returning to native nb1, Disconnect the browser owner. A checkbox acknowledges this handoff; it cannot stop another process.
+A browser does not share native nb1 process locks. Before direct WebHID access, stop or disconnect the other controller holding the same light. Before returning to native nb1, Disconnect the browser owner. A confirmation checkbox acknowledges the handoff; it cannot release another process's device handle.
 
 ## Start the review website
 
-The repository is private; use an account with existing access. With Git, Python 3, Node.js 22.12+ and the Go toolchain specified by that repository:
+Open the [hosted development preview](https://b1ug.github.io/nb1-browser-tools/) in a supported desktop browser. For source builds, use the [Browser Tools README](https://github.com/b1ug/nb1-browser-tools#build-and-review-locally); the website links to its matching extension package. Its frontend, Go/WASM build and hosting have a separate source identity from the native release. A development preview is not a stable native download, and this documentation site does not host a USB controller.
 
-~~~sh
-git clone https://github.com/b1ug/nb1-browser.git
-cd nb1-browser
-npm run build
-npm test
-npm run check
-npm run serve
-~~~
+Use a supported desktop browser with WebHID. After releasing the previous owner, Connect explicitly through the blink(1)-filtered chooser. Permission to choose a device is not proof that opening it succeeded; an active native owner can still prevent connection. WebHID requires the browser's supported secure or loopback context.
 
-Open http://127.0.0.1:4176/ in supported desktop Chrome. This loopback static server is separate from the native daemon on its chosen endpoint. It does not install a service or open USB itself.
+The hosted preview and this documentation site share the `https://b1ug.github.io` origin. WebHID grants are origin-scoped, so different GitHub Pages project paths do not isolate device permissions. The docs code does not call HID or request device access; that code behavior is not a separate permission boundary.
 
-The page starts in English, with explicit Chinese selection. Choose an Action and adjust its own fields. Solid offers one shared color or separate colors, followed by individual **LED 1 · blink(1)** and **LED 2 · ThingM** targets. Fade, Blink, Breathe and Pulse use one color; Alternate/Orbit use two; Off/Rainbow need none. After the ownership handoff, Connect explicitly through Chrome's blink(1)-only chooser. **Play** checks the current request automatically; Preview is optional. Editing or importing Advanced JSON makes that original JSON the draft until you explicitly return to Action controls.
+The page defaults to English and can switch to Chinese. Solid offers a shared color, separate colors, then individual **LED 1 · blink(1)** and **LED 2 · ThingM** targets. **Play** validates the current draft; Preview is optional. Imported or edited JSON remains the draft until you explicitly return to Action controls.
 
 ## Play, stop and leave
 
-The browser reuses the pinned Go color/Action/Sequence compiler and playback planner through locally bundled WASM. It does not recreate effect mathematics in JavaScript.
+The browser reuses Go color, Action and Sequence compilation and playback planning through bundled WASM. JavaScript supplies WebHID transport and browser scheduling; it does not replace the native daemon's ownership or Job system.
 
-Stop cancels future Steps but cannot freeze a fade already sent. Off stops scheduling and explicitly sends black. Disconnect stops scheduling and closes the handle, even if a pending write fails; an unconfirmed close remains unknown. Hiding or leaving the page stops scheduling, and returning does not resume or replay it.
+Stop cancels future Steps but cannot freeze a fade already sent. Off stops scheduling and explicitly sends black. Disconnect stops scheduling before closing the handle; an unconfirmed close remains unknown. Hiding or leaving the page stops scheduling, and returning does not authorize automatic replay.
 
-Keep the page visible. Browser timing and USB latency add to nominal duration. A finished browser Sequence is not a native Job or an optical measurement. Unknown writes never cause automatic retry or cleanup.
+Keep the page visible during playback. Browser timing and USB latency can add to the nominal duration. A finished browser Sequence is not a native Job or an optical measurement. An unknown write must not be presented as a successful playback or silently retried.
 
 ## Load the Chrome companion
 
-The workbench links to **Extension package and instructions**, which offers a locally built ZIP. It is a development package with manifest version 0.1.0, not a Web Store release.
+The extension is **experimental**. It is not listed in Chrome Web Store, and its background reminder behavior still requires user acceptance. Its source or development-package version does not establish production readiness or match the native CLI version automatically.
 
-Extract it, enable Developer mode at chrome://extensions, and choose **Load unpacked** for the directory containing manifest.json. Connect from its own connection page after releasing any other controller. The popup can close while a reminder is pending. It accepts one integer timer of 1–1440 minutes and holds the reminder color until Off; Off does not cancel a future timer. Cancel the timer explicitly when needed.
+Use the matching package's [installation and update guide](https://github.com/b1ug/nb1-browser-tools/blob/e2701e05aebcc0858cc328df0e728fd5c0cec2e4/docs/DISTRIBUTION.md) and [privacy guide](https://github.com/b1ug/nb1-browser-tools/blob/e2701e05aebcc0858cc328df0e728fd5c0cec2e4/docs/PRIVACY.md). For a development package, Chrome's **Load unpacked** flow selects the directory containing `manifest.json`; device permission belongs to that extension separately from a website. Release the other controller before connecting.
 
-Chrome 117 is the extension WebHID API minimum. A restart, sleep, permission change or lost device is not a guarantee of reminder delivery. The extension never reconnects or replays a previous session's timer automatically. See the repository's [installation and update guide](https://github.com/b1ug/nb1-browser/blob/main/docs/DISTRIBUTION.md) for package verification, rollback, removal and permission revocation.
+A browser restart, sleep, permission change or lost device can interrupt reminders. Do not rely on the extension for guaranteed delivery or assume it reconnects and replays a previous session. The native daemon is the separate choice for a workflow that must not depend on a visible page. See Chrome's [extension WebHID documentation](https://developer.chrome.com/docs/extensions/how-to/web-platform/webhid) for the platform's permission model.
 
 ## Move a Sequence between tools
 
-Export produces the existing canonical request envelope:
+The portable request envelope uses the same Action/Sequence vocabulary:
 
 ~~~json
 {"sequence":{"timing":"serial","steps":[{"targets":[{"led":0,"color":"#ff0000"}],"fade_ms":0,"hold_ms":1000}],"repeat":1,"on_finish":"off"}}
 ~~~
 
-Import and Export do not play the light. After disconnecting the browser and explicitly starting your native daemon, use the matching API v1 CLI:
+Import and Export do not play. After disconnecting the browser and explicitly starting the native daemon, the matching API v1 CLI can preview or save the file:
 
 ~~~sh
 ./nb1 control preview light.sequence.json
 ./nb1 control patterns save evening-light light.sequence.json
 ~~~
 
-Saving a host Pattern does not play or write device memory. Browser drafts and extension storage do not automatically share the native filesystem library. Browser Go supports explicit alias input at the compiler boundary; the current page does not load native saved colors.
+Preview is optional; saving a host Pattern neither plays it nor writes device memory. Browser drafts and extension storage do not automatically share the native filesystem library. Stored native colors and Patterns require an explicit transfer workflow.
 
 ## Data, permissions and compatibility
 
-Colors, JSON and imported files are processed locally. The website stores its language choice under its origin; the extension stores its language, reminder plan and latest state in Chrome's local profile storage. There is no telemetry, CDN, account or upload service. The manifest asks only for storage and alarms; the blink(1)-filtered WebHID chooser is separate. It does not ask for keyboard, screen, accessibility or all-sites access. Details: [privacy](https://github.com/b1ug/nb1-browser/blob/main/docs/PRIVACY.md).
+The browser page processes colors and imported files locally and uses its origin's storage for its own preferences. The extension has separate Chrome profile storage and permission handling. Read its [privacy and permissions guide](https://github.com/b1ug/nb1-browser-tools/blob/e2701e05aebcc0858cc328df0e728fd5c0cec2e4/docs/PRIVACY.md) before granting access; documentation alone cannot grant permission or inspect a device.
 
-Current isolated Chromium 156 checks cover software rendering, messaging, Go/WASM and fake-HID execution. The user confirmed macOS/MK2 browser connection after releasing the native owner. Full physical playback, optical and timer-lifecycle qualification remains pending; neither that connection nor native Mac/MK2 evidence qualifies Linux/Windows USB or MK3. Device Pattern RAM, Flash, Notes and startup effects are outside this browser candidate.
-
-Chrome documents [extension WebHID](https://developer.chrome.com/docs/extensions/how-to/web-platform/webhid), including the API minimum and permission flow. Browser API availability does not establish nb1 hardware support. Use the native daemon when your workflow must run independently of a foreground browser page.
+The current browser work is a development preview. Software rendering, Go/WASM and fake-HID tests do not establish real playback, optical or timer-lifecycle qualification. A successful browser connection or native Mac/MK2 evidence does not qualify Linux/Windows USB, MK3 or another physical viewing angle. Device Pattern RAM, Flash, Notes and startup effects remain outside this browser workflow.
 
 ## Candidate identity
 
-Browser runtime source baseline: [071f061fb011](https://github.com/b1ug/nb1-browser/tree/071f061fb0115e62ab751c219312489391ff2e9c) — use the full source identity from the delivered build record; no abbreviated source link is a release checksum. Its bundled Go source is [72c2f097319bc7ce0086204b8e713c8b3f16cbbc](https://github.com/b1ug/nb1/tree/72c2f097319bc7ce0086204b8e713c8b3f16cbbc).
+The current public browser source is [e2701e05aebcc0858cc328df0e728fd5c0cec2e4](https://github.com/b1ug/nb1-browser-tools/tree/e2701e05aebcc0858cc328df0e728fd5c0cec2e4). Its [deployed build record](https://b1ug.github.io/nb1-browser-tools/site-build.json) separately pins compiler core v0.1.1 (`b5cfe68cbb412d81a80d948b845aee5b0aba586b`); the native v0.1.2 version does not silently replace that browser compiler. Public hosting and English/Chinese software previews were checked without requesting HID permission, not as new real-device or extension-reminder acceptance. Use the exact deployed package's build record and asset hashes when reporting a problem. Its Go compiler input, frontend source, WASM and extension artifacts can have their own pinned identities. A branch name, source link or manifest version is not a release checksum.
 
-The exact current package records browser source/dirty state and output hashes. The native [nb1 v0.1.1 release](install.md) is separate from this private browser candidate. The browser workbench and companion do not have a public release, installation channel or Web Store listing.
+The native [nb1 v0.1.2 release](install.md), embedded Workbench bundle, browser development preview and extension package are separate deliverables. Publishing a preview does not upgrade an installed daemon, renew old hardware evidence, or imply Web Store publication.

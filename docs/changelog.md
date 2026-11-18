@@ -3,8 +3,13 @@
 [简体中文](changelog.zh-CN.md) · [Overview](overview.md)
 
 Development candidates, local verification and published releases are separate
-entries. The current guides describe nb1 v0.1.1; older entries below retain their original dates and qualification. Full sources and file digests are recorded in
+entries. Current installation examples use nb1 v0.1.2; Older entries retain their original dates and qualification. Full sources and file digests are recorded in
 [content provenance](/content-provenance.json).
+
+## 2026-11-18 — nb1 v0.1.2
+
+- [Normal release v0.1.2](https://github.com/b1ug/nb1/releases/tag/v0.1.2), source `88fc2be8326c076b6f09932054b0c8f11d89c0a0`, was published at 2026-11-18T04:06:48Z. It imports public Workbench source 90225555 while keeping the API v1 contract. Bundled model help retains public technical provenance and license notices, without the predecessor's internal development material.
+- Clarify the static docs, embedded daemon-backed Workbench and direct WebHID Browser Workbench roles. The extension remains experimental. GitHub Pages projects share an origin, so their URL paths do not isolate WebHID grants.
 
 ## 2026-11-18 — nb1 v0.1.1
 

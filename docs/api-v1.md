@@ -1,8 +1,8 @@
 # API v1 implementation
 
-nb1 v0.1.1 provides the Action → Sequence → Job execution path through HTTP and `nb1 control`. The running local installation has its own separately tested source version.
+nb1 v0.1.2 provides the Action → Sequence → Job execution path through HTTP and `nb1 control`. The running local installation has its own separately tested source version.
 
-The [OpenAPI 3.1 contract](https://github.com/b1ug/nb1/blob/b5cfe68cbb412d81a80d948b845aee5b0aba586b/docs/api-v1.openapi.json) describes the current HTTP operations, request and response schemas, constraints and software-fixture examples. The valid saved-color name `resolve` has a concrete PUT operation alongside POST color resolution.
+The [OpenAPI 3.1 contract](https://github.com/b1ug/nb1/blob/88fc2be8326c076b6f09932054b0c8f11d89c0a0/docs/api-v1.openapi.json) describes the current HTTP operations, request and response schemas, constraints and software-fixture examples. The valid saved-color name `resolve` has a concrete PUT operation alongside POST color resolution.
 
 ## User configuration
 
@@ -270,7 +270,7 @@ Omitting `--binary` selects the current process's executable through the operati
 
 Service installation resolves devices and listen address from its flags and selected profile. It records the actual configuration file's absolute path when a file is selected, and stores device/listen values as explicit startup arguments. Those arguments keep the installed device selection and address stable when the profile is edited. macOS/Linux managed services also record the selected XDG root in their controlled startup environment, keeping the default library stable across login environments. Library and Job-cache settings are read from the profile on restart. Update the managed service configuration explicitly when changing its device list or listen address.
 
-Cross-platform `service render` still requires an explicit target `--binary` path. Windows service installation remains unsupported. Homebrew builds select the validated stable `opt/nb1/bin/nb1` entry by default; upgrading a package does not restart the running daemon. An explicit `--binary` path remains fixed and must stay installed. See the [package lifecycle](https://github.com/b1ug/nb1/blob/b5cfe68cbb412d81a80d948b845aee5b0aba586b/packaging/homebrew/README.md#upgrades-and-service-paths) for the distinct upgrade and rollback contract.
+Cross-platform `service render` still requires an explicit target `--binary` path. Windows service installation remains unsupported. Homebrew builds select the validated stable `opt/nb1/bin/nb1` entry by default; upgrading a package does not restart the running daemon. An explicit `--binary` path remains fixed and must stay installed. See the [package lifecycle](https://github.com/b1ug/nb1/blob/88fc2be8326c076b6f09932054b0c8f11d89c0a0/packaging/homebrew/README.md#upgrades-and-service-paths) for the distinct upgrade and rollback contract.
 
 ## Job IDs and deduplication
 
