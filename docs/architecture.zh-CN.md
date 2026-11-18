@@ -64,6 +64,20 @@ nb1 Light Reminders Chrome 扩展仍为实验版本，未上架 Web Store，其�
 
 即将到来的 v0.1.3 产物加入确定的首次设备选择，并在当前页面内点击刷新控件或切换语言时保留所选序列号，包括离线或已移除的目标；浏览器整页重新加载或打开另一个入口会重新采用默认选择。页面显示数量／目标及就绪理由，不修改 HTTP schema。[分版本规则](getting-started.zh-CN.md#choose-among-several-lights)说明具体行为；已发布 v0.1.2 在主动升级和重启之前继续使用原内嵌前端。
 
+### 按设备执行，共享 daemon {#per-device-execution-shared-daemon}
+
+daemon 是共用入口，不是一个共享播放槽。请求解析到 serial 后，各客户端都使用该设备的 worker。一只 blink(1) 内的两个 LED 共用执行槽，不同 serial 则可以独立运行。
+
+| 每个实体 serial 所属 | daemon 共享 |
+| --- | --- |
+| 原生设备拥有者、worker、活动槽、待处理工作、连接与缓存状态。 | 配置、内容库、daemon HTTP／服务生命周期、保留中的 Job ID 命名空间及终态 TTL/LRU 缓存。 |
+| API v1 的 busy 拒绝，以及对绑定到该 serial 的 Job 的取消。 | 显式关闭 server 时停止接受工作并清理其受管设备。 |
+| 未来队列容量、等待截止时间、抢占与清队必须限定于冻结后的目标 serial。 | 全局 ID 冲突及终态缓存保留不构成共享播放队列。 |
+
+A 满队或取消不能占用 B 的队列容量，也不能取消 B。排队／抢占 API 仍属规划，未来抢占时保留待播项尚不是公开合同。当前遇忙拒绝的边界见[设备执行范围](api-v1.zh-CN.md#device-execution-scope)。MCP adapter 关闭或客户端断开不会停止 daemon，也不取消已接受的 Job。后端设备独立不表示一个 Workbench 页面已经能同时监控多个 Job。
+
+设备级调度是逻辑隔离，不是对操作系统或后端故障的完全隔离。当前 macOS 后端会串行化枚举和打开：A 卡在打开时，B 的重新打开可能等待。已打开的 B 句柄上的 report I/O 不使用该枚举／打开锁；这不构成普遍的时序或故障隔离保证。
+
 ## 构建依赖 {#build-dependencies}
 
 | 机制 | 固定什么 | 对普通 nb1 构建的影响 |

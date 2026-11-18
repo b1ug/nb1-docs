@@ -235,7 +235,7 @@ An HTTP error is `{"error":{"code":"...","message":"..."}}`. Invalid Action comp
 | `404` | `not_found` | Unknown route, configured device, retained Job or saved Pattern. Expired/evicted Jobs also return this code; absence does not prove they never ran. |
 | `405` | `method_not_allowed` | Unsupported method. `Allow` lists the route's supported method(s); HEAD is not an implicit GET. |
 | `409` | `job_conflict` | Retained ID is bound to a different device or JSON input. Query the original ID; do not invent a new ID to retry uncertain work. |
-| `409` | `device_busy` | Device is owned/busy, an execution or inspection is active, or admission cannot enqueue it. These v1 submissions reject competing work; no replace/queue policy field is accepted. |
+| `409` | `device_busy` | The selected device is owned/busy or already has a competing execution or inspection. API v1 rejects that submission; no replace/queue policy field is accepted. Work on another device does not make this target busy. |
 | `413` | `body_too_large` | HTTP body exceeds 1 MiB. A smaller ColorInput or compiled-Pattern limit violation instead uses `400 invalid_request`. |
 | `415` | `json_required` | Missing, malformed or non-`application/json` Content-Type on a body-bearing operation. |
 | `422` | `unsupported_capability` | Submission needs capabilities absent from the device's cached profile. |
@@ -279,6 +279,23 @@ Omitting `--binary` selects the current process's executable through the operati
 Service installation resolves devices and listen address from its flags and selected profile. It records the actual configuration file's absolute path when a file is selected, and stores device/listen values as explicit startup arguments. Those arguments keep the installed device selection and address stable when the profile is edited. macOS/Linux managed services also record the selected XDG root in their controlled startup environment, keeping the default library stable across login environments. Library and Job-cache settings are read from the profile on restart. Update the managed service configuration explicitly when changing its device list or listen address.
 
 Cross-platform `service render` still requires an explicit target `--binary` path. Windows service installation remains unsupported. Homebrew builds select the validated stable `opt/nb1/bin/nb1` entry by default; upgrading a package does not restart the running daemon. An explicit `--binary` path remains fixed and must stay installed. See the [package lifecycle](https://github.com/b1ug/nb1/blob/88fc2be8326c076b6f09932054b0c8f11d89c0a0/packaging/homebrew/README.md#upgrades-and-service-paths) for the distinct upgrade and rollback contract.
+
+## Device execution scope
+
+Resolve the target `serial` before admission. Each configured physical device has its own native owner, worker, active execution slot, pending work and cached state. A busy device A does not block otherwise valid work on device B. CLI, HTTP, MCP and the embedded Workbench use the same device worker; changing the client does not create a second slot.
+
+| Concern | Scope | Consequence |
+| --- | --- | --- |
+| Native ownership, active execution and pending work | One physical `serial` | LED 1 and LED 2 share this slot. Selecting another LED does not bypass the same-device busy rule. |
+| Connection, `active_job`, `queue_depth` and observed RGB | One physical `serial` | These describe that device, not a daemon-wide playback queue. |
+| Job cancellation | The cancelled Job's stored `serial` | It changes only that Job and its device cleanup. It does not cancel another device's Job or pending work. |
+| Retained Job IDs | The whole daemon | Reusing an ID for another serial conflicts; each independent execution needs its own ID. |
+| Terminal TTL/LRU cache | The whole daemon | Historical-record retention is separate from pending-work capacity. Cache pressure does not cancel accepted nonterminal work. |
+| Configuration, content library and service lifecycle | The daemon instance | Devices share these resources. Explicit daemon shutdown affects its configured devices; this is separate from cancelling one Job. |
+
+API v1 is **reject-only per device**. A Job may briefly be `queued` before its worker starts, and a device reports `queue_depth`; neither exposes a policy for adding competing work behind a busy device. Cancelling a still-queued Job removes it without executing its device writes.
+
+Future queue capacity, waiting deadlines, preemption and explicit queue clearing must belong to the Job's frozen resolved serial. Device A cannot consume device B's queue capacity or cancel its work. These public operations remain planned. Internal replacement code is not a public policy contract; whether future preemption preserves existing waiting Jobs is still a design decision.
 
 ## Job IDs and deduplication
 
