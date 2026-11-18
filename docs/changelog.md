@@ -9,7 +9,7 @@ entries. Current installation examples use nb1 v0.1.2; Older entries retain thei
 ## 2026-11-19 — nb1 v0.1.3 preview (not published)
 
 - The proposed patch in [nb1 PR #24](https://github.com/b1ug/nb1/pull/24) and [Workbench PR #1](https://github.com/b1ug/nb1-workbench/pull/1) changes client-side device defaults. With no explicit or preferred target, the CLI chooses the first cached-online device in serial order, or the first configured serial if none is online. Multiple-device automatic selection announces the count/serial on stderr while keeping stdout JSON.
-- Explicit targets keep priority and never fall back to another light after busy, offline, rejected or unknown outcomes. The embedded Workbench uses the same initial order, retains its target across refresh/language changes, and explains why Play is unavailable. Refresh does not replay an unknown Job.
+- Explicit targets keep priority and never fall back to another light after busy, offline, rejected or unknown outcomes. The embedded Workbench uses the same initial order, retains its target through the Refresh control and language changes on the current page, and explains why Play is unavailable. A browser reload or another entry starts a new default selection. None of these operations replays an unknown Job.
 - This preview has no v0.1.3 download or installation claim. Published v0.1.2 still requires an explicit CLI target when several devices are configured. HTTP/MCP explicit serials, per-device busy and daemon-wide Job ID deduplication stay unchanged; no queue, preemption, device-memory or new platform qualification is implied.
 
 ## 2026-11-18 — nb1 v0.1.2

@@ -142,13 +142,13 @@
       },
       {
         "path": "docs/architecture.md",
-        "bytes": 11224,
-        "sha256": "3274ae343430d6e2e535487cafa5b3c5faff62a61011ae70eb8c71b21a1438ba"
+        "bytes": 11331,
+        "sha256": "c73fe218e6cc6fb242f1cc31b66526baf5ef10a8b0f946943fa670e81f821871"
       },
       {
         "path": "docs/architecture.zh-CN.md",
-        "bytes": 9763,
-        "sha256": "edc78cf976041d87c5dcf86f9e45c74118a5a2e879f17d9d9d51768de1070574"
+        "bytes": 9871,
+        "sha256": "80de6dc3d82468217015a7c74c85718220794f76b1c8f8453a9966fea956de51"
       },
       {
         "path": "docs/browser.md",
@@ -162,23 +162,23 @@
       },
       {
         "path": "docs/changelog.md",
-        "bytes": 9582,
-        "sha256": "2ec8b730008b910446222756684265c179f24a0f3bd71ff85f5b064f9dccd812"
+        "bytes": 9694,
+        "sha256": "72aa0f68ed07f997ff3bbca80d84500a073d38440011171c73d79bc52c12be6c"
       },
       {
         "path": "docs/changelog.zh-CN.md",
-        "bytes": 8451,
-        "sha256": "31c4a82766f17afcd130fd06166ca324fc523c44482ccf8a897e4225aa06ab36"
+        "bytes": 8559,
+        "sha256": "a53477b86c9d17f28bbc15c5e20127a0f0487f4a421c30641604b42048a25004"
       },
       {
         "path": "docs/getting-started.md",
-        "bytes": 5320,
-        "sha256": "cb7f0ae30632ca34e07f95bab218ba478b477c54e835b63b470d1c83fb170812"
+        "bytes": 5512,
+        "sha256": "d6f79a479ecafc85161c758b82bdde9d4b0fc0a451b2ee2739df0f5942e4af82"
       },
       {
         "path": "docs/getting-started.zh-CN.md",
-        "bytes": 5012,
-        "sha256": "3390da7c5fe9960983f0e175d1eebf0a68948b4fea05b9fdafe21f59ad310337"
+        "bytes": 5208,
+        "sha256": "4d0597be872ec1512997948409280a1ca07e403d941825d90ac1f0c35298a20d"
       },
       {
         "path": "docs/install.md",
@@ -222,13 +222,13 @@
       },
       {
         "path": "pages/index.md",
-        "bytes": 2443,
-        "sha256": "31cfbdbbf0ed0f7d64ae1adc90e2fe42c40affdba8272e0dac54efaf13d581a4"
+        "bytes": 2460,
+        "sha256": "f5147ea363dbd6695c120002299178cc69fe38c150a3e908366e3c643dfd1e47"
       },
       {
         "path": "pages/zh/index.md",
-        "bytes": 2319,
-        "sha256": "c88920e880e418c82af297315d25a3ebeb0a062f643d5fc75ec1d161d3a2c0f8"
+        "bytes": 2346,
+        "sha256": "2a574af812c8d6673582253aa852bcceb1433e36c54118bfd3530b6d7296b4f1"
       },
       {
         "path": "public/LICENSE.txt",
@@ -282,8 +282,8 @@
       },
       {
         "path": "public/llms.txt",
-        "bytes": 2765,
-        "sha256": "119548d945dfeadb08c3ef0a1849284952808ec3de9ea5674e3fbdf08c1d627e"
+        "bytes": 2957,
+        "sha256": "bc3ad8462a47017c6eabb2822eb6cd10021f0c7104893343e9a75cef1921dc8a"
       },
       {
         "path": "public/nightlab/enclosure-fit.js",
@@ -579,6 +579,7 @@
     "core_pull_request": "https://github.com/b1ug/nb1/pull/24",
     "workbench_pull_request": "https://github.com/b1ug/nb1-workbench/pull/1",
     "scope": "Client-side serial-ordered device defaults and embedded Workbench target/readiness feedback; HTTP/MCP schemas and published v0.1.2 assets remain unchanged in this preparation.",
-    "release_boundary": "Keep released installation links at v0.1.2 until the normal v0.1.3 release and channel receipts are verified."
+    "release_boundary": "Keep released installation links at v0.1.2 until the normal v0.1.3 release and channel receipts are verified.",
+    "selection_lifetime": "Workbench target selection is in-page only. Its Refresh control and language changes retain the current target; full browser reload or another entry starts a new default. Accepted or unknown Jobs keep their own original identities."
   }
 }

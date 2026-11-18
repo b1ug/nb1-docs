@@ -45,7 +45,7 @@ The same vocabulary works from the CLI, HTTP clients and agents. [Get started](/
 A blue notification can mean an agent turn ended. It does not guess whether your task succeeded. Keep the original Job ID, inspect its result, and recover without automatically replaying a request. [Agent notifications](/agent-notifications).
 
 ::: info Next release preview · v0.1.3
-CLI defaults and the embedded Workbench will select the first cached-online device in serial order. An explicit target stays selected even if it becomes unavailable. [Read the versioned selection guide](/getting-started#choose-among-several-lights). v0.1.3 is not published yet; current downloads remain v0.1.2.
+CLI defaults and the embedded Workbench will select the first cached-online device in serial order. An explicit target stays selected on the open page even if it becomes unavailable. [Read the versioned selection guide](/getting-started#choose-among-several-lights). v0.1.3 is not published yet; current downloads remain v0.1.2.
 :::
 
 ::: info nb1 v0.1.2

@@ -45,7 +45,7 @@ features:
 一段蓝色通知可以表示 Agent 回合结束，但不推断任务是否成功。保留原 Job ID、检查结果，在不自动重播请求的前提下恢复。[了解 Agent 通知](/zh/agent-notifications)。
 
 ::: info 下一版预览 · v0.1.3
-CLI 默认选择与内嵌 Workbench 将按序列号选择第一只缓存在线的设备。明确选择的目标即使变得不可用，也不会自动换灯。[查看分版本的选择规则](/zh/getting-started#choose-among-several-lights)。v0.1.3 尚未发布，当前下载仍为 v0.1.2。
+CLI 默认选择与内嵌 Workbench 将按序列号选择第一只缓存在线的设备。当前打开的页面内，明确选择的目标即使变得不可用，也不会自动换灯。[查看分版本的选择规则](/zh/getting-started#choose-among-several-lights)。v0.1.3 尚未发布，当前下载仍为 v0.1.2。
 :::
 
 ::: info nb1 v0.1.2
