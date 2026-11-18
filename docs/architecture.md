@@ -11,9 +11,9 @@ Maintained Markdown lives in `docs/` and the home pages in `pages/`. Content pre
 | Deliverable | Responsibility | Device connection |
 | --- | --- | --- |
 | Documentation | Installation, API reference, examples, compatibility and links to published downloads. | None. Static pages and local search only. |
-| Embedded nb1 Workbench | Local preview, explicit Play, Jobs, colors and Patterns at `/demo/`. | Same-origin HTTP to the running nb1 server; the daemon owns native USB. |
-| Browser tools | A development preview with direct WebHID and a shared Go/WASM compiler. | The foreground page owns its browser HID handle after explicit permission. |
-| Experimental Chrome extension | A separate reminder and direct-control workflow. | The extension has its own permission and lifetime; it is not a native service. |
+| [nb1 Embedded Workbench](https://github.com/b1ug/nb1-workbench) | Local preview, explicit Play, Jobs, colors and Patterns at `/demo/`. | Same-origin HTTP to the running nb1 server; the daemon owns native USB. |
+| [nb1 Browser Workbench](https://github.com/b1ug/nb1-browser-tools) | A development preview with direct WebHID and a shared Go/WASM compiler. | The foreground page owns its browser HID handle after explicit permission. |
+| Experimental nb1 Light Reminders extension | A separate reminder and direct-control workflow. | The extension has its own permission and lifetime; it is not a native service. |
 | nb1 core and native integrations | Validation, compilation, scheduling, Jobs, storage and device ownership for CLI, HTTP and MCP. | Native transport owned by nb1; MCP uses the daemon API. |
 
 The embedded Workbench is frontend code, not an additional daemon or a separate background process. A native nb1 server serves both API and UI. The standalone browser tools do not obtain the daemon's device handle or automatically share its local library.
@@ -46,19 +46,21 @@ Examples should preserve exact JSON and show the resulting normalized Sequence w
 
 ## Browser HID debugging {#browser-hid-debugging}
 
-The separate [browser tools](browser.md) use explicit WebHID access. Their page reuses Go color, Action and Sequence compilation and playback planning through a bundled WASM build. The browser supplies HID transport and timing. These tools have their own development-preview identity and do not change the installed nb1 version.
+The separate [nb1 Browser Workbench preview](https://b1ug.github.io/nb1-browser-tools/) uses explicit WebHID access; its [source and experimental extension](https://github.com/b1ug/nb1-browser-tools) are public. See [browser tools](browser.md) for the workflow. Their page reuses Go color, Action and Sequence compilation and playback planning through a bundled WASM build. The browser supplies HID transport and timing. These tools have their own development-preview identity and do not change the installed nb1 version.
 
 Browser access does not participate in native nb1 process locks. Stop or disconnect the existing native or browser controller before opening the same light elsewhere. Permission to select a device and successfully opening it are distinct steps; another owner can still cause an open failure.
 
 Screen preview is optional. Explicit Play validates the current draft before sending commands. Stop prevents future Steps, Off explicitly sends black, and Disconnect stops scheduling before closing. An unknown close remains unknown; hiding or leaving the page does not authorize automatic replay on return.
 
-The Chrome extension remains experimental, is not listed in the Web Store, and still needs user acceptance of its background reminder behavior. A software or fake-HID test is not proof of physical playback, optical behavior, MK3 support or timer delivery across sleep and restart.
+The docs and hosted browser preview share the GitHub Pages origin `https://b1ug.github.io`. WebHID authorization is scoped to that origin; different project paths do not isolate grants. The docs code does not call HID or request a device, which is a code behavior rather than a separate permission origin.
+
+The nb1 Light Reminders Chrome extension remains experimental, is not listed in the Web Store, and still needs user acceptance of its background reminder behavior. A software or fake-HID test is not proof of physical playback, optical behavior, MK3 support or timer delivery across sleep and restart.
 
 ## Embedded debugger
 
 The separately maintained nb1 Workbench frontend is compiled into a verified static bundle and included in nb1. Open the running server's `/demo/` route; no separate frontend server, browser HID permission or frontend installation is needed. The page asks the native server to preview, play and observe Jobs, colors and Patterns.
 
-The daemon retains native ownership and its existing Origin policy. An HTTP request being accepted, cached RGB and emitted physical light are distinct observations. Installing or upgrading nb1 does not automatically replace an already running daemon.
+The [Workbench source](https://github.com/b1ug/nb1-workbench) is public frontend source, not a separately hosted device controller. The daemon retains native ownership and its existing Origin policy. An HTTP request being accepted, cached RGB and emitted physical light are distinct observations. Installing or upgrading nb1 does not automatically replace an already running daemon.
 
 ## Build dependencies {#build-dependencies}
 
@@ -80,6 +82,8 @@ Maintain each delivery path independently:
 - **Workbench:** its maintainers own frontend source, tests, accessibility, translations and bundle production. nb1 maintainers review and pin an imported bundle before a new core release.
 - **Browser tools:** their maintainers own WebHID, WASM packaging, extension permissions, preview hosting and experimental compatibility claims. Browser publication does not imply Chrome Web Store acceptance or completed hardware qualification.
 - **Documentation:** this repository owns static guides, navigation, paired translations and verified links. Updating it neither opens USB nor changes an installed bundle.
+
+The public source snapshots are [Workbench 90225555](https://github.com/b1ug/nb1-workbench/tree/90225555dad6ac2a17eac8d46a2469d00a04256e) and [Browser Tools e2701e05](https://github.com/b1ug/nb1-browser-tools/tree/e2701e05aebcc0858cc328df0e728fd5c0cec2e4). Their publication does not replace the bundle already shipped in nb1 v0.1.1. The installed bundle remains identified by that release's manifest and lock until a later native release adopts another source.
 
 Publish only public technical provenance: repository, commit, dirty state, API contract, dependency lock and asset hashes as appropriate. Local planning records, machine paths, device serials and unrelated private history are not public website content. Documentation should link only to destinations that actually exist; unannounced source or preview URLs are not install instructions.
 
