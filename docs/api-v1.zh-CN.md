@@ -2,11 +2,11 @@
 
 [English](api-v1.md)
 
-本页是 nb1 v0.1.0 英文规范的完整中文对照，依据核心提交 `535621a689e5a9e35c5e897aadcd4b023d2f157b`。说明文字译为中文，代码标识、字段、枚举、数值和命令保持原样。实际硬件证据按原日期与来源保留；版本进展见[变更记录](changelog.zh-CN.md)。
+本页是 nb1 v0.1.1 英文规范的完整中文对照，依据核心提交 `b5cfe68cbb412d81a80d948b845aee5b0aba586b`。说明文字译为中文，代码标识、字段、枚举、数值和命令保持原样。实际硬件证据按原日期与来源保留；版本进展见[变更记录](changelog.zh-CN.md)。
 
-nb1 v0.1.0 通过 HTTP 和 `nb1 control` 提供 Action → Sequence → Job 执行路径。本机正在运行的安装版本有其独立验收过的源码版本。
+nb1 v0.1.1 通过 HTTP 和 `nb1 control` 提供 Action → Sequence → Job 执行路径。本机正在运行的安装版本有其独立验收过的源码版本。
 
-[OpenAPI 3.1 规范](https://github.com/b1ug/nb1/blob/535621a689e5a9e35c5e897aadcd4b023d2f157b/docs/api-v1.openapi.json)描述当前 HTTP 操作、请求与响应 schema、约束和软件测试样例。`resolve` 是合法的本地颜色名，因此它有明确的 PUT 操作，与 POST 颜色解析操作并存。
+[OpenAPI 3.1 规范](https://github.com/b1ug/nb1/blob/b5cfe68cbb412d81a80d948b845aee5b0aba586b/docs/api-v1.openapi.json)描述当前 HTTP 操作、请求与响应 schema、约束和软件测试样例。`resolve` 是合法的本地颜色名，因此它有明确的 PUT 操作，与 POST 颜色解析操作并存。
 
 ## 用户配置 {#user-configuration}
 
@@ -268,7 +268,7 @@ nb1 service install --devices DEVICE_SERIAL --start
 
 服务安装从自身命令行参数与选定配置文件中解析设备和监听地址。若选择了配置文件，会记录其实际绝对路径，并把设备／监听值保存为显式启动参数。这些参数使已经安装的设备选择和地址不会因配置文件编辑而改变。macOS/Linux 托管服务还在受控启动环境中记录选定的 XDG 根目录，使默认库在不同登录环境下保持稳定。库与 Job 缓存设置会在重启时从配置读取。要改变设备列表或监听地址，应显式更新托管服务配置。
 
-跨平台 `service render` 仍要求明确的目标 `--binary` 路径。Windows 服务安装尚不支持。Homebrew 构建默认选择已校验的稳定 `opt/nb1/bin/nb1` 入口；升级包不会自动重启 daemon。显式 `--binary` 路径保持固定，必须保留对应程序。不同升级／回滚约定见[包生命周期](https://github.com/b1ug/nb1/blob/535621a689e5a9e35c5e897aadcd4b023d2f157b/packaging/homebrew/README.md#upgrades-and-service-paths)。
+跨平台 `service render` 仍要求明确的目标 `--binary` 路径。Windows 服务安装尚不支持。Homebrew 构建默认选择已校验的稳定 `opt/nb1/bin/nb1` 入口；升级包不会自动重启 daemon。显式 `--binary` 路径保持固定，必须保留对应程序。不同升级／回滚约定见[包生命周期](https://github.com/b1ug/nb1/blob/b5cfe68cbb412d81a80d948b845aee5b0aba586b/packaging/homebrew/README.md#upgrades-and-service-paths)。
 
 ## Job ID 与去重 {#job-ids-and-deduplication}
 

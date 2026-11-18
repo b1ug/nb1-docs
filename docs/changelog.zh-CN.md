@@ -2,8 +2,15 @@
 
 [English](changelog.md) · [产品导览](overview.zh-CN.md)
 
-开发候选、本地验收和已发布版本分别记录。当前指南对应 nb1 v0.1.0；以下历史条目保留原日期与范围。
+开发候选、本地验收和已发布版本分别记录。当前指南对应 nb1 v0.1.1；以下历史条目保留原日期与范围。
 新的 API v1 发行。完整来源与文件散列见[内容来源记录](/content-provenance.json)。
+
+## 2026-11-18 — nb1 v0.1.1
+
+- [正常补丁发行](https://github.com/b1ug/nb1/releases/tag/v0.1.1) 固定核心 `b5cfe68cbb412d81a80d948b845aee5b0aba586b`。五个原生目标及匹配的可选 MCP／Skill 下载已核验；内嵌 Nightlab 包与 API v1 合同保持不变。
+- Fang v2 展示 CLI 帮助与错误；Charm Log v2 把人类诊断写到 stderr。Pipe、`NO_COLOR` 和 `TERM=dumb` 保持纯文本。[安装说明](install.zh-CN.md)解释显式布尔颜色强制规则及精确固定的窄范围 Fang fork。
+- 日志轮转前检查目标：拒绝目录、符号链接和特殊文件，不把原目录改名。内部 writer 失败也通过 Charm 展示；JSON 命令结果与文件诊断维持各自合同。
+- 核心与 MCP 源码构建至少需要 Go 1.25.8，原生发行／Homebrew 使用 Go 1.27.4，基础库版本不变。原生软件／安装包检查不更新既有光学、Service 或其他平台 USB 资格。
 
 ## 2026-11-17 — nb1 v0.1.0
 

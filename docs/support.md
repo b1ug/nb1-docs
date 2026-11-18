@@ -35,7 +35,7 @@ Device RGB is timestamped cached state, not an optical measurement. Job records 
 
 ## Released software and physical evidence
 
-[nb1 v0.1.0](https://github.com/b1ug/nb1/releases/tag/v0.1.0), source `535621a689e5a9e35c5e897aadcd4b023d2f157b`, uses blink1-go v0.0.2, GID v0.0.3 and colorkit v0.1.0. Its native release builds use Go 1.27.4.
+[nb1 v0.1.1](https://github.com/b1ug/nb1/releases/tag/v0.1.1), source `b5cfe68cbb412d81a80d948b845aee5b0aba586b`, uses blink1-go v0.0.2, GID v0.0.3 and colorkit v0.1.0. Its native release builds use Go 1.27.4.
 
 | Scope | Evidence |
 | --- | --- |
@@ -44,7 +44,7 @@ Device RGB is timestamped cached state, not an optical measurement. Job records 
 | Prebuilt runtime requirements | CLI/server: macOS 15.0+, Linux glibc 2.38+. MCP: macOS 13.0+ or static Linux ELF. Mac packages are not Developer ID notarized. |
 | Physical blink(1) | Historical bounded macOS arm64 / MK2 / FW204 records retain their original source, date and limitations. This release did not add new physical USB or camera tests. |
 
-Historical Mac/MK2 records included recovered Darwin I/O errors. Software CI and a release tag do not establish physical USB on Linux/Windows, MK3, reboot/login acceptance, calibrated color or precise USB-to-photon timing. [Recorded platform evidence](https://github.com/b1ug/nb1/blob/535621a689e5a9e35c5e897aadcd4b023d2f157b/docs/daemon-validation.md).
+Historical Mac/MK2 records included recovered Darwin I/O errors. Software CI and a release tag do not establish physical USB on Linux/Windows, MK3, reboot/login acceptance, calibrated color or precise USB-to-photon timing. [Recorded platform evidence](https://github.com/b1ug/nb1/blob/b5cfe68cbb412d81a80d948b845aee5b0aba586b/docs/daemon-validation.md).
 
 ## Configuration and device ownership
 

@@ -2,9 +2,9 @@
 
 [English](architecture.md)
 
-本页对照英文架构文档，核心 API／术语来源为发行提交 `535621a689e5a9e35c5e897aadcd4b023d2f157b`，代码标识与协议名称保持英文。
+本页对照英文架构文档，核心 API／术语来源为发行提交 `b5cfe68cbb412d81a80d948b845aee5b0aba586b`，代码标识与协议名称保持英文。
 
-`nb1-docs` 通过文档、示例、下载指引，以及独立的浏览器工具，向用户与 Agent 开发者介绍 nb1。已选定的稳定版 VitePress 1.6.4 现在可构建 22 个本地页面，默认英文，提供完整中文对应与本地搜索。指南对应已发布的 nb1 v0.1.0 及其明确支持边界。私有 nb1-browser 候选已有独立的直连 WebHID 实现与证据。
+`nb1-docs` 通过文档、示例、下载指引，以及独立的浏览器工具，向用户与 Agent 开发者介绍 nb1。已选定的稳定版 VitePress 1.6.4 现在可构建 22 个本地页面，默认英文，提供完整中文对应与本地搜索。指南对应已发布的 nb1 v0.1.1 及其明确支持边界。私有 nb1-browser 候选已有独立的直连 WebHID 实现与证据。
 
 日常维护的 Markdown 位于 `docs/`，首页位于 `pages/`。内容准备步骤生成被忽略的 `site/` 目录，统一双语章节锚点并加入本地资源；VitePress 再构建被忽略的静态 `dist/` 目录。构建同时提供 `/source/<source-path>.txt` 原始 Markdown、`/api-v1.openapi.json` 和 `/llms.txt`。`/site-info.json` 标识源页面；`/site-build.json` 记录产物散列与静态链接检查。这些是本地构建记录，不代表浏览器或硬件验收。
 
@@ -33,7 +33,7 @@
 
 公开文档与内嵌工作台共用唯一已确认的 nb1 小灯伙伴。角色图片使用 [`assets/nb1-mascot.webp`](../assets/nb1-mascot.webp)，浏览器 favicon 使用 [`assets/nb1-icon.png`](../assets/nb1-icon.png)。二者是同一定稿图像的本地透明导出；网站应使用这些文件，不另引入角色或图标设计。
 
-全尺寸母图保存在 [`nb1/internal/webui/dist/assets/nb1-mascot.webp`](https://github.com/b1ug/nb1/blob/535621a689e5a9e35c5e897aadcd4b023d2f157b/internal/webui/dist/assets/nb1-mascot.webp)。本仓库只保留文档与站点需要的两份生产导出。
+全尺寸母图保存在 [`nb1/internal/webui/dist/assets/nb1-mascot.webp`](https://github.com/b1ug/nb1/blob/b5cfe68cbb412d81a80d948b845aee5b0aba586b/internal/webui/dist/assets/nb1-mascot.webp)。本仓库只保留文档与站点需要的两份生产导出。
 
 角色属于装饰。设备连接、读回、播放、错误始终通过明确文字和控件表达。这是项目原创图像，不是 ThingM 或 Nintendo 的官方素材。
 
@@ -69,4 +69,4 @@ Stop 阻止后续浏览器 Step，不冻结已发送的硬件渐变；Off 显式
 
 协议行为继续以核心 API 参考为准。采纳新核心版本时，更新本仓库复制的快照及来源说明；发布内容前验证本地文档链接与示例。
 
-API 和术语快照来自 nb1 提交 `535621a689e5a9e35c5e897aadcd4b023d2f157b`，日期为 2026-11-17；仓库包含其 [MIT 许可证](../LICENSE)。
+API 和术语快照来自 nb1 提交 `b5cfe68cbb412d81a80d948b845aee5b0aba586b`，日期为 2026-11-17；仓库包含其 [MIT 许可证](../LICENSE)。

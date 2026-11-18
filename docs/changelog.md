@@ -3,8 +3,15 @@
 [简体中文](changelog.zh-CN.md) · [Overview](overview.md)
 
 Development candidates, local verification and published releases are separate
-entries. The current guides describe nb1 v0.1.0; older entries below retain their original dates and qualification. Full sources and file digests are recorded in
+entries. The current guides describe nb1 v0.1.1; older entries below retain their original dates and qualification. Full sources and file digests are recorded in
 [content provenance](/content-provenance.json).
+
+## 2026-11-18 — nb1 v0.1.1
+
+- [The normal patch release](https://github.com/b1ug/nb1/releases/tag/v0.1.1) is fixed to core `b5cfe68cbb412d81a80d948b845aee5b0aba586b`. The five native targets, matching optional MCP and Skill are verified release downloads; the embedded Nightlab bundle and API v1 contract are unchanged.
+- CLI help and errors use Fang v2; human diagnostics use Charm Log v2 on stderr. Pipes, `NO_COLOR` and `TERM=dumb` keep plain output. Explicit boolean color-force behavior and the narrowly pinned Fang fork are documented in [installation](install.md).
+- Log targets are checked before rotation: directories, symlinks and special files are rejected without renaming the target directory. Internal writer failures also use Charm; JSON results and file diagnostics keep their separate contracts.
+- Core and MCP source builds require Go 1.25.8; release/Homebrew builds use Go 1.27.4. Foundation versions remain unchanged. Native software/package checks do not renew historical optical, service or other-platform USB qualification.
 
 ## 2026-11-17 — nb1 v0.1.0
 
