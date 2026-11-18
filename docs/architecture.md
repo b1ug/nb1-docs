@@ -62,6 +62,8 @@ The separately maintained nb1 Workbench frontend is compiled into a verified sta
 
 The [Workbench source](https://github.com/b1ug/nb1-workbench) is public frontend source, not a separately hosted device controller. The daemon retains native ownership and its existing Origin policy. An HTTP request being accepted, cached RGB and emitted physical light are distinct observations. Installing or upgrading nb1 does not automatically replace an already running daemon.
 
+The upcoming v0.1.3 bundle adds deterministic initial device selection and preserves the chosen serial across refresh and language changes, including offline or removed targets. It displays count/target and readiness reasons without changing the HTTP schema. Its rules are documented [by version](getting-started.md#choose-among-several-lights); released v0.1.2 retains its own bundled frontend until explicitly upgraded and restarted.
+
 ## Build dependencies {#build-dependencies}
 
 | Mechanism | What is pinned | Effect on ordinary nb1 builds |

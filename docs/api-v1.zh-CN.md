@@ -125,7 +125,15 @@ nb1 control --endpoint http://127.0.0.1:8931 cancel j_7K3XJNY9ZM --wait
 
 需要检查编译结果而不播放时，可单独使用 `nb1 control preview action.json`。
 
-`control run [SERIAL] FILE` 和 `control state [SERIAL]` 的设备选择优先级依次为：显式位置参数序列号、根命令 `--device`、`NB1_DEVICE`、配置文件 `device`。均未指定时，客户端读取 daemon 的设备缓存列表，只在恰好配置一台设备时使用该设备；多设备必须明确选择。此查找不会枚举 USB、启动 daemon 或转为直接访问。
+`control run [SERIAL] FILE` 和 `control state [SERIAL]` 的设备选择优先级依次为：显式位置参数序列号、根命令 `--device`、`NB1_DEVICE`、配置文件 `device`。明确或首选的目标即使离线、缺失也会保留；提交失败或结果未知都不会改选其他设备。
+
+::: info CLI 版本边界
+已发布 v0.1.2 只在恰好配置一只设备时推断目标。下列自动规则属于尚未发布的 v0.1.3。HTTP API v1 schema 与 MCP 显式序列号要求不变。
+:::
+
+均未指定目标时，v0.1.3 把 daemon 缓存中的已配置设备按序列号的字节序升序排列，选择第一只 `connection: "online"` 的设备。没有在线设备时，选择第一只已配置序列号，使 `state` 显示该目标状态、`run` 返回该目标的真实错误。空列表报错；未知或缺失连接状态不算在线。存在活动 Job 不会把在线设备排除在选择之外。
+
+配置了多只设备时，自动选择会向 stderr 写一条英文提示，包含数量、所选序列号和覆盖方法；stdout 保持原 JSON。每次调用只选择一次。之后出现 `device_busy`、目标缺失／离线或结果未知，都不会转向另一只灯或重新提交。此查找不枚举 USB、不启动 daemon、不保存新偏好，也不转为直接访问。`control devices` 仍列出 daemon 已配置的设备，不表示每只都在线。
 
 `control preview FILE` 默认省略 `serial`，即使配置文件含有首选设备也如此。需要选定设备的缓存能力检查时，显式添加 `--serial SERIAL`。
 

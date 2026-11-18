@@ -19,6 +19,8 @@
 | --- | --- |
 | `control` 连不上 daemon | 启动 `nb1 server --devices DEVICE_SERIAL`，或明确选 `control --direct run`；不会自动启动或回退 USB。 |
 | 没有设备 | 用 `nb1 list` 检查连接和原生访问；`control devices` 读取 daemon 已配置的缓存，不是新 USB 扫描。 |
+| 多设备提示必须指定序列号 | v0.1.2 使用 `control run SERIAL FILE` 或设置首选目标。即将到来的 v0.1.3 才加入确定的自动选择，见[版本边界](getting-started.zh-CN.md#choose-among-several-lights)。 |
+| Workbench 播放不可用 | v0.1.3 预览会在播放旁说明未就绪理由。刷新或明确选择在线目标；缺失目标会保留，不静默替换。未知 Job 应查询原 ID，不能重播。 |
 | 设备忙 | 让当前拥有者释放，包括独立 WebHID 网页／扩展；不要删除活跃锁来强行访问。 |
 | 端口已占用 | 查看现有 server，或同时选择新 `--listen` 与客户端 `--endpoint`。 |
 | 提交超时 | 保留原 endpoint 与 Job ID，先查询原任务，不自动替换或重新播放。 |

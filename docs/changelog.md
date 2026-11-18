@@ -6,6 +6,12 @@ Development candidates, local verification and published releases are separate
 entries. Current installation examples use nb1 v0.1.2; Older entries retain their original dates and qualification. Full sources and file digests are recorded in
 [content provenance](/content-provenance.json).
 
+## 2026-11-19 — nb1 v0.1.3 preview (not published)
+
+- The proposed patch in [nb1 PR #24](https://github.com/b1ug/nb1/pull/24) and [Workbench PR #1](https://github.com/b1ug/nb1-workbench/pull/1) changes client-side device defaults. With no explicit or preferred target, the CLI chooses the first cached-online device in serial order, or the first configured serial if none is online. Multiple-device automatic selection announces the count/serial on stderr while keeping stdout JSON.
+- Explicit targets keep priority and never fall back to another light after busy, offline, rejected or unknown outcomes. The embedded Workbench uses the same initial order, retains its target across refresh/language changes, and explains why Play is unavailable. Refresh does not replay an unknown Job.
+- This preview has no v0.1.3 download or installation claim. Published v0.1.2 still requires an explicit CLI target when several devices are configured. HTTP/MCP explicit serials, per-device busy and daemon-wide Job ID deduplication stay unchanged; no queue, preemption, device-memory or new platform qualification is implied.
+
 ## 2026-11-18 — nb1 v0.1.2
 
 - [Normal release v0.1.2](https://github.com/b1ug/nb1/releases/tag/v0.1.2), source `88fc2be8326c076b6f09932054b0c8f11d89c0a0`, was published at 2026-11-18T04:06:48Z. It imports public Workbench source 90225555 while keeping the API v1 contract. Bundled model help retains public technical provenance and license notices, without the predecessor's internal development material.

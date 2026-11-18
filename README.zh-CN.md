@@ -6,6 +6,8 @@
 
 本文档对应 [nb1 v0.1.2](https://github.com/b1ug/nb1/releases/tag/v0.1.2)，固定发行核心 `88fc2be8326c076b6f09932054b0c8f11d89c0a0`。VitePress 1.6.4 提供 22 个英中文页面、本地搜索和已批准的 Nightlab 呈现。默认英文，可显式切换中文，静态站点不申请硬件权限。生产目标为 **https://b1ug.github.io/nb1-docs/**；构建与实际部署分开，由 GitHub Pages workflow 记录发布状态。
 
+**下一版预览：**[v0.1.3 设备选择指南](docs/getting-started.zh-CN.md#choose-among-several-lights)介绍即将更新的 CLI 与内嵌 Workbench 行为。v0.1.3 尚未发布，当前下载链接和安装示例继续使用 v0.1.2。
+
 [English](README.md)
 
 ## 阅读文档
