@@ -31,7 +31,7 @@ save this as `action.json`:
 
 Preview is optional: use `./nb1 control preview action.json` to inspect a plan without playing. `run --wait` waits for a terminal Job; check
 its status for success. Save the returned ID and endpoint for later lookup.
-The default endpoint is `http://127.0.0.1:8931`. Open that server's `/demo/` path
+The v0.1.2 download defaults to `http://127.0.0.1:8931`. The upcoming v0.1.3 defaults to `http://127.0.0.1:5885`. Open the running server's `/demo/` path
 for its embedded English/Chinese workbench. This documentation site does not open USB; the separate [browser tools](browser.md)
 provide explicit WebHID access.
 

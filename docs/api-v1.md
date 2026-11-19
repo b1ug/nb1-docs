@@ -16,6 +16,8 @@ nb1 config show
 
 `config init` targets the selected profile path, creates a private template and refuses to overwrite an existing file. Before that profile exists, `config path` and `config show` may report the existing `setting.yaml` fallback. Its empty `device` and `server.devices` fields leave device selection to the user. These commands do not enumerate USB or start a daemon. `config show` reports settings resolved from the selected file, defaults and environment, including `NB1_DEVICE`, `NB1_PORT` and `NB1_LIBRARY_DIR`. It does not inspect or reload the running daemon.
 
+The configuration and explicit port examples below match the published v0.1.2 API contract. The upcoming v0.1.3 defaults to port `5885`. To keep `8931`, set `server.listen` explicitly and point API clients at that same address.
+
 ```yaml
 device: ""
 server:

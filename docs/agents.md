@@ -12,6 +12,8 @@ Start `nb1 server --devices DEVICE_SERIAL`, then unpack and verify the matching 
 {"command":"/absolute/path/to/nb1-mcp","args":["--endpoint","http://127.0.0.1:8931","--timeout","10s"]}
 ```
 
+This example targets the published v0.1.2 daemon. To use the upcoming v0.1.3 daemon on its default port, set `--endpoint` to `http://127.0.0.1:5885`. The MCP host still communicates with the adapter over stdio.
+
 The host's surrounding configuration format varies. On Windows use an absolute `nb1-mcp.exe` path. Initialization reports `v0.1.2` for this adapter; it does not identify another running daemon. Stdout carries JSON-RPC only. MCP selects its own endpoint and does not read nb1 YAML.
 
 ## Use the shared vocabulary
