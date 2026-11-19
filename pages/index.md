@@ -44,12 +44,6 @@ The same vocabulary works from the CLI, HTTP clients and agents. [Get started](/
 
 A blue notification can mean an agent turn ended. It does not guess whether your task succeeded. Keep the original Job ID, inspect its result, and recover without automatically replaying a request. [Agent notifications](/agent-notifications).
 
-::: info Next release preview · v0.1.3
-CLI defaults and the embedded Workbench will select the first cached-online device in serial order. An explicit target stays selected on the open page even if it becomes unavailable. [Read the versioned selection guide](/getting-started#choose-among-several-lights). v0.1.3 is not published yet; current downloads remain v0.1.2.
-:::
-
-::: info nb1 v0.1.2
-[Download the release](https://github.com/b1ug/nb1/releases/tag/v0.1.2) or [install with Homebrew](/install#install-with-homebrew). The CLI, optional server and bilingual workbench share one local core. MCP and the Skill are matching optional downloads.
-
-The separate [browser tools](/browser) remain development candidates. See [support](/support) for software and physical-device boundaries.
+::: info nb1 v0.1.3
+[Download nb1](https://github.com/b1ug/nb1/releases/tag/v0.1.3) for the CLI, daemon, MCP and embedded debugger. Bind a saved Pattern to a name like `build.done` to send each build to its own light. [Route a Trigger](/trigger-routing) · [Connect from another computer](/remote-access)
 :::

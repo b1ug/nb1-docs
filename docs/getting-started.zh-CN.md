@@ -4,11 +4,11 @@
 
 nb1 是同一个程序的两种明确模式：前台 server 让 CLI、HTTP、MCP 与内嵌工作台共用
 设备；direct 无需 server，前台播放一次请求。本页介绍原生工具套件。
-下载匹配平台的 v0.1.2；既有实物证据单独限定于 macOS／MK2／FW204。
+下载匹配平台的 v0.1.3；既有实物证据单独限定于 macOS／MK2／FW204。
 
 ## 启动 server 并播放
 
-[核验并解压 v0.1.2](install.zh-CN.md)后，进入 CLI 目录。把 `DEVICE_SERIAL` 换成
+[核验并解压 v0.1.3](install.zh-CN.md)后，进入 CLI 目录。把 `DEVICE_SERIAL` 换成
 `list` 显示的设备序列号：
 
 ```sh
@@ -28,7 +28,7 @@ server 保持在这个终端运行。在另一个终端进入相同目录，将�
 ```
 
 Preview 可选：用 `./nb1 control preview action.json` 查看编译计划而不播放。`run --wait` 等待 Job 终态，应检查状态是否成功，并保留返回
-的 ID 与 endpoint，方便以后查询。v0.1.2 下载版默认使用 `http://127.0.0.1:8931`，待发布的 v0.1.3 默认使用 `http://127.0.0.1:5885`。打开运行中服务的 `/demo/` 路径即可使用中英双语内嵌工作台。文档站本身不打开 USB；独立的[浏览器工具](browser.zh-CN.md)提供显式 WebHID 访问。
+的 ID 与 endpoint，方便以后查询。已有服务显式配置 8931 时保留原地址。v0.1.3 默认使用 `http://127.0.0.1:5885`。打开运行中服务的 `/demo/` 路径即可使用中英双语内嵌工作台。文档站本身不打开 USB；独立的[浏览器工具](browser.zh-CN.md)提供显式 WebHID 访问。
 
 用 Ctrl-C 停止前台 server。安装程序或运行 `server` 都不会安装登录服务。
 
@@ -40,9 +40,6 @@ Preview 可选：用 `./nb1 control preview action.json` 查看编译计划而�
 
 ## 在多只灯之间选择 {#choose-among-several-lights}
 
-::: info 版本边界 · 即将到来的 v0.1.3
-以下行为为尚未发布的 v0.1.3 准备。v0.1.2 中，daemon 配置了多只设备时仍须明确选择目标。用 `./nb1 version --json` 查看 CLI 版本；安装新程序不会替换已运行的 server 或其中的 Workbench。
-:::
 
 显式位置参数序列号优先于 `--device`、`NB1_DEVICE`，再到 profile `device`。均未指定时，v0.1.3 读取 daemon 的已配置设备缓存，按序列号的字节序升序排列，选择第一只连接状态为 `online` 的设备。没有在线设备时，选择第一只已配置序列号：`state` 显示该目标的状态，`run` 返回它的真实错误。这个顺序不是 USB 插入顺序。
 
@@ -54,7 +51,7 @@ Preview 可选：用 `./nb1 control preview action.json` 查看编译计划而�
 ./nb1 control run 20000002 action.json --wait
 ```
 
-前两条使用默认规则；第三条明确选择 `20000002`，即使另有设备在线也不改变目标。配置了多只设备且自动选择时，stderr 会以英文提示数量与所选序列号，stdout 保持 JSON。设备忙、失败或结果未知都不会把请求转给下一只灯。HTTP 与 MCP 仍须显式 `serial`，direct 仍须明确或首选目标。
+前两条使用默认规则；第三条明确选择 `20000002`，即使另有设备在线也不改变目标。配置了多只设备且自动选择时，stderr 会以英文提示数量与所选序列号，stdout 保持 JSON。设备忙、失败或结果未知都不会把请求转给下一只灯。HTTP 和 MCP 可省略 `serial` 以使用 [daemon 路由](trigger-routing.zh-CN.md)，direct 仍须明确或首选目标。
 
 v0.1.3 内嵌 Workbench 首次加载采用相同序列号顺序。选择设备、点击页面内的**刷新**控件或切换语言都不会播放。该控件在当前打开的页面内保留目标，包括离线设备；目标从配置中消失时，也保留其序列号和说明，直到你选择另一只。无法确认所选设备在线时，**播放**会禁用并显示理由，可用**刷新**重新检查或主动选择设备。浏览器整页重新加载或打开另一个 Workbench 入口时，会重新采用默认选择，不跨页面保存所选设备。结果未知的 Job 仍保留原 ID 与目标，绝不自动重播。
 
@@ -82,5 +79,5 @@ direct 始终等待，使用同一设备所有权锁，不接受 `--id`、`--end
 颜色支持名称、Hex3／Hex6、RGB8、HSV／HSB 与本机 `@name` 引用。Action 描述意图，
 由核心编译为 Sequence，再作为 Job 执行。
 
-依据：[nb1 v0.1.2 安装指南](https://github.com/b1ug/nb1/blob/88fc2be8326c076b6f09932054b0c8f11d89c0a0/docs/install.zh-CN.md)
-与[当前 API 合同](https://github.com/b1ug/nb1/blob/88fc2be8326c076b6f09932054b0c8f11d89c0a0/docs/api-v1.md)。
+依据：[nb1 v0.1.3 安装指南](https://github.com/b1ug/nb1/blob/48895be5babc11d6f3b2a7ab16e316bd564e726e/docs/install.zh-CN.md)
+与[当前 API 合同](https://github.com/b1ug/nb1/blob/48895be5babc11d6f3b2a7ab16e316bd564e726e/docs/api-v1.md)。

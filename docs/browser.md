@@ -2,7 +2,7 @@
 
 [简体中文](browser.zh-CN.md) · [Native installation](install.md) · [Architecture](architecture.md)
 
-[nb1 WebHID](https://b1ug.github.io/nb1-webhid/) and its [public source](https://github.com/b1ug/nb1-webhid) are a separate **development preview**. Their foreground page uses WebHID directly, with a shared Go/WASM compiler; the **nb1 Light Reminders** Chrome extension is experimental. Neither is the native nb1 daemon or this static documentation site. Native nb1 v0.1.2 remains an independent supported installation path.
+[nb1 WebHID](https://b1ug.github.io/nb1-webhid/) and its [public source](https://github.com/b1ug/nb1-webhid) are a separate **development preview**. Their foreground page uses WebHID directly, with a shared Go/WASM compiler; the **nb1 Light Reminders** Chrome extension is experimental. Neither is the native nb1 daemon or this static documentation site. Native nb1 v0.1.3 remains an independent supported installation path.
 
 ## Choose who controls the light
 
@@ -68,4 +68,4 @@ The current browser work is a development preview. Software rendering, Go/WASM a
 
 The original public preview was built from [e2701e05aebcc0858cc328df0e728fd5c0cec2e4](https://github.com/b1ug/nb1-webhid/tree/e2701e05aebcc0858cc328df0e728fd5c0cec2e4). Its [deployed build record](https://b1ug.github.io/nb1-webhid/site-build.json) separately pins compiler core v0.1.1 (`b5cfe68cbb412d81a80d948b845aee5b0aba586b`); the native v0.1.2 version does not silently replace that browser compiler. Public hosting and English/Chinese software previews were checked without requesting HID permission, not as new real-device or extension-reminder acceptance. Use the exact deployed package's build record and asset hashes when reporting a problem. Its Go compiler input, frontend source, WASM and extension artifacts can have their own pinned identities. A branch name, source link or manifest version is not a release checksum.
 
-The native [nb1 v0.1.2 release](install.md), embedded Workbench bundle, browser development preview and extension package are separate deliverables. Publishing a preview does not upgrade an installed daemon, renew old hardware evidence, or imply Web Store publication.
+The native [nb1 v0.1.3 release](install.md), embedded Workbench bundle, browser development preview and extension package are separate deliverables. Publishing a preview does not upgrade an installed daemon, renew old hardware evidence, or imply Web Store publication.

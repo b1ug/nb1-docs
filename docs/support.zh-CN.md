@@ -19,7 +19,7 @@
 | --- | --- |
 | `control` 连不上 daemon | 启动 `nb1 server --devices DEVICE_SERIAL`，或明确选 `control --direct run`；不会自动启动或回退 USB。 |
 | 没有设备 | 用 `nb1 list` 检查连接和原生访问；`control devices` 读取 daemon 已配置的缓存，不是新 USB 扫描。 |
-| 多设备提示必须指定序列号 | v0.1.2 使用 `control run SERIAL FILE` 或设置首选目标。即将到来的 v0.1.3 才加入确定的自动选择，见[版本边界](getting-started.zh-CN.md#choose-among-several-lights)。 |
+| 配置了多只设备 | 显式指定序列号，或用 CLI 按序列号选择第一只缓存在线设备。HTTP 和 MCP 见 [Trigger 与默认设备](trigger-routing.zh-CN.md)。 |
 | Workbench 播放不可用 | v0.1.3 预览会在播放旁说明未就绪理由。刷新或明确选择在线目标；缺失目标会保留，不静默替换。未知 Job 应查询原 ID，不能重播。 |
 | 设备忙 | 让当前拥有者释放，包括独立 WebHID 网页／扩展；不要删除活跃锁来强行访问。 |
 | 端口已占用 | 查看现有 server，或同时选择新 `--listen` 与客户端 `--endpoint`。 |
@@ -36,6 +36,10 @@
 设备 RGB 是带时间戳的缓存，不是发光测量。Job 存在内存中，重启、过期或 LRU 淘汰都可能令记录消失；记录缺失不证明没有播放。直连 Job 不能稍后向 daemon 查询。
 
 ## 正式软件与硬件证据
+
+v0.1.3 由同一个程序提供 CLI、daemon 与 MCP，预编译下载支持 macOS 15 或更新版本、Linux glibc 2.38 或更新版本、Windows x64。[获取 v0.1.3](https://github.com/b1ug/nb1/releases/tag/v0.1.3)。从正式发行页面下载的 Apple Silicon 版 nb1，在两台固件 204 的 blink(1) MK2 上分别完成了九种 Action 和两种 Sequence 的真机测试。[双设备发版记录](changelog.md#release-v013) · [五平台构建与发布](https://github.com/b1ug/nb1/actions/runs/44616849013)。
+
+以下表格保留旧版本 v0.1.2 的独立验证结果。
 
 [nb1 v0.1.2](https://github.com/b1ug/nb1/releases/tag/v0.1.2) 固定源码 `88fc2be8326c076b6f09932054b0c8f11d89c0a0`，依赖 blink1-go v0.0.2、GID v0.0.3 与 colorkit v0.1.0，原生发行使用 Go 1.27.4。
 

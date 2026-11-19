@@ -1,8 +1,10 @@
-export const coreSource = '88fc2be8326c076b6f09932054b0c8f11d89c0a0';
+export const coreSource = '48895be5babc11d6f3b2a7ab16e316bd564e726e';
 export const topics = [
   ['getting-started', 'Get started', '入门'],
   ['browser', 'Browser tools', '浏览器工具'],
   ['api-v1', 'API', 'API 参考'],
+  ['trigger-routing', 'Triggers and devices', 'Trigger 与设备'],
+  ['remote-access', 'Remote access', '跨机接入'],
   ['agents', 'Agents', 'Agent 接入'],
   ['agent-notifications', 'Agents', 'Agent 通知'],
   ['install', 'Install', '安装'],

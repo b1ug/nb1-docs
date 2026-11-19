@@ -1,27 +1,27 @@
-# 安装与使用 nb1 v0.1.2
+# 安装与使用 nb1 v0.1.3
 
 [English](install.md)
 
-从 [nb1 v0.1.2](https://github.com/b1ug/nb1/releases/tag/v0.1.2) 下载匹配的程序。CLI、本地 server 和完整 Nightlab 调试器都在同一个 `nb1` 可执行文件里。使用预编译程序不需要安装 Go、Node.js 或单独的 Web，也不需要浏览器 WebHID 授权。
+v0.1.3 将 CLI、本机 daemon、MCP 与内嵌调试器打包为一个程序。下面是该版本的安装步骤。正式下载以 [nb1 Releases](https://github.com/b1ug/nb1/releases) 中列出的版本为准。
 
 ## 下载与核验
 
 | 电脑 | CLI 包 |
 | --- | --- |
-| Apple Silicon Mac | `nb1-v0.1.2-darwin-arm64.tar.gz` |
-| Intel Mac | `nb1-v0.1.2-darwin-amd64.tar.gz` |
-| Linux arm64 | `nb1-v0.1.2-linux-arm64.tar.gz` |
-| Linux amd64 | `nb1-v0.1.2-linux-amd64.tar.gz` |
-| Windows amd64 | `nb1-v0.1.2-windows-amd64.zip` |
+| Apple Silicon Mac | `nb1-v0.1.3-darwin-arm64.tar.gz` |
+| Intel Mac | `nb1-v0.1.3-darwin-amd64.tar.gz` |
+| Linux arm64 | `nb1-v0.1.3-linux-arm64.tar.gz` |
+| Linux amd64 | `nb1-v0.1.3-linux-amd64.tar.gz` |
+| Windows amd64 | `nb1-v0.1.3-windows-amd64.zip` |
 
-本次预编译 CLI／server 在两种 Mac 架构上的二进制最低版本均为 macOS 15.0；Linux CLI 需要 glibc 2.38 或更新版本。可选 MCP 程序的 macOS 二进制最低版本为 13.0，Linux MCP 为静态链接；它仍需要兼容的 nb1 server，因此不会降低本机 server 的要求。macOS 下载包未经过 Developer ID 公证。
+预编译程序要求 macOS 15.0 及以上，或 Linux glibc 2.38 及以上。`nb1 mcp` 使用同一程序，系统要求相同。macOS 下载包未经过 Developer ID 公证。
 
 这些二进制要求与源码兼容性分开，不保证所有操作系统或实体 USB 组合。使用较旧系统前，请查看对应 Release 的构建和平台记录。已有 macOS arm64／MK2／FW204 的有限实物证据不扩大为所有平台、MK3、重启或持久化保证。Windows 支持前台运行，不包含自动服务管理。
 
 从同一 Release 下载所选包、`release.json` 和全局 `SHA256SUMS`，核对完整 SHA-256 与准确文件名。Apple Silicon Mac 示例：
 
 ```sh
-shasum -a 256 nb1-v0.1.2-darwin-arm64.tar.gz
+shasum -a 256 nb1-v0.1.3-darwin-arm64.tar.gz
 ```
 
 Linux 可用 `sha256sum`，Windows PowerShell 可用 `Get-FileHash -Algorithm SHA256`。全局清单还列着其他平台的包，仅下载一个平台时不要把其他文件缺失误判成当前包损坏。校验和检查内容一致性，不是独立签名；下载包和预期清单都应来自可信的 Release 页面。
@@ -29,26 +29,32 @@ Linux 可用 `sha256sum`，Windows PowerShell 可用 `Get-FileHash -Algorithm SH
 解压到独立的新目录，再检查包内清单。macOS 示例：
 
 ```sh
-mkdir nb1-v0.1.2
-tar -xzf nb1-v0.1.2-darwin-arm64.tar.gz -C nb1-v0.1.2
-cd nb1-v0.1.2
+mkdir nb1-v0.1.3
+tar -xzf nb1-v0.1.3-darwin-arm64.tar.gz -C nb1-v0.1.3
+cd nb1-v0.1.3
 shasum -a 256 -c SHA256SUMS
 ./nb1 version --json
 ```
 
 Linux tar 包用 `tar -xzf` 解压及 `sha256sum -c` 检查。Windows 解压 ZIP 后运行 `nb1.exe`。`build.json`、Release 清单和 `version --json` 应指向同一来源；它们描述下载的程序，不代表另一份已运行 daemon 的版本。若要注册服务，请把目录放在稳定位置。
 
+五个平台包共用一份校验清单。该版本共八项下载：五个平台包、可选的 `blink1-control-v0.1.3.zip`、`release.json` 和 `SHA256SUMS`。
+
 ## 用 Homebrew 安装
 
-[b1ug tap](https://github.com/b1ug/homebrew-tap) 用 Go 1.27.4 或更新版本编译已核验的 v0.1.2 源码：
+[公开 b1ug tap](https://github.com/b1ug/homebrew-tap) 安装该 tap 当前实际发布的版本：
 
 ```sh
 brew tap b1ug/tap
 brew install b1ug/tap/nb1
-nb1 version --json
+nb1 version
 ```
 
-Formula 要求 macOS 15 或 Homebrew 支持的 Linux 环境。源码构建有独立系统要求，不能把上方预编译下载包的 glibc 要求直接套给本机编译的 Homebrew 程序。MCP 仍单独下载。可选用户服务用 `nb1 service` 管理，不提供 `brew services`；Formula 安装或升级不会重启运行中的 daemon。
+若 Homebrew 提示需要信任第三方 Formula，可先查看 [Formula 源码](https://github.com/b1ug/homebrew-tap/blob/main/Formula/nb1.rb)，再执行 `brew trust --formula b1ug/tap/nb1` 并重新安装。
+
+Homebrew 从已发布源码编译，并安装所需构建依赖。Formula 要求 macOS 15 或受支持的 Linux Homebrew 环境，编译需要 Go 1.27.4 或更新版本。上文预编译 Linux 程序的 glibc 下限不能直接套用到 Homebrew 源码构建。安装前查看 tap 当前版本及平台记录。使用 Homebrew 时，后续命令中的 `./nb1` 改为 `nb1`；`./nb1` 指向手动解压的程序。
+
+[双语文档站](https://b1ug.github.io/nb1-guide/zh/)提供安装与使用说明。安装 nb1 不会自动注册或启动后台服务。
 
 ## 打开内嵌调试器
 
@@ -57,20 +63,13 @@ Formula 要求 macOS 15 或 Homebrew 支持的 Linux 环境。源码构建有独
 ./nb1 server --devices DEVICE_SERIAL
 ```
 
-把 `DEVICE_SERIAL` 换成真实灯的序列号。工作台地址取决于正在运行的 daemon。
-
-| Daemon | 默认工作台地址 |
-| --- | --- |
-| 已发布的 v0.1.2 下载版或 Homebrew Formula | `http://127.0.0.1:8931/demo/` |
-| 待发布的 v0.1.3 候选版 | `http://127.0.0.1:5885/demo/` |
-
-继续使用 8931 时，保留配置里的 `server.listen`，也可以通过 `nb1 server --devices DEVICE_SERIAL --listen 127.0.0.1:8931` 启动。默认端口已变更的客户端可用 `nb1 control --endpoint http://127.0.0.1:8931 devices` 连接旧服务。如果将 daemon 迁到 5885，请同步更新显式指定的客户端地址、MCP host 参数和工作台书签。
-
-在浏览器打开对应的工作台。选择设备、灯效或 Sequence，直接点 **Play**；Preview 可选，Play 会校验当前草稿。打开页面、编辑颜色或屏幕预览不会向真实灯提交任务。
+把 `DEVICE_SERIAL` 换成真实灯的序列号，再打开 **http://127.0.0.1:5885/demo/**。从 v0.1.2 升级时，已在配置文件或已安装服务中指定的 8931 仍然有效。请打开运行中的 daemon 打印的地址。选择设备、灯效或 Sequence，直接点 **Play**；Preview 可选，Play 会校验当前草稿。打开页面、编辑颜色或屏幕预览不会向真实灯提交任务。
 
 页面、字体、编辑器、3D 模型和双面 fallback 都已内嵌，无需外置 Web 目录或 CDN。默认英文，可切中文。若改过 `server.listen` 或 `--listen`，请使用实际回环监听地址加 `/demo/`。
 
 浏览器、CLI 和 MCP 共用这个 daemon。HTTP 可达、设备在线、任务已接受、任务已完成分别是不同状态；操作失败或结果不确定时，按页面就近提示查询原 Job，不要换 ID 重放。Ctrl-C 请求前台 server 正常退出；清理未确认时，不为同一只灯启动第二个拥有者。独立 WebHID 网页另外占用 USB，交接前先 Disconnect。
+
+配置多只灯时，内嵌工作台按序列号排列，首次选择第一只在线的灯。页面显示设备数量和当前序列号，刷新后保留选择。如果这只灯离线或被移出配置，请手动选择另一只灯再播放。
 
 ## CLI 与显式直连
 
@@ -96,22 +95,11 @@ Formula 要求 macOS 15 或 Homebrew 支持的 Linux 环境。源码构建有独
 
 直连始终等待，Job 只属于本次进程。HTTP 不可达不会自动切 USB。成功的 hold 可以保留灯色；需要熄灭时明确执行 Off。
 
-## 终端输出与源码构建
+CLI 的帮助与程序诊断在英文、中文和其他 locale 下均保留英文；Web 工作台有独立语言切换。终端颜色按实际输出流判断：任意非空 `NO_COLOR`（包括 `yes`）优先禁用全部 ANSI；`CLICOLOR=0` 禁用普通着色。没有设置 `NO_COLOR` 时，可用 `CLICOLOR_FORCE=1` 或 `true` 强制颜色。Force 值按 Go 的布尔规则解析：`false`、`0`，以及 `2` 等非布尔值，都回到普通终端规则。管道或 `TERM=dumb` 默认使用纯文本。JSON 始终不着色。
 
-Fang 负责 CLI 帮助和错误展示；Charm Log v2 把人类诊断写到 stderr。无论英文、中文或其他语言环境，程序生成的 CLI 消息目前都保持英文；内嵌调试器有独立英中切换。JSON 命令结果、MCP JSON-RPC 与 daemon 事件保持无样式的英文合同，文件 JSON 日志保持原有 schema 和轮转策略。
+面向人的帮助与错误由 Fang 呈现，stderr 上的程序诊断使用 Charm Log；`--debug` 还会显示调用位置和 PID。`--log-file PATH` 保留原有 JSON 文件格式、10 MiB 轮转、备份压缩和保留规则。命令结果 JSON、daemon 的 JSON 事件流及 MCP JSON-RPC 各自保持独立。CLI 翻译仍为独立工作。从源码构建 nb1 要求 Go 1.25.8 或更新版本，与上文下载包及 Homebrew 构建要求分开。
 
-`--log-file PATH` 接受普通文件，也可创建尚不存在的日志文件。目录、符号链接等特殊目标会在日志启动前被拒绝，原目录及内容保留。这是启动检查，不是防止路径后来变化的文件系统沙箱。运行时日志 writer 失败也通过 stderr 的 Charm 展示，不会混入 stdout 的命令结果 JSON。
-
-`NO_COLOR` 任意非空值都会移除全部 ANSI 样式。Pipe、`TERM=dumb` 与 CI 默认纯文本；`CLICOLOR_FORCE=1` 或 `true` 明确启用颜色，`0`、`false` 和非布尔值 `2` 等按普通输出目的地规则处理，`NO_COLOR` 优先。
-
-从源码构建 nb1 与可选 MCP adapter 至少需要 Go **1.25.8**；原生发行和 Homebrew Formula 使用 Go **1.27.4**。稳定基础库保留各自更低的 Go 要求；运行匹配的预编译程序无需安装 Go。
-
-<details>
-<summary>源码依赖来源</summary>
-
-本版本固定普通公开模块 [`github.com/vt128/fang/v2@v2.0.2-0.20261117154700-ea7a74892849`](https://github.com/vt128/fang/tree/ea7a7489284927655a069bd4da792c25a0259450)，它是基于官方 Fang v2.0.1 的窄范围 runtime fork，保留真实 Fang renderer 与原始许可证，仅携带显式背景选择和可选参数顺序修复。两项修复分别提交在官方 [PR #111](https://github.com/charmbracelet/fang/pull/111) 和 [PR #112](https://github.com/charmbracelet/fang/pull/112)。依赖使用精确公开伪版本与 checksum，没有 module replacement；PR 开放不代表上游已接受。
-
-</details>
+Fang 暂时使用基于官方 v2.0.1 的修复分支，准确的公开模块版本与校验和记录在发行清单中。显式选择背景的选项已作为 [官方 Fang PR #111](https://github.com/charmbracelet/fang/pull/111) 提出。 可选参数显示顺序的修正已独立提交为 [官方 Fang PR #112](https://github.com/charmbracelet/fang/pull/112)；帮助中的 `[SERIAL] FILE` 与实际执行顺序一致。
 
 ## 可选用户服务
 
@@ -127,17 +115,30 @@ install 安排以后登录时可能加载；未加 `--start` 不请求本次立�
 
 `service stop` 保留登录配置；`service uninstall --stop` 明确允许停止并删除托管配置。Windows 没有自动安装／启停／卸载服务；没有用户 manager 的 Linux 容器使用前台 `nb1 server`。
 
-手动解压升级时，保留旧目录、核验并解压新版本，然后显式卸载旧托管服务并从新程序重新安装，使用相同 profile 和设备设置。不要删除服务仍引用的目录。Homebrew 使用稳定的 `opt/nb1/bin/nb1` 入口；服务升级按 tap 的生命周期说明显式处理。
+手动解压升级时，保留旧目录、核验并解压新版本，然后显式卸载旧托管服务并从新程序重新安装，使用相同 profile 和设备设置。不要删除服务仍引用的目录。Homebrew 用 `brew upgrade b1ug/tap/nb1` 升级，再在合适时显式停止／启动托管 daemon。默认服务绑定跟随稳定的 `opt/nb1/bin/nb1` 入口；显式 `--binary` 仍指向固定路径。操作见 [tap 生命周期说明](https://github.com/b1ug/homebrew-tap#upgrade-and-remove)。服务由 `nb1 service` 管理，不使用 `brew services`。
 
 ## 配置、MCP 与 Skill
 
 `./nb1 config path/init/show` 可以不访问 USB 地查看位置、创建模板与检查解析结果。Mac/Linux 默认 profile 为 `~/.config/nb1/config.yaml`，设置绝对 `XDG_CONFIG_HOME` 时跟随该根目录；Windows 使用原生应用配置目录。本机颜色和 Pattern 存在电脑上，不是设备 RAM／Flash。
 
-可选同版下载：
+### 连接本机 MCP 客户端
 
-- `nb1-mcp-v0.1.2-<os>-<arch>.tar.gz`（Windows 为 `.zip`）：解压到另一新目录，核验包内清单，再配置 MCP host 使用绝对 `nb1-mcp` 路径及参数 `--endpoint http://127.0.0.1:8931 --timeout 10s`。初始化报告 `v0.1.2`；真实 stdio 协议连接本机 HTTP，不包装 CLI，也不占 USB。
-- `blink1-control-v0.1.2.zip`：把内容解压到新的 `blink1-control` 文件夹，再完整复制到项目的 `.agents/skills/`，保留 `SKILL.md`、`agents/` 与 `references/`。Skill 不安装程序、注册 MCP、启用全局 hook 或扩大权限，见 [Agent 指引](https://github.com/b1ug/nb1/blob/88fc2be8326c076b6f09932054b0c8f11d89c0a0/docs/agent-guide.zh-CN.md)。
+先启动 daemon。在 MCP 客户端中，把可执行文件设为已安装的 `nb1` 的绝对路径（Windows 为 `nb1.exe`），首个参数填 `mcp`。以下配置连接默认端口上的 daemon。
 
-MCP 单独选择 endpoint，不读取 nb1 YAML；各客户端应指向同一份目标 daemon。API 校验 Host 与浏览器 Origin，但 loopback 不是用户身份认证，同机能调用端口的其他进程仍可能控制已配置的灯。本地调试器不需要键盘、输入监控或相机权限。
+```json
+{
+  "mcpServers": {
+    "nb1": {"command": "/absolute/path/to/nb1", "args": ["mcp"]}
+  }
+}
+```
 
-这个版本包含当前 Action／Sequence、Job 与本机库能力；Trigger、新可编辑内容目录、queue／replace 和设备原生部署 API 仍为独立计划。[开发候选安装指南](https://github.com/b1ug/nb1/blob/88fc2be8326c076b6f09932054b0c8f11d89c0a0/docs/candidate-install.zh-CN.md)保留 `release:false` 的 CI 套件约定，不能把它和本正式版包混用。
+**从 v0.1.2 升级。** 将原来指向 `nb1-mcp` 的路径改为新程序，在原参数列表最前面加入 `mcp`。显式指定的端口可以保留。例如，`["mcp", "--endpoint", "http://127.0.0.1:8931", "--timeout", "10s"]` 仍连接旧端口上的 daemon。重新加载客户端，检查能否发现工具。如果仍运行 v0.1.2，请使用 [v0.1.2 安装指南](https://github.com/b1ug/nb1/blob/v0.1.2/docs/install.zh-CN.md)。
+
+本机启用鉴权时，在参数中加入 `--token-file PATH`。另一台电脑上的客户端可连接 daemon 的 HTTPS `/mcp` 地址。[远程接入与本机鉴权](remote-access.zh-CN.md)
+
+### 安装可选的 Skill
+
+将 `blink1-control-v0.1.3.zip` 解压到新的 `blink1-control` 文件夹，再完整复制到项目的 `.agents/skills/` 下，保留 `SKILL.md`、`agents/` 与 `references/`。[Agent 指引](agents.zh-CN.md)
+
+本版支持 Action、Sequence、Job 和本机库。Trigger 可播放保存的 Pattern，省略串号时由 daemon 选灯，Job 会记录实际串号。多格式目录、公开排队与抢占、设备原生部署 API 继续独立推进。[Trigger 配置与选灯规则](trigger-routing.zh-CN.md) [开发候选安装指南](https://github.com/b1ug/nb1/blob/48895be5babc11d6f3b2a7ab16e316bd564e726e/docs/candidate-install.zh-CN.md)保留 `release:false` 的 CI 套件约定，不能把它和本正式版包混用。

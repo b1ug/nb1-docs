@@ -19,8 +19,8 @@ Start with read-only diagnostics from the chosen CLI directory:
 | --- | --- |
 | `control` cannot reach a daemon | Start `nb1 server --devices DEVICE_SERIAL` or explicitly choose `control --direct run`. No automatic startup or USB fallback occurs. |
 | No device appears | Check the cable and native access with `nb1 list`. `control devices` reads the daemon's configured cache, not a fresh USB scan. |
-| Multiple devices require a serial | In v0.1.2, supply `control run SERIAL FILE` or a preferred target. Upcoming v0.1.3 adds deterministic automatic selection; see the [version boundary](getting-started.md#choose-among-several-lights). |
-| Workbench Play is unavailable | In the v0.1.3 preview, read the readiness reason next to Play. Refresh or explicitly choose an online target; a missing target is kept rather than silently replaced. An unknown Job must be checked by its original ID, not replayed. |
+| Several devices are configured | Choose a serial explicitly, or let the CLI choose the first cached-online device in serial order. For HTTP and MCP, see [Trigger and default-device routing](trigger-routing.md). |
+| Workbench Play is unavailable | Read the readiness reason next to Play. Refresh or explicitly choose an online target; a missing target is kept rather than silently replaced. An unknown Job must be checked by its original ID, not replayed. |
 | Device is busy | Release its current controller, including a standalone WebHID page or extension. Do not delete a live ownership lock. |
 | Port is in use | Inspect the existing server, or select a new server `--listen` and matching client `--endpoint`. |
 | Submission timed out | Retain the original endpoint and Job ID. Query that ID before deciding whether playback happened; do not automatically replace it. |
@@ -36,6 +36,10 @@ Query an original ID and selected device:
 Device RGB is timestamped cached state, not an optical measurement. Job records live in memory and can disappear on restart, expiration or LRU eviction. A missing record does not prove nothing played; direct-mode Jobs cannot be queried later.
 
 ## Released software and physical evidence
+
+v0.1.3 packages the CLI, daemon and MCP together for macOS 15+, Linux glibc 2.38+ and Windows x64. [Get v0.1.3](https://github.com/b1ug/nb1/releases/tag/v0.1.3). The published Apple Silicon executable ran nine Actions and two Sequences on each of two blink(1) MK2 lamps with firmware 204. [Two-device release record](changelog.md#release-v013) · [Five-platform release](https://github.com/b1ug/nb1/actions/runs/44616849013).
+
+The following table records verification for the earlier v0.1.2 release.
 
 [nb1 v0.1.2](https://github.com/b1ug/nb1/releases/tag/v0.1.2), source `88fc2be8326c076b6f09932054b0c8f11d89c0a0`, uses blink1-go v0.0.2, GID v0.0.3 and colorkit v0.1.0. Its native release builds use Go 1.27.4.
 

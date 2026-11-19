@@ -6,11 +6,11 @@ Documentation and examples for [nb1](https://github.com/b1ug/nb1), the local bli
 
 The interactive 3D view ships [blink(1) Models](https://github.com/b1ug/blink1-models). The dependency lock pins the exact MK2 source archive. The build verifies the model manifest and copies its assets into the site for same-origin, offline use.
 
-Bilingual documentation for [nb1 v0.1.2](https://github.com/b1ug/nb1/releases/tag/v0.1.2), fixed to core `88fc2be8326c076b6f09932054b0c8f11d89c0a0`. Built with VitePress 1.6.4 and the approved Nightlab presentation. English is the default, with complete Chinese counterparts, local search, the approved nb1 artwork and an optional local 3D model. The static site requests no hardware permission.
+Bilingual documentation for [nb1 v0.1.3](https://github.com/b1ug/nb1/releases/tag/v0.1.3), fixed to core `48895be5babc11d6f3b2a7ab16e316bd564e726e`. Built with VitePress 1.6.4 and the approved Nightlab presentation. English is the default, with complete Chinese counterparts, local search, the approved nb1 artwork and an optional local 3D model. The static site requests no hardware permission.
 
 Production target: **https://b1ug.github.io/nb1-guide/**. Builds and deployment are distinct: the workflow publishes only a verified main-branch build through GitHub Pages. Deployment status is recorded by the Actions environment.
 
-**Next release preview:** the [v0.1.3 device-selection guide](docs/getting-started.md#choose-among-several-lights) describes upcoming CLI and embedded Workbench behavior. v0.1.3 is not published yet; the release links and installation examples still use v0.1.2.
+[Device selection](docs/getting-started.md#choose-among-several-lights) · [Trigger routing](docs/trigger-routing.md) · [Remote MCP and HTTP](docs/remote-access.md)
 
 [简体中文](README.zh-CN.md)
 
@@ -19,7 +19,7 @@ Production target: **https://b1ug.github.io/nb1-guide/**. Builds and deployment 
 | Document | Purpose |
 | --- | --- |
 | [Overview](docs/overview.md) | Choose a local control path and find the guides. |
-| [Get started](docs/getting-started.md) | Install v0.1.2, select a device and explicitly play; preview is optional. |
+| [Get started](docs/getting-started.md) | Install v0.1.3, select a device and explicitly play; preview is optional. |
 | [API v1](docs/api-v1.md) | Fields, defaults, constraints, errors and recovery. |
 | [Agents](docs/agents.md) | Matching MCP tools and the Skill. |
 | [Agent notifications](docs/agent-notifications.md) | Optional Codex turn-ended notifications and their tested scope. |
@@ -58,7 +58,7 @@ The build includes raw Markdown as `/source/<source-path>.txt`, the bundled `/ap
 
 ## Sources and scope
 
-The API, OpenAPI, installation and matching MCP/Skill guidance are tied to released core `88fc2be8326c076b6f09932054b0c8f11d89c0a0`. The normal v0.1.2 release was published on 2026-11-18. The published Homebrew Formula uses that same source. Content provenance records exact upstream and local source hashes. Chinese explanations preserve code identifiers, JSON fields, CLI commands and limits. Historical physical-device and notification records retain their original source and date; the release does not silently renew them.
+The API, OpenAPI, installation and matching MCP/Skill guidance are tied to released core `48895be5babc11d6f3b2a7ab16e316bd564e726e`. Content provenance records exact upstream and local source hashes. Chinese explanations preserve code identifiers, JSON fields, CLI commands and limits. Historical physical-device and notification records retain their original source and date; the release does not silently renew them.
 
 The [approved nb1 mascot](assets/nb1-mascot.webp) and [favicon](assets/nb1-icon.png) match the embedded workbench. They are the site's only production brand image variants. Language switching is explicit; English remains the default.
 
