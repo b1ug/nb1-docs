@@ -19,7 +19,7 @@ const nav = (zh:boolean) => [
 const sidebar=(zh:boolean)=>[{text:zh?'使用 nb1':'Use nb1',items:topics.map(([slug,en,cn])=>({text:zh?cn:en,link:(zh?'/zh/':'/')+slug}))}];
 export default defineConfig({
   base:siteBase, srcDir:'site', outDir:'dist', cleanUrls:true, appearance:'force-dark',
-  title:'nb1', description:'Local blink(1) control for people, applications and agents.',
+  title:'nb1 Guide', description:'Local blink(1) control for people, applications and agents.',
   lang:'en', lastUpdated:false, metaChunk:true,
   head:[['link',{rel:'icon',type:'image/png',href:siteBase+'assets/nb1-icon.png'}],['meta',{name:'color-scheme',content:'dark'}]],
   locales:{
@@ -27,14 +27,14 @@ export default defineConfig({
     zh:{label:'中文',lang:'zh-CN',description:'blink(1) 的本地控制、清晰 API 与 Agent 协作。',themeConfig:{nav:nav(true),sidebar:sidebar(true),outline:{label:'本页内容'},docFooter:{prev:'上一篇',next:'下一篇'},returnToTopLabel:'回到顶部',sidebarMenuLabel:'目录',darkModeSwitchLabel:'外观',langMenuLabel:'语言',skipToContentLabel:'跳转到正文',footer:{message:'本地控制 · 使用文档',copyright:'MIT 许可证 · nb1'}}}
   },
   themeConfig:{
-    logo:{src:'/assets/nb1-mascot.webp',alt:'nb1'},siteTitle:'nb1',
+    logo:{src:'/assets/nb1-mascot.webp',alt:'nb1'},siteTitle:'nb1 Guide',
     outline:{level:[2,3],label:'On this page'},
     search:{provider:'local',options:{
       miniSearch:{options:miniSearchOptions},
       locales:{zh:{translations:{button:{buttonText:'搜索',buttonAriaLabel:'搜索文档'},modal:{displayDetails:'显示详细列表',noResultsText:'没有找到相关内容',resetButtonTitle:'清除搜索',backButtonTitle:'关闭搜索',footer:{selectText:'选择',selectKeyAriaLabel:'回车键',navigateText:'切换',navigateUpKeyAriaLabel:'向上箭头键',navigateDownKeyAriaLabel:'向下箭头键',closeText:'关闭',closeKeyAriaLabel:'Escape 键'}}}}}
     }},
     footer:{message:'Local control · Documentation',copyright:'MIT License · nb1'},
-    socialLinks:[{icon:{svg:githubIcon},link:'https://github.com/b1ug/nb1'}]
+    socialLinks:[{icon:{svg:githubIcon},link:'https://github.com/b1ug/nb1-guide'}]
   },
   markdown:{
     config(md){

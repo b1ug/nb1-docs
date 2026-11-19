@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "recorded_on": "2026-11-17",
-  "reference": "design-nightlab final Nightlab handoff",
+  "reference": "Nightlab documentation viewer and blink(1) Models MK2 display assembly",
   "target_base": "579380283d1c19eb42d903592efb432301d63652",
   "scope": "Optional presentation-only 3D viewer for the nb1 documentation home. No compiler, WASM, transport, simulation, API or device state.",
   "adaptations": [
@@ -11,7 +11,8 @@
     "Native Vue component retains reference CAD-derived two-face fallback paths and unspecified state.",
     "Mobile copy pass: visible drag hint shortened; full canvas keyboard/zoom labels and all viewer behavior retained. Native model-details disclosure keeps fixed LED labels, no-device context and attribution discoverable.",
     "Viewer and Vue links honor the configured project base for static hosting.",
-    "Public CAD metadata omits local paths, physical-device identifiers and private project-note excerpts; a project-note-only code comment and excerpt asset are excluded. Original private handoff is preserved. STL geometry, Three.js, licenses and approved brand artwork are unchanged."
+    "Public CAD metadata omits local paths, physical-device identifiers and private project-note excerpts; a project-note-only code comment and excerpt asset are excluded. Original private handoff is preserved. STL geometry, Three.js, licenses and approved brand artwork are unchanged.",
+    "The display assembly and source notice now come from the pinned blink(1) Models package. The documentation viewer and its lifecycle stay local."
   ],
   "policy": {
     "same_origin_only": true,
@@ -20,7 +21,7 @@
     "compiler": false,
     "hardware_access": false,
     "optional_route": "3D assets load only when the home component mounts; docs routes do not load CAD or Three.js.",
-    "payload_bytes": 7826393,
+    "payload_bytes": 7826202,
     "budgets": "No embedded daemon payload budgets changed; documentation static optional assets are separate."
   },
   "licenses": {
@@ -33,23 +34,23 @@
       "path": "enclosure-fit.js",
       "bytes": 21789,
       "sha256": "33a8c0fba98e078b9497da20289508ff5da08a4cfccc8abafbeec36a336ece99",
-      "reference_path": "design-nightlab/source/enclosure-fit.js",
+      "reference_path": "models/mk2/enclosure-fit.js",
       "reference_sha256": "33a8c0fba98e078b9497da20289508ff5da08a4cfccc8abafbeec36a336ece99",
       "byte_identical": true
     },
     {
       "path": "light-model.js",
-      "bytes": 23287,
-      "sha256": "7ec7b6aa2d2762a912253065a3180d77dc05d50474cc04d97f027dd77e240313",
-      "reference_path": "design-nightlab/source/light-model.js",
-      "reference_sha256": "b8231a6cd4342869cf0f7ea4f3533738b76712e452f3ec9262c436d38ffd731c",
-      "byte_identical": false
+      "bytes": 23440,
+      "sha256": "764a0e92f26f6a6f32d00883c780965a852d335b951d9f27e2c1a316fae946e7",
+      "reference_path": "models/mk2/light-model.js",
+      "reference_sha256": "764a0e92f26f6a6f32d00883c780965a852d335b951d9f27e2c1a316fae946e7",
+      "byte_identical": true
     },
     {
       "path": "model-assets/LICENSE.txt",
       "bytes": 351,
       "sha256": "e0a5f70deb9c79bb8533122057d00f6fb20b2c050ee63123e3e6538da329ceea",
-      "reference_path": "design-nightlab/source/model-assets/LICENSE.txt",
+      "reference_path": "models/mk2/model-assets/LICENSE.txt",
       "reference_sha256": "e0a5f70deb9c79bb8533122057d00f6fb20b2c050ee63123e3e6538da329ceea",
       "byte_identical": true
     },
@@ -57,7 +58,7 @@
       "path": "model-assets/blink1mk2_enclosure_diffuser_v3k.stl",
       "bytes": 3940514,
       "sha256": "297986ee78dee7ce5607b43edd8967cd7b9d509496261214c5c68587d892af18",
-      "reference_path": "design-nightlab/source/model-assets/blink1mk2_enclosure_diffuser_v3k.stl",
+      "reference_path": "models/mk2/model-assets/blink1mk2_enclosure_diffuser_v3k.stl",
       "reference_sha256": "297986ee78dee7ce5607b43edd8967cd7b9d509496261214c5c68587d892af18",
       "byte_identical": true
     },
@@ -65,7 +66,7 @@
       "path": "model-assets/blink1mk2_enclosure_frame_v3k.stl",
       "bytes": 1606855,
       "sha256": "ba0797af2873c0fc4c3477b87cde07ca1b9ec761eda001b21abe101ce035b465",
-      "reference_path": "design-nightlab/source/model-assets/blink1mk2_enclosure_frame_v3k.stl",
+      "reference_path": "models/mk2/model-assets/blink1mk2_enclosure_frame_v3k.stl",
       "reference_sha256": "ba0797af2873c0fc4c3477b87cde07ca1b9ec761eda001b21abe101ce035b465",
       "byte_identical": true
     },
@@ -73,17 +74,17 @@
       "path": "model-assets/seating-fit.json",
       "bytes": 3399,
       "sha256": "04516bf501b32ff8667a1738a99fad4cfde10cb5bcfc30836841115111d0c3c5",
-      "reference_path": "design-nightlab/source/model-assets/seating-fit.json",
+      "reference_path": "models/mk2/model-assets/seating-fit.json",
       "reference_sha256": "04516bf501b32ff8667a1738a99fad4cfde10cb5bcfc30836841115111d0c3c5",
       "byte_identical": true
     },
     {
       "path": "model-assets/source.json",
-      "bytes": 14741,
-      "sha256": "2be0beba07e7a920b6ee60cb4fa1425f0c7ee6ee1f54cc64697f7a4791525656",
-      "reference_path": "design-nightlab/source/model-assets/source.json",
-      "reference_sha256": "34d5d2f9e129cf482be12485b34073ffbb51b8882bc000e13694a9ca503f7761",
-      "byte_identical": false
+      "bytes": 14397,
+      "sha256": "2ad70d26bed617c673da560aada880008d388b5ca9e5520824ab6984284b211d",
+      "reference_path": "models/mk2/model-assets/source.json",
+      "reference_sha256": "2ad70d26bed617c673da560aada880008d388b5ca9e5520824ab6984284b211d",
+      "byte_identical": true
     },
     {
       "path": "vendor/three/LICENSE.txt",
@@ -141,5 +142,9 @@
       "reference_sha256": "2864d9f599003cf31b3ac3a6ecb8d9d7663e5aae7972d822fd2ca62094421baa",
       "byte_identical": false
     }
-  ]
+  ],
+  "model_repository": "https://github.com/b1ug/blink1-models",
+  "model_version": "0.1.0",
+  "model_manifest_sha256": "8da04a0b8af074ad9f559921bd19c3a2fe0e6522d479012c3373b95d383bf38a",
+  "model_commit": "dc531ccaa88e031faf6c0cd32e0102d9a18e9b8d"
 }

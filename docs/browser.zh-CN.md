@@ -2,7 +2,7 @@
 
 [English](browser.md) · [原生安装](install.zh-CN.md) · [架构](architecture.zh-CN.md)
 
-[nb1 Browser Workbench 在线版](https://b1ug.github.io/nb1-browser-tools/)及其[公开源码](https://github.com/b1ug/nb1-browser-tools)是独立的**开发预览**。前台页面通过共享 Go／WASM 编译器直接使用 WebHID；**nb1 Light Reminders** Chrome 扩展仍为实验版本。它们既不是原生 nb1 daemon，也不是这个静态文档站。原生 nb1 v0.1.2 仍是独立的正式安装路径。
+[nb1 WebHID 在线版](https://b1ug.github.io/nb1-webhid/)及其[公开源码](https://github.com/b1ug/nb1-webhid)是独立的**开发预览**。前台页面通过共享 Go／WASM 编译器直接使用 WebHID；**nb1 Light Reminders** Chrome 扩展仍为实验版本。它们既不是原生 nb1 daemon，也不是这个静态文档站。原生 nb1 v0.1.2 仍是独立的正式安装路径。
 
 ## 先选择谁控制小灯
 
@@ -17,7 +17,7 @@
 
 ## 启动评审网页
 
-在支持的桌面浏览器打开[在线开发预览](https://b1ug.github.io/nb1-browser-tools/)。源码构建以 [Browser Tools README](https://github.com/b1ug/nb1-browser-tools#build-and-review-locally)为准；网页提供与当前构建匹配的扩展包。前端、Go／WASM 构建和托管具有独立于原生发行的来源身份。开发预览不是稳定原生下载，这个文档站也不托管 USB 控制器。
+在支持的桌面浏览器打开[在线开发预览](https://b1ug.github.io/nb1-webhid/)。源码构建以 [nb1 WebHID README](https://github.com/b1ug/nb1-webhid#build-and-review-locally)为准；网页提供与当前构建匹配的扩展包。前端、Go／WASM 构建和托管具有独立于原生发行的来源身份。开发预览不是稳定原生下载，这个文档站也不托管 USB 控制器。
 
 使用支持 WebHID 的桌面浏览器。释放之前的控制者后，显式 Connect 并使用仅过滤 blink(1) 的选择器。允许选择设备不代表已经成功打开；活动的原生持有者仍可能阻止连接。WebHID 需要浏览器所支持的安全来源或回环地址环境。
 
@@ -37,7 +37,7 @@ Stop 取消后续 Step，不能冻结已经发出的硬件渐变。Off 停调度
 
 扩展仍为**实验版本**，未上架 Chrome Web Store，后台提醒行为仍待用户验收。它的源码或开发包版本不代表生产就绪，也不会自动等于原生 CLI 版本。
 
-请阅读匹配包的[安装与更新指南](https://github.com/b1ug/nb1-browser-tools/blob/e2701e05aebcc0858cc328df0e728fd5c0cec2e4/docs/DISTRIBUTION.zh-CN.md)和[隐私指南](https://github.com/b1ug/nb1-browser-tools/blob/e2701e05aebcc0858cc328df0e728fd5c0cec2e4/docs/PRIVACY.zh-CN.md)。开发包通过 Chrome 的**加载已解压的扩展程序**选择包含 `manifest.json` 的目录；扩展设备权限与网站权限独立，连接前仍应释放其他控制者。
+请阅读匹配包的[安装与更新指南](https://github.com/b1ug/nb1-webhid/blob/e2701e05aebcc0858cc328df0e728fd5c0cec2e4/docs/DISTRIBUTION.zh-CN.md)和[隐私指南](https://github.com/b1ug/nb1-webhid/blob/e2701e05aebcc0858cc328df0e728fd5c0cec2e4/docs/PRIVACY.zh-CN.md)。开发包通过 Chrome 的**加载已解压的扩展程序**选择包含 `manifest.json` 的目录；扩展设备权限与网站权限独立，连接前仍应释放其他控制者。
 
 浏览器重启、睡眠、授权变化或设备丢失都可能中断提醒，不能依赖扩展保证送达，也不能假设它会重连并补播上一次会话。需要不依赖前台页面的流程时，原生 daemon 是另一条独立路径。平台权限模型见 Chrome 官方[扩展 WebHID 文档](https://developer.chrome.com/docs/extensions/how-to/web-platform/webhid)。
 
@@ -60,12 +60,12 @@ Preview 可选；保存主机 Pattern 既不播放，也不写设备内存。浏
 
 ## 数据、权限与兼容性
 
-浏览器页面在本地处理颜色和导入文件，并使用其来源下的存储保存自身偏好。扩展使用独立的 Chrome profile 存储及权限流程。授权前请阅读[隐私与权限指南](https://github.com/b1ug/nb1-browser-tools/blob/e2701e05aebcc0858cc328df0e728fd5c0cec2e4/docs/PRIVACY.zh-CN.md)；文档本身不能授予权限或检查设备。
+浏览器页面在本地处理颜色和导入文件，并使用其来源下的存储保存自身偏好。扩展使用独立的 Chrome profile 存储及权限流程。授权前请阅读[隐私与权限指南](https://github.com/b1ug/nb1-webhid/blob/e2701e05aebcc0858cc328df0e728fd5c0cec2e4/docs/PRIVACY.zh-CN.md)；文档本身不能授予权限或检查设备。
 
 当前浏览器工作是开发预览。软件渲染、Go／WASM 与假 HID 测试不构成实体播放、光学或倒计时生命周期资格。成功连接浏览器或原生 Mac／MK2 证据不能证明 Linux／Windows USB、MK3，或另一实体观察角度。设备 Pattern RAM、Flash、Notes 与上电效果仍不属于此浏览器流程。
 
 ## 候选身份
 
-当前公开浏览器源码为 [e2701e05aebcc0858cc328df0e728fd5c0cec2e4](https://github.com/b1ug/nb1-browser-tools/tree/e2701e05aebcc0858cc328df0e728fd5c0cec2e4)。[在线构建记录](https://b1ug.github.io/nb1-browser-tools/site-build.json)独立固定编译器核心 v0.1.1（`b5cfe68cbb412d81a80d948b845aee5b0aba586b`），原生 v0.1.2 不会暗中替换浏览器编译器。公开托管与英中文软件预览已在不申请 HID 权限的情况下检查，不能当作新的实体设备或扩展提醒验收。报告问题时使用实际部署包的构建记录和资源散列。Go 编译器输入、前端源码、WASM 和扩展产物可以分别固定来源。分支名、源码链接或 manifest 版本不是发行校验值。
+首次发布的浏览器预览源码为 [e2701e05aebcc0858cc328df0e728fd5c0cec2e4](https://github.com/b1ug/nb1-webhid/tree/e2701e05aebcc0858cc328df0e728fd5c0cec2e4)。[在线构建记录](https://b1ug.github.io/nb1-webhid/site-build.json)独立固定编译器核心 v0.1.1（`b5cfe68cbb412d81a80d948b845aee5b0aba586b`），原生 v0.1.2 不会暗中替换浏览器编译器。公开托管与英中文软件预览已在不申请 HID 权限的情况下检查，不能当作新的实体设备或扩展提醒验收。报告问题时使用实际部署包的构建记录和资源散列。Go 编译器输入、前端源码、WASM 和扩展产物可以分别固定来源。分支名、源码链接或 manifest 版本不是发行校验值。
 
 原生 [nb1 v0.1.2](install.zh-CN.md)、内嵌 Workbench、浏览器开发预览和扩展包是独立交付物。发布预览不会升级已安装的 daemon、更新旧硬件证据，也不代表 Web Store 上架。

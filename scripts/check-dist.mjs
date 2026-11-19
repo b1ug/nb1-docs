@@ -26,6 +26,12 @@ for(const filename of files.filter(p=>p.endsWith('.html'))){
  else{html=html.replace(/<meta http-equiv="Content-Security-Policy" content="[^"]*">/g,'');html=html.replace('<head>',`<head><meta http-equiv="Content-Security-Policy" content="${expected}">`);await fs.writeFile(filename,html);}
 }
 const info=JSON.parse(await fs.readFile(path.join(dist,'site-info.json'),'utf8'));
+// Verify the built viewer and its model against the independently recorded sources.
+const modelReceipt = JSON.parse(await fs.readFile(path.join(root, 'public/nightlab/source-receipt.json'), 'utf8'));
+for (const file of modelReceipt.files) {
+  const data = await fs.readFile(path.join(dist, 'nightlab', file.path));
+  if (data.length !== file.bytes || hash(data) !== file.sha256) throw new Error('Model asset mismatch: ' + file.path);
+}
 const modelSource=JSON.parse(await fs.readFile(path.join(dist,'nightlab/model-assets/source.json'),'utf8'));
 const mapping=modelSource.led_numbering.wordmark_correspondence;
 if('project_source' in mapping||'physical_verification' in mapping)throw new Error('Private model receipt metadata in output');

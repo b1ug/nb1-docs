@@ -11,8 +11,8 @@ nb1 有三个独立的 Web 交付物：这个静态文档站、由原生 nb1 ser
 | 交付物 | 职责 | 设备连接 |
 | --- | --- | --- |
 | 文档 | 安装、API 参考、示例、兼容性，以及已发布下载的链接。 | 无；仅静态页面与本地搜索。 |
-| [nb1 Embedded Workbench](https://github.com/b1ug/nb1-workbench) | `/demo/` 上的本机预览、显式播放、Job、颜色与 Pattern。 | 同源 HTTP 调用已运行的 nb1 server，daemon 持有原生 USB。 |
-| [nb1 Browser Workbench](https://github.com/b1ug/nb1-browser-tools) | 使用共享 Go／WASM 编译器直接连接 WebHID 的开发预览。 | 前台网页经显式授权后持有浏览器 HID 句柄。 |
+| [nb1 Embedded Workbench](https://github.com/b1ug/nb1-debugger) | `/demo/` 上的本机预览、显式播放、Job、颜色与 Pattern。 | 同源 HTTP 调用已运行的 nb1 server，daemon 持有原生 USB。 |
+| [nb1 WebHID](https://github.com/b1ug/nb1-webhid) | 使用共享 Go／WASM 编译器直接连接 WebHID 的开发预览。 | 前台网页经显式授权后持有浏览器 HID 句柄。 |
 | 实验性 nb1 Light Reminders 扩展 | 独立的提醒与直连控制流程。 | 扩展有自己的权限与生命周期，不是原生服务。 |
 | nb1 核心与原生接入 | CLI、HTTP、MCP 所共用的验证、编译、调度、Job、存储和设备归属。 | nb1 持有原生传输；MCP 使用 daemon API。 |
 
@@ -46,7 +46,7 @@ nb1 有三个独立的 Web 交付物：这个静态文档站、由原生 nb1 ser
 
 ## 浏览器 HID 调试 {#browser-hid-debugging}
 
-独立的 [nb1 Browser Workbench 在线预览](https://b1ug.github.io/nb1-browser-tools/)显式使用 WebHID；[源码与实验性扩展](https://github.com/b1ug/nb1-browser-tools)已公开。[浏览器工具](browser.zh-CN.md)说明具体流程。网页通过随包 WASM 复用 Go 颜色、Action、Sequence 编译及播放计划，浏览器负责 HID 传输和计时。它们有自己的开发预览身份，不改变已安装 nb1 的版本。
+独立的 [nb1 WebHID 在线预览](https://b1ug.github.io/nb1-webhid/)显式使用 WebHID；[源码与实验性扩展](https://github.com/b1ug/nb1-webhid)已公开。[浏览器工具](browser.zh-CN.md)说明具体流程。网页通过随包 WASM 复用 Go 颜色、Action、Sequence 编译及播放计划，浏览器负责 HID 传输和计时。它们有自己的开发预览身份，不改变已安装 nb1 的版本。
 
 浏览器不参与原生 nb1 进程锁。在其他入口打开同一只灯前，应先停止或断开已有的原生／浏览器控制者。选择设备的授权与成功打开句柄是两步；已有持有者仍可能导致打开失败。
 
@@ -60,7 +60,7 @@ nb1 Light Reminders Chrome 扩展仍为实验版本，未上架 Web Store，其�
 
 独立维护的 nb1 Workbench 前端生成经校验的静态产物并编入 nb1。打开已运行 server 的 `/demo/`，不需要另起前端服务、申请浏览器 HID 权限或安装前端。页面请求原生 server 预览、播放和观察 Job、颜色与 Pattern。
 
-[Workbench 仓库](https://github.com/b1ug/nb1-workbench)提供公开前端源码，不是另一个独立托管的设备控制器。daemon 保留原生设备归属与既有 Origin 政策。HTTP 接受请求、缓存 RGB 和实体发光是不同的观察结果。安装或升级 nb1 不会自动替换已经运行的 daemon。
+[Workbench 仓库](https://github.com/b1ug/nb1-debugger)提供公开前端源码，不是另一个独立托管的设备控制器。daemon 保留原生设备归属与既有 Origin 政策。HTTP 接受请求、缓存 RGB 和实体发光是不同的观察结果。安装或升级 nb1 不会自动替换已经运行的 daemon。
 
 即将到来的 v0.1.3 产物加入确定的首次设备选择，并在当前页面内点击刷新控件或切换语言时保留所选序列号，包括离线或已移除的目标；浏览器整页重新加载或打开另一个入口会重新采用默认选择。页面显示数量／目标及就绪理由，不修改 HTTP schema。[分版本规则](getting-started.zh-CN.md#choose-among-several-lights)说明具体行为；已发布 v0.1.2 在主动升级和重启之前继续使用原内嵌前端。
 
@@ -99,7 +99,7 @@ A 满队或取消不能占用 B 的队列容量，也不能取消 B。排队／�
 - **浏览器工具：**维护者负责 WebHID、WASM 打包、扩展权限、预览托管和实验兼容性说明。浏览器发布不代表 Chrome Web Store 接受，也不代表硬件验收完成。
 - **文档：**本仓库负责静态指南、导航、成对翻译与有效链接；更新文档既不打开 USB，也不修改已安装的产物。
 
-公开源码快照分别为 [Workbench 90225555](https://github.com/b1ug/nb1-workbench/tree/90225555dad6ac2a17eac8d46a2469d00a04256e)和 [Browser Tools e2701e05](https://github.com/b1ug/nb1-browser-tools/tree/e2701e05aebcc0858cc328df0e728fd5c0cec2e4)。源码公开不会替换已经随 nb1 v0.1.1 发出的产物；nb1 v0.1.2 的发行核心 `88fc2be8326c076b6f09932054b0c8f11d89c0a0` 采用 Workbench 90225555。更早的安装版本保留其原 manifest 和 lock；发布新程序不替换已运行的 daemon。浏览器预览在自身构建记录中保留独立的编译器身份。
+公开源码快照分别为 [Workbench 90225555](https://github.com/b1ug/nb1-debugger/tree/90225555dad6ac2a17eac8d46a2469d00a04256e)和 [Browser Tools e2701e05](https://github.com/b1ug/nb1-webhid/tree/e2701e05aebcc0858cc328df0e728fd5c0cec2e4)。源码公开不会替换已经随 nb1 v0.1.1 发出的产物；nb1 v0.1.2 的发行核心 `88fc2be8326c076b6f09932054b0c8f11d89c0a0` 采用 Workbench 90225555。更早的安装版本保留其原 manifest 和 lock；发布新程序不替换已运行的 daemon。浏览器预览在自身构建记录中保留独立的编译器身份。
 
 公开的来源说明只包含适当的技术信息：仓库、提交、dirty 状态、API 合同、依赖锁与资源散列。本地规划记录、本机路径、设备序列号和无关私有历史不属于公开网站内容。文档只链接真实存在的目标，不把未公布的源码或预览 URL 当作安装说明。
 

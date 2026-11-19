@@ -1,5 +1,5 @@
 {
-  "name": "nb1-docs",
+  "name": "nb1-guide",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -19,6 +19,7 @@
     "check:provenance": "node scripts/check-provenance.mjs"
   },
   "devDependencies": {
+    "@b1ug/blink1-models": "https://codeload.github.com/b1ug/blink1-models/tar.gz/dc531ccaa88e031faf6c0cd32e0102d9a18e9b8d",
     "vite": "6.4.6",
     "vitepress": "1.6.4",
     "vue": "3.5.45"

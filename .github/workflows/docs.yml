@@ -12,7 +12,7 @@ concurrency:
 jobs:
   build:
     env:
-      VITEPRESS_BASE: /nb1-docs/
+      VITEPRESS_BASE: /nb1-guide/
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     strategy:
@@ -31,7 +31,7 @@ jobs:
       - run: npm run check:dist
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
         with:
-          name: nb1-docs-node-${{ matrix.node }}
+          name: nb1-guide-node-${{ matrix.node }}
           path: dist/
           if-no-files-found: error
           retention-days: 7

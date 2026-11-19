@@ -1,3 +1,4 @@
+import { stageModel } from '@b1ug/blink1-models/stage';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import crypto from 'node:crypto';
@@ -42,6 +43,8 @@ if (process.argv.includes('--check')) {
 await fs.rm(output,{recursive:true,force:true});await fs.mkdir(output,{recursive:true});
 for (const [name,data] of files) {const dest=path.join(output,name);await fs.mkdir(path.dirname(dest),{recursive:true});await fs.writeFile(dest,data);}
 await fs.cp(path.join(root,'public'),path.join(output,'public'),{recursive:true});
+const modelReceipt = JSON.parse(await fs.readFile(path.join(root, 'public/nightlab/source-receipt.json'), 'utf8'));
+await stageModel(path.join(output, 'public/nightlab'), modelReceipt.model_manifest_sha256);
 for (const item of inputs) {
   const destination=path.join(output,'public/source',item.source+'.txt');
   await fs.mkdir(path.dirname(destination),{recursive:true});await fs.copyFile(path.join(root,item.source),destination);

@@ -3,7 +3,7 @@
   "artifact_kind": "documentation-vitepress-source",
   "recorded_on": "2026-11-18",
   "site_source": {
-    "repository": "https://github.com/b1ug/nb1-docs",
+    "repository": "https://github.com/b1ug/nb1-guide",
     "files": [
       {
         "path": ".gitattributes",
@@ -12,8 +12,8 @@
       },
       {
         "path": ".github/workflows/docs.yml",
-        "bytes": 1844,
-        "sha256": "4d193c37b78103d1e481f9159109d8f9ccd7dadd78443b0f8c509b0c0c3dce9b"
+        "bytes": 1846,
+        "sha256": "12a54c4f11b1d306f3baea0be3ccf940f390ec584e0630649799f7d08cedb70d"
       },
       {
         "path": ".gitignore",
@@ -27,8 +27,8 @@
       },
       {
         "path": ".vitepress/config.mts",
-        "bytes": 5704,
-        "sha256": "7f9f646b8dd6257fd90c22fafa1fa4ee13a5ebeb1fffe7ccfac79e757547e7a7"
+        "bytes": 5722,
+        "sha256": "7291496acb6e2344aa63e41261c1590d4cf20b0fe7ac6e36d5e579d78afb3f04"
       },
       {
         "path": ".vitepress/search.ts",
@@ -37,8 +37,8 @@
       },
       {
         "path": ".vitepress/theme/ASSETS.md",
-        "bytes": 2438,
-        "sha256": "d9702d5c0c515b7520a5aaa2fe21eef6abfa623e76ac81bf3371654299450060"
+        "bytes": 2486,
+        "sha256": "bc25ea3a00fa4614e60f1d46509e92ce066afc07c34b9dfeede29663eda521b7"
       },
       {
         "path": ".vitepress/theme/HomeStatus.vue",
@@ -47,8 +47,8 @@
       },
       {
         "path": ".vitepress/theme/ModelAttribution.vue",
-        "bytes": 1750,
-        "sha256": "ee2a8796c76a86de8eb584940b03ec8fdb34d85c6e3d71b6fc7423f2d0c9b505"
+        "bytes": 1821,
+        "sha256": "4d09e1f895e95e69b4989cd0aad3a522799d821f9fee8515721c8f5a907721ef"
       },
       {
         "path": ".vitepress/theme/NightlabModel.vue",
@@ -82,13 +82,13 @@
       },
       {
         "path": "README.md",
-        "bytes": 7860,
-        "sha256": "3f373f2c7f9d100c6a274af9d100f42c03adc689ebf3e5368d7fe73be91e2b56"
+        "bytes": 8087,
+        "sha256": "353e08d2323fd865c2d1f783262c939cfd46ea2a5c4077c4e7c1fd426190b1ee"
       },
       {
         "path": "README.zh-CN.md",
-        "bytes": 6716,
-        "sha256": "52eb1db6aa4013aaa335bf2ab4853b1778e396cd6d758aeecea533dcc33aa7ff"
+        "bytes": 6924,
+        "sha256": "87fa9c0df389e25607b906a59694e05f958e6535971f266601174e250278ef18"
       },
       {
         "path": "assets/nb1-icon.png",
@@ -142,33 +142,33 @@
       },
       {
         "path": "docs/architecture.md",
-        "bytes": 13133,
-        "sha256": "c020650886cb75f3940633e123e9b2ca36a6bd2995474772e521da7f7e59a4c3"
+        "bytes": 13080,
+        "sha256": "7d6cd4d58a498d4e517527c24940d9d2fd8e66af6e1dc7d87784d0de3ff3520f"
       },
       {
         "path": "docs/architecture.zh-CN.md",
-        "bytes": 11501,
-        "sha256": "4766653bed6169a12cb6bc461f049c6b590cd07ec1c8dc0257f8886a0b5fc0eb"
+        "bytes": 11448,
+        "sha256": "2f62e56eab54525acf1e281f07cfad3a47518c5bf3a6e38e4cd6ebaf48ea0227"
       },
       {
         "path": "docs/browser.md",
-        "bytes": 7946,
-        "sha256": "41142eb731d350d9a862548111a61e3c21117725ed34f2085e7508e0ec258dc7"
+        "bytes": 7875,
+        "sha256": "efc5ea2beac21c768e10c2f5bcbe8bde1a9a71d30c22e27cc9b957fced6e9da7"
       },
       {
         "path": "docs/browser.zh-CN.md",
-        "bytes": 6896,
-        "sha256": "7c7cac4821e647ccd7718526202f8746be7670388c91024613d727d6ee9720f5"
+        "bytes": 6828,
+        "sha256": "f14a4558e90ca06351d800a0ad1184268e7a58505ebd11095ec59daee79374f5"
       },
       {
         "path": "docs/changelog.md",
-        "bytes": 9694,
-        "sha256": "72aa0f68ed07f997ff3bbca80d84500a073d38440011171c73d79bc52c12be6c"
+        "bytes": 9693,
+        "sha256": "7f04170db457cde2d2a6d9f28919ad028901d5584a72ea5f379f4d760eea82ea"
       },
       {
         "path": "docs/changelog.zh-CN.md",
-        "bytes": 8559,
-        "sha256": "a53477b86c9d17f28bbc15c5e20127a0f0487f4a421c30641604b42048a25004"
+        "bytes": 8558,
+        "sha256": "27b997d36d1dda21c2edf9dac9454699d1ce51829aaafe47d32dad58c78a5d1c"
       },
       {
         "path": "docs/getting-started.md",
@@ -212,13 +212,13 @@
       },
       {
         "path": "package-lock.json",
-        "bytes": 92248,
-        "sha256": "3e049264c9294c989e142dcc628e48d533793a2ee63c801ccf86a0c51c5377fa"
+        "bytes": 92706,
+        "sha256": "4b11746037ed149a969bb435326f341fffa88dbe858c0bac91a06ce4eecf7129"
       },
       {
         "path": "package.json",
-        "bytes": 984,
-        "sha256": "8641d1498347817d61090c22ae9dfe2471cf8034e695ae6c966048e501bba968"
+        "bytes": 1110,
+        "sha256": "95b04ea3602648bb465e033b3715b8ff91aad7561810b6bd7dfd0226898294c6"
       },
       {
         "path": "pages/index.md",
@@ -286,44 +286,9 @@
         "sha256": "bc3ad8462a47017c6eabb2822eb6cd10021f0c7104893343e9a75cef1921dc8a"
       },
       {
-        "path": "public/nightlab/enclosure-fit.js",
-        "bytes": 21789,
-        "sha256": "33a8c0fba98e078b9497da20289508ff5da08a4cfccc8abafbeec36a336ece99"
-      },
-      {
-        "path": "public/nightlab/light-model.js",
-        "bytes": 23287,
-        "sha256": "7ec7b6aa2d2762a912253065a3180d77dc05d50474cc04d97f027dd77e240313"
-      },
-      {
-        "path": "public/nightlab/model-assets/LICENSE.txt",
-        "bytes": 351,
-        "sha256": "e0a5f70deb9c79bb8533122057d00f6fb20b2c050ee63123e3e6538da329ceea"
-      },
-      {
-        "path": "public/nightlab/model-assets/blink1mk2_enclosure_diffuser_v3k.stl",
-        "bytes": 3940514,
-        "sha256": "297986ee78dee7ce5607b43edd8967cd7b9d509496261214c5c68587d892af18"
-      },
-      {
-        "path": "public/nightlab/model-assets/blink1mk2_enclosure_frame_v3k.stl",
-        "bytes": 1606855,
-        "sha256": "ba0797af2873c0fc4c3477b87cde07ca1b9ec761eda001b21abe101ce035b465"
-      },
-      {
-        "path": "public/nightlab/model-assets/seating-fit.json",
-        "bytes": 3399,
-        "sha256": "04516bf501b32ff8667a1738a99fad4cfde10cb5bcfc30836841115111d0c3c5"
-      },
-      {
-        "path": "public/nightlab/model-assets/source.json",
-        "bytes": 14741,
-        "sha256": "2be0beba07e7a920b6ee60cb4fa1425f0c7ee6ee1f54cc64697f7a4791525656"
-      },
-      {
         "path": "public/nightlab/source-receipt.json",
-        "bytes": 7174,
-        "sha256": "14aa9a51a9e1996a9f4aa51c53e2d59fe764608eff48373d929f41c91d455074"
+        "bytes": 7519,
+        "sha256": "a1643e528f4ddc7e1062601a4d11bd82a227f55995b3cbfe184bb7b2b84c5e61"
       },
       {
         "path": "public/nightlab/vendor/three/LICENSE.txt",
@@ -362,8 +327,8 @@
       },
       {
         "path": "scripts/check-dist.mjs",
-        "bytes": 6363,
-        "sha256": "013aa5ebe068c5c5a2f7717e719b68c1a348941a53162023f046d1bf3850111b"
+        "bytes": 6800,
+        "sha256": "305f335c623af84b2a23ab2a11e21e6133e73b0620d33f02444894cf5bfd3706"
       },
       {
         "path": "scripts/check-provenance.mjs",
@@ -377,8 +342,8 @@
       },
       {
         "path": "scripts/prepare-content.mjs",
-        "bytes": 3498,
-        "sha256": "7c3481dce5369fd28ba75dbe62d319514b1e13fbc77c4015d555f6d04325eb56"
+        "bytes": 3762,
+        "sha256": "9d8ab1b874995990ab22f3553d935c08fe786137b6b6707d1849d17ec6b1d7c0"
       },
       {
         "path": "scripts/preview.mjs",
@@ -387,8 +352,8 @@
       },
       {
         "path": "scripts/site-config.mjs",
-        "bytes": 266,
-        "sha256": "adfc82089e1edb20704d970fd3e1045791f81aabda06867fdd88738f5cc152bc"
+        "bytes": 268,
+        "sha256": "b17fb4916e800016255ca41aaca2640914d8eb301f7e68ed14fc521e00361878"
       }
     ],
     "seed_identity": "Source files are identified by their hashes below. The final clean repository commit is recorded separately in dist/site-build.json; no self-referential source commit is claimed."
@@ -558,15 +523,15 @@
   },
   "web_deliverables": {
     "embedded_workbench": {
-      "repository": "https://github.com/b1ug/nb1-workbench",
+      "repository": "https://github.com/b1ug/nb1-debugger",
       "commit": "90225555dad6ac2a17eac8d46a2469d00a04256e",
       "delivery": "Verified static bundle embedded in native nb1; same-origin daemon HTTP, no direct WebHID.",
       "bundle_manifest_sha256": "3c7490a01411dc643b7936bb08cd022fc62fb6c30d7f2c5580b29e61c31c5c01"
     },
     "browser_tools": {
-      "repository": "https://github.com/b1ug/nb1-browser-tools",
+      "repository": "https://github.com/b1ug/nb1-webhid",
       "commit": "e2701e05aebcc0858cc328df0e728fd5c0cec2e4",
-      "preview": "https://b1ug.github.io/nb1-browser-tools/",
+      "preview": "https://b1ug.github.io/nb1-webhid/",
       "channel": "development-preview",
       "compiler_core_source": "b5cfe68cbb412d81a80d948b845aee5b0aba586b",
       "extension_status": "experimental; real background reminder acceptance pending; not a Web Store release"
@@ -577,7 +542,7 @@
     "tag": "v0.1.3",
     "status": "not_published",
     "core_pull_request": "https://github.com/b1ug/nb1/pull/24",
-    "workbench_pull_request": "https://github.com/b1ug/nb1-workbench/pull/1",
+    "workbench_pull_request": "https://github.com/b1ug/nb1-debugger/pull/1",
     "scope": "Client-side serial-ordered device defaults and embedded Workbench target/readiness feedback; HTTP/MCP schemas and published v0.1.2 assets remain unchanged in this preparation.",
     "release_boundary": "Keep released installation links at v0.1.2 until the normal v0.1.3 release and channel receipts are verified.",
     "selection_lifetime": "Workbench target selection is in-page only. Its Refresh control and language changes retain the current target; full browser reload or another entry starts a new default. Accepted or unknown Jobs keep their own original identities."
