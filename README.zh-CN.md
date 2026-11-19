@@ -1,10 +1,12 @@
-# nb1-docs
+# nb1 Guide
 
 <img src="assets/nb1-mascot.webp" alt="nb1 的小灯伙伴" width="96" height="96">
 
+交互式 3D 视图使用 [blink(1) Models](https://github.com/b1ug/blink1-models)。依赖锁固定 MK2 的源码归档，构建时校验模型清单并复制资源。页面从本站加载模型，也可在本机离线使用。
+
 [nb1](https://github.com/b1ug/nb1) 的文档与示例仓库，让 blink(1) 通过合适的本地软件形态被人和 Agent 使用。
 
-本文档对应 [nb1 v0.1.2](https://github.com/b1ug/nb1/releases/tag/v0.1.2)，固定发行核心 `88fc2be8326c076b6f09932054b0c8f11d89c0a0`。VitePress 1.6.4 提供 22 个英中文页面、本地搜索和已批准的 Nightlab 呈现。默认英文，可显式切换中文，静态站点不申请硬件权限。生产目标为 **https://b1ug.github.io/nb1-docs/**；构建与实际部署分开，由 GitHub Pages workflow 记录发布状态。
+本文档对应 [nb1 v0.1.2](https://github.com/b1ug/nb1/releases/tag/v0.1.2)，固定发行核心 `88fc2be8326c076b6f09932054b0c8f11d89c0a0`。VitePress 1.6.4 提供 22 个英中文页面、本地搜索和已批准的 Nightlab 呈现。默认英文，可显式切换中文，静态站点不申请硬件权限。生产目标为 **https://b1ug.github.io/nb1-guide/**；构建与实际部署分开，由 GitHub Pages workflow 记录发布状态。
 
 **下一版预览：**[v0.1.3 设备选择指南](docs/getting-started.zh-CN.md#choose-among-several-lights)介绍即将更新的 CLI 与内嵌 Workbench 行为。v0.1.3 尚未发布，当前下载链接和安装示例继续使用 v0.1.2。
 
@@ -36,7 +38,7 @@ npm run build
 npm run preview
 ```
 
-打开 `http://127.0.0.1:4175`。预览服务通过回环地址提供生成后的静态页面。生产路径构建用 `VITEPRESS_BASE=/nb1-docs/ npm run build`，预览时用同一环境变量，并打开 `http://127.0.0.1:4175/nb1-docs/`。需要边编辑边预览时，先停止预览，再运行：
+打开 `http://127.0.0.1:4175`。预览服务通过回环地址提供生成后的静态页面。生产路径构建用 `VITEPRESS_BASE=/nb1-guide/ npm run build`，预览时用同一环境变量，并打开 `http://127.0.0.1:4175/nb1-guide/`。需要边编辑边预览时，先停止预览，再运行：
 
 ```sh
 npm run dev
@@ -63,10 +65,10 @@ API、OpenAPI、安装及匹配 MCP／Skill 指引对应发行核心 `88fc2be832
 | 交付物 | 提供什么 | 谁持有设备？ |
 | --- | --- | --- |
 | 这个文档站 | 静态指南、API 参考、下载与示例。 | 无；文档站不申请 USB 或 HID 权限。 |
-| [nb1 Embedded Workbench](https://github.com/b1ug/nb1-workbench) | 由 nb1 HTTP server 提供的本机 `/demo/` 页面。 | 已运行的 nb1 daemon 持有原生 USB，页面调用同源 API。 |
-| [nb1 Browser Workbench](https://github.com/b1ug/nb1-browser-tools) | 独立开发预览，通过共享 Go／WASM 编译器直接使用 WebHID。 | 浏览器页面或实验性扩展，需显式授权并交接控制权。 |
+| [nb1 Embedded Workbench](https://github.com/b1ug/nb1-debugger) | 由 nb1 HTTP server 提供的本机 `/demo/` 页面。 | 已运行的 nb1 daemon 持有原生 USB，页面调用同源 API。 |
+| [nb1 WebHID](https://github.com/b1ug/nb1-webhid) | 独立开发预览，通过共享 Go／WASM 编译器直接使用 WebHID。 | 浏览器页面或实验性扩展，需显式授权并交接控制权。 |
 
-Workbench 前端独立维护，通过校验后的静态产物导入 nb1；它是 UI，不是另一个 daemon。[在线浏览器预览](https://b1ug.github.io/nb1-browser-tools/)有独立的发布与兼容性政策；它的 **nb1 Light Reminders** Chrome 扩展仍为实验版本，尚未上架 Web Store，其后台提醒行为仍待用户验收。详见[架构](docs/architecture.zh-CN.md)与[浏览器工具](docs/browser.zh-CN.md)。
+Workbench 前端独立维护，通过校验后的静态产物导入 nb1；它是 UI，不是另一个 daemon。[在线浏览器预览](https://b1ug.github.io/nb1-webhid/)有独立的发布与兼容性政策；它的 **nb1 Light Reminders** Chrome 扩展仍为实验版本，尚未上架 Web Store，其后台提醒行为仍待用户验收。详见[架构](docs/architecture.zh-CN.md)与[浏览器工具](docs/browser.zh-CN.md)。
 
 文档站与浏览器预览都是 GitHub Pages 项目，共享 `https://b1ug.github.io` 来源。WebHID 授权按 origin 生效，不按项目路径隔离。文档代码不调用 HID，但所在路径并不提供独立的浏览器权限边界。
 

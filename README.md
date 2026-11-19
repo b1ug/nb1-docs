@@ -1,12 +1,14 @@
-# nb1-docs
+# nb1 Guide
 
 <img src="assets/nb1-mascot.webp" alt="The nb1 light companion" width="96" height="96">
 
 Documentation and examples for [nb1](https://github.com/b1ug/nb1), the local blink(1) control toolkit.
 
+The interactive 3D view ships [blink(1) Models](https://github.com/b1ug/blink1-models). The dependency lock pins the exact MK2 source archive. The build verifies the model manifest and copies its assets into the site for same-origin, offline use.
+
 Bilingual documentation for [nb1 v0.1.2](https://github.com/b1ug/nb1/releases/tag/v0.1.2), fixed to core `88fc2be8326c076b6f09932054b0c8f11d89c0a0`. Built with VitePress 1.6.4 and the approved Nightlab presentation. English is the default, with complete Chinese counterparts, local search, the approved nb1 artwork and an optional local 3D model. The static site requests no hardware permission.
 
-Production target: **https://b1ug.github.io/nb1-docs/**. Builds and deployment are distinct: the workflow publishes only a verified main-branch build through GitHub Pages. Deployment status is recorded by the Actions environment.
+Production target: **https://b1ug.github.io/nb1-guide/**. Builds and deployment are distinct: the workflow publishes only a verified main-branch build through GitHub Pages. Deployment status is recorded by the Actions environment.
 
 **Next release preview:** the [v0.1.3 device-selection guide](docs/getting-started.md#choose-among-several-lights) describes upcoming CLI and embedded Workbench behavior. v0.1.3 is not published yet; the release links and installation examples still use v0.1.2.
 
@@ -38,7 +40,7 @@ npm run build
 npm run preview
 ```
 
-Open `http://127.0.0.1:4175`. The preview serves the generated static build on loopback. For the production project path, run `VITEPRESS_BASE=/nb1-docs/ npm run build` and open `http://127.0.0.1:4175/nb1-docs/` after starting `VITEPRESS_BASE=/nb1-docs/ npm run preview`. For live editing, stop the preview and run:
+Open `http://127.0.0.1:4175`. The preview serves the generated static build on loopback. For the production project path, run `VITEPRESS_BASE=/nb1-guide/ npm run build` and open `http://127.0.0.1:4175/nb1-guide/` after starting `VITEPRESS_BASE=/nb1-guide/ npm run preview`. For live editing, stop the preview and run:
 
 ```sh
 npm run dev
@@ -65,10 +67,10 @@ The [approved nb1 mascot](assets/nb1-mascot.webp) and [favicon](assets/nb1-icon.
 | Deliverable | What it provides | Who owns the device? |
 | --- | --- | --- |
 | This documentation site | Static guides, API reference, downloads and examples. | Nobody; the site requests no USB or HID permission. |
-| [nb1 Embedded Workbench](https://github.com/b1ug/nb1-workbench) | The local `/demo/` UI served by the nb1 HTTP server. | The running nb1 daemon owns native USB; the page uses its same-origin API. |
-| [nb1 Browser Workbench](https://github.com/b1ug/nb1-browser-tools) | A separate development preview using direct WebHID and a shared Go/WASM compiler. | The browser page or experimental extension, after explicit permission and ownership handoff. |
+| [nb1 Embedded Workbench](https://github.com/b1ug/nb1-debugger) | The local `/demo/` UI served by the nb1 HTTP server. | The running nb1 daemon owns native USB; the page uses its same-origin API. |
+| [nb1 WebHID](https://github.com/b1ug/nb1-webhid) | A separate development preview using direct WebHID and a shared Go/WASM compiler. | The browser page or experimental extension, after explicit permission and ownership handoff. |
 
-The Workbench frontend is maintained separately and imported into nb1 as a verified static bundle. It is a UI, not another daemon. The [hosted browser preview](https://b1ug.github.io/nb1-browser-tools/) has its own release and compatibility policy. Its **nb1 Light Reminders** Chrome extension is experimental, has no Web Store release and still requires user acceptance of its background reminder behavior. See [architecture](docs/architecture.md) and [browser tools](docs/browser.md).
+The Workbench frontend is maintained separately and imported into nb1 as a verified static bundle. It is a UI, not another daemon. The [hosted browser preview](https://b1ug.github.io/nb1-webhid/) has its own release and compatibility policy. Its **nb1 Light Reminders** Chrome extension is experimental, has no Web Store release and still requires user acceptance of its background reminder behavior. See [architecture](docs/architecture.md) and [browser tools](docs/browser.md).
 
 The documentation and browser preview are GitHub Pages projects on the same `https://b1ug.github.io` origin. WebHID grants are scoped to the origin, not its project paths. This documentation code makes no HID calls; its path does not isolate browser permissions.
 
