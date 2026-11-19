@@ -2,9 +2,24 @@
 
 [简体中文](changelog.zh-CN.md) · [Overview](overview.md)
 
-Development candidates, local verification and published releases are separate
-entries. Current installation examples use nb1 v0.1.2; Older entries retain their original dates and qualification. Full sources and file digests are recorded in
-[content provenance](/content-provenance.json).
+The installation guide covers nb1 v0.1.3. Earlier entries retain their original verification dates and scope. [Content provenance](/content-provenance.json)
+
+## v0.1.3 {#release-v013}
+
+**blink1-go v0.0.3**
+
+The MK2 firmware 204 profile identifies 32 RAM lines and 16 usable Flash positions. This release carries the firmware profile and Flash preflight documentation from PR #28.
+
+**nb1 v0.1.3**
+
+Named Triggers let callers change a saved Pattern or its target without editing their automation. Each Job keeps its original device. Five native archives ship the CLI, daemon, embedded debugger and MCP as one executable. The local default port moves to 5885. The Skill ships separately.
+
+| Verified on November 19, 2026 (UTC) | Record |
+| --- | --- |
+| blink1-go at 20:43 | Annotated tag `15d60d1`, source `6996550`. Public module checksum `h1:qseMXb2p0KM6HFED/xozKIfr42lE1Guye0VrdAuHg5A=`. [Release notes](https://github.com/b1ug/blink1-go/releases/tag/v0.0.3) · [Source](https://github.com/b1ug/blink1-go/commit/6996550ee58563e9d669a04c6ea3c37a00c0d962) · [CI](https://github.com/b1ug/blink1-go/actions/runs/44461657102) |
+| nb1 at 21:18 | Annotated tag `7bc12c5`, source `48895be`. All eight published downloads matched the release checksums. [Release notes and downloads](https://github.com/b1ug/nb1/releases/tag/v0.1.3) · [Source](https://github.com/b1ug/nb1/commit/48895be5babc11d6f3b2a7ab16e316bd564e726e) · [Five-platform release](https://github.com/b1ug/nb1/actions/runs/44616849013) |
+| Two-device playback | The downloaded Apple Silicon executable ran nine Actions and two Sequences on each of two blink(1) MK2 lamps with firmware 204. The same session verified Trigger rebinding, device-specific cancellation, stdio MCP and four Jobs from the embedded debugger. |
+| Installation and API guide | The guide covers thirteen topics in English and Chinese, including Trigger routing, remote MCP, and migration to port 5885. The bundled OpenAPI file matches the release source. [Guide source record](/site-info.json) · [OpenAPI](/api-v1.openapi.json) |
 
 ## 2026-11-19 — nb1 v0.1.3 preview (not published)
 

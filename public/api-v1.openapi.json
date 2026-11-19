@@ -2,25 +2,40 @@
   "openapi": "3.1.0",
   "jsonSchemaDialect": "https://json-schema.org/draft/2020-12/schema",
   "info": {
-    "title": "nb1 local API v1",
+    "title": "nb1 API v1",
     "version": "1.0.0-dev",
-    "description": "Implementation contract for the source checkout identified by x-source. The installed local runtime has its own version and validation state. The 14 API capabilities occupy 15 HTTP operations because the valid saved-color name resolve also has a concrete PUT path. All example devices are virtual. JSON request bodies are bounded to 1 MiB. The runtime rejects duplicate fields, unknown fields, explicit null, invalid Unicode, and unsupported number spellings. Cross-field execution budgets are validated by the core."
+    "description": "Implementation contract for this source checkout. x-source lists the original route baseline and the current implementation files. The candidate supports daemon-side target selection, named triggers, trigger checks and device-guarded Job cancellation. The installed local runtime has its own version and validation state. All example devices are virtual. JSON request bodies are bounded to 1 MiB. The runtime rejects duplicate fields, unknown fields, explicit null, invalid Unicode, and unsupported number spellings. Cross-field execution budgets are validated by the core."
   },
   "servers": [
     {
       "url": "http://127.0.0.1:{port}",
       "variables": {
         "port": {
-          "default": "8931",
+          "default": "5885",
           "description": "Configured loopback daemon port."
+        }
+      },
+      "description": "Local HTTP listener. The local token file is optional."
+    },
+    {
+      "url": "https://{authority}",
+      "description": "Optional HTTPS listener. Use the configured client-visible authority and send its Bearer token on every request. The example port is configurable.",
+      "variables": {
+        "authority": {
+          "default": "nb1.example.test:9443",
+          "description": "Configured name or IP and HTTPS port."
         }
       }
     }
   ],
-  "security": [],
+  "security": [
+    {},
+    {
+      "bearerAuth": []
+    }
+  ],
   "x-source": {
-    "commit": "8a348d3746be01311c957fe16a916c6be121db07",
-    "scope": "WithSequenceAPI route table",
+    "scope": "WithSequenceAPI, daemon target and Trigger routing, and optional authenticated HTTPS",
     "files": [
       "internal/httpapi/sequence_api.go",
       "internal/httpapi/sequence_library.go",
@@ -36,14 +51,20 @@
       "internal/control/sequence_execution.go",
       "internal/control/types.go",
       "internal/control/metrics.go",
-      "internal/libraryv1/store.go"
-    ]
+      "internal/libraryv1/store.go",
+      "internal/httpapi/sequence_routing.go",
+      "internal/control/sequence_routing.go",
+      "internal/triggerv1/store.go",
+      "cmd/server_remote.go",
+      "internal/remoteaccess/http.go"
+    ],
+    "route_baseline_commit": "8a348d3746be01311c957fe16a916c6be121db07"
   },
   "x-access": {
-    "binding": "loopback only",
-    "browser_origin": "same origin or a non-browser client without Origin",
-    "cors": "cross-origin browser requests are rejected",
-    "authentication": "local unauthenticated endpoint"
+    "binding": "Loopback HTTP by default. Explicitly enable server.remote to add a separately bound HTTPS listener.",
+    "authentication": "An empty security requirement applies only to a loopback operation with anonymous access. A configured local token protects the local API except GET /healthz and GET /v1/presence. All remote API operations require the remote Bearer token.",
+    "browser_origin": "The loopback listener accepts same-origin or Origin-less clients. Its two browser diagnostics also accept https://b1ug.github.io and HTTP(S) loopback origins. Remote authorities and any supplied Origin must match the configured HTTPS endpoint.",
+    "cors": "Only the two loopback browser diagnostics reflect an allowed origin. Credentials are not enabled for cross-origin browser checks."
   },
   "x-runtime-validation": {
     "max_request_bytes": 1048576,
@@ -171,8 +192,258 @@
           }
         },
         "x-query-policy": "ignored",
-        "x-body-policy": "ignored"
-      }
+        "x-body-policy": "ignored",
+        "security": []
+      },
+      "servers": [
+        {
+          "url": "http://127.0.0.1:{port}",
+          "variables": {
+            "port": {
+              "default": "5885",
+              "description": "Configured loopback daemon port."
+            }
+          },
+          "description": "Local HTTP listener. The local token file is optional."
+        }
+      ]
+    },
+    "/v1/service-status": {
+      "get": {
+        "operationId": "getServiceStatus",
+        "summary": "Read HTTP liveness and cached device totals from a local nb1 daemon",
+        "description": "Loopback API clients may call this route directly. With local authentication, include the local Bearer token. The WebHID page sends a credential-free GET after a matching presence marker and retains confirmed presence if the summary is protected. Counts report cached device state and health indicates HTTP liveness. This request performs no USB I/O.",
+        "tags": [
+          "Runtime"
+        ],
+        "responses": {
+          "200": {
+            "description": "Service identity, HTTP liveness and cached device totals",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "service",
+                    "api_version",
+                    "health",
+                    "devices"
+                  ],
+                  "properties": {
+                    "service": {
+                      "type": "string",
+                      "const": "nb1"
+                    },
+                    "api_version": {
+                      "type": "string",
+                      "const": "v1"
+                    },
+                    "health": {
+                      "type": "string",
+                      "const": "ok"
+                    },
+                    "devices": {
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "description": "Null when the cached device snapshot is unavailable.",
+                      "additionalProperties": false,
+                      "required": [
+                        "configured",
+                        "online"
+                      ],
+                      "properties": {
+                        "configured": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "description": "Number of configured device workers."
+                        },
+                        "online": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "description": "Number of workers whose cached connection state is online."
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "mixed_devices": {
+                    "value": {
+                      "service": "nb1",
+                      "api_version": "v1",
+                      "health": "ok",
+                      "devices": {
+                        "configured": 2,
+                        "online": 1
+                      }
+                    }
+                  },
+                  "unavailable": {
+                    "value": {
+                      "service": "nb1",
+                      "api_version": "v1",
+                      "health": "ok",
+                      "devices": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unexpected request body or query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "description": "HTTP 403 error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "HTTP 405 error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Allow": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Supported HTTP method(s)."
+              }
+            }
+          }
+        }
+      },
+      "servers": [
+        {
+          "url": "http://127.0.0.1:{port}",
+          "variables": {
+            "port": {
+              "default": "5885",
+              "description": "Configured loopback daemon port."
+            }
+          },
+          "description": "Local HTTP listener. The local token file is optional."
+        }
+      ]
+    },
+    "/v1/presence": {
+      "get": {
+        "operationId": "getPresence",
+        "summary": "Identify a local nb1 daemon",
+        "description": "A matching marker identifies an nb1 daemon on loopback. This constant is available without credentials even with local token authentication enabled. Send a simple GET with no body or query.",
+        "tags": [
+          "Runtime"
+        ],
+        "responses": {
+          "200": {
+            "description": "Constant, read-only marker",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "service",
+                    "api_version"
+                  ],
+                  "properties": {
+                    "service": {
+                      "type": "string",
+                      "const": "nb1"
+                    },
+                    "api_version": {
+                      "type": "string",
+                      "const": "v1"
+                    }
+                  }
+                },
+                "examples": {
+                  "getPresence_none": {
+                    "value": {
+                      "service": "nb1",
+                      "api_version": "v1"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unexpected request body or query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "HTTP 403 error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "HTTP 405 error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Allow": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Supported HTTP method(s)."
+              }
+            }
+          }
+        },
+        "security": []
+      },
+      "servers": [
+        {
+          "url": "http://127.0.0.1:{port}",
+          "variables": {
+            "port": {
+              "default": "5885",
+              "description": "Configured loopback daemon port."
+            }
+          },
+          "description": "Local HTTP listener. The local token file is optional."
+        }
+      ]
     },
     "/v1/transport-metrics": {
       "get": {
@@ -201,6 +472,9 @@
                 }
               }
             }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
             "description": "HTTP 403 error",
@@ -305,6 +579,9 @@
               }
             }
           },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
           "403": {
             "description": "HTTP 403 error",
             "content": {
@@ -400,6 +677,9 @@
                 }
               }
             }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
             "description": "HTTP 403 error",
@@ -1281,6 +1561,9 @@
               }
             }
           },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
           "403": {
             "description": "HTTP 403 error",
             "content": {
@@ -1610,6 +1893,9 @@
               }
             }
           },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
           "403": {
             "description": "HTTP 403 error",
             "content": {
@@ -1795,12 +2081,19 @@
                       "on_finish": "off"
                     }
                   }
+                },
+                "trigger": {
+                  "summary": "Run a daemon-configured trigger",
+                  "value": {
+                    "id": "trigger-example",
+                    "trigger": "build.done"
+                  }
                 }
               }
             }
           }
         },
-        "description": "The device must be idle and support the compiled Sequence. The daemon owns timing after admission. A lost HTTP response or client timeout can leave an accepted Job running. Query the original ID. Retained matching IDs replay before resolving mutable color or Pattern references. A changed source or serial conflicts. Terminal records use configurable LRU capacity and a soft TTL from completion, defaulting to 16,384 entries and 30 minutes. Profile jobs.terminal_limit / jobs.terminal_ttl or server --job-cache-size / --job-cache-ttl select these values at daemon startup. Restart is required for changes. LRU eviction or restart may remove records earlier; the TTL does not guarantee a deduplication window. Active Jobs stay pinned. Cache pressure evicts terminal records and does not reject new execution. After expiration or eviction the same ID can execute again."
+        "description": "The device must be idle and support the compiled Sequence. The daemon owns timing after admission. A lost HTTP response or client timeout can leave an accepted Job running. Query the original ID. Retained matching IDs replay before resolving mutable color or Pattern references. A changed source or serial conflicts. Terminal records use configurable LRU capacity and a soft TTL from completion, defaulting to 16,384 entries and 30 minutes. Profile jobs.terminal_limit / jobs.terminal_ttl or server --job-cache-size / --job-cache-ttl select these values at daemon startup. Restart is required for changes. LRU eviction or restart may remove records earlier; the TTL does not guarantee a deduplication window. Active Jobs stay pinned. Cache pressure evicts terminal records and does not reject new execution. After expiration or eviction the same ID can execute again. Omit serial to use daemon-side routing. Explicit serials and trigger bindings do not substitute another target. A configured default can opt into substitution when exactly one other managed device is online. Replays keep the accepted plan, target and target_source."
       }
     },
     "/v1/jobs/{id}": {
@@ -1845,6 +2138,9 @@
                 }
               }
             }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
             "description": "HTTP 403 error",
@@ -1963,6 +2259,9 @@
               }
             }
           },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
           "403": {
             "description": "HTTP 403 error",
             "content": {
@@ -2030,9 +2329,19 @@
                 }
               }
             }
+          },
+          "409": {
+            "description": "The Job has a different accepted serial (job_target_mismatch). No cancellation was requested.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           }
         },
-        "x-query-policy": "rejected",
+        "x-query-policy": "Optional serial only",
         "x-body-policy": "rejected",
         "parameters": [
           {
@@ -2043,9 +2352,19 @@
               "$ref": "#/components/schemas/ID"
             },
             "example": "doc-job-example"
+          },
+          {
+            "name": "serial",
+            "in": "query",
+            "required": false,
+            "description": "Require the Job's accepted serial to match exactly. A daemon without this extension rejects the query.",
+            "schema": {
+              "$ref": "#/components/schemas/Serial"
+            },
+            "example": "fixture-0001"
           }
         ],
-        "description": "Returns 200 for a terminal Job and 202 while cancellation remains pending. A queued Job can be cancelled immediately without device writes or readback; a started Job requires cleanup and readback before succeeded/cancelled publication. Cleanup failure may produce failed. Cancelling a retained terminal Job updates its LRU position and leaves its expiry unchanged."
+        "description": "Returns 200 for a terminal Job and 202 while cancellation remains pending. A queued Job can be cancelled immediately without device writes or readback; a started Job requires cleanup and readback before succeeded/cancelled publication. Cleanup failure may produce failed. Cancelling a retained terminal Job updates its LRU position and leaves its expiry unchanged. Optional serial atomically guards the accepted Job target. A mismatch returns 409 and leaves it unchanged."
       }
     },
     "/v1/colors/resolve": {
@@ -2107,6 +2426,9 @@
                 }
               }
             }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
             "description": "HTTP 403 error",
@@ -2270,6 +2592,9 @@
               }
             }
           },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
           "403": {
             "description": "HTTP 403 error",
             "content": {
@@ -2424,6 +2749,9 @@
               }
             }
           },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
           "403": {
             "description": "HTTP 403 error",
             "content": {
@@ -2530,6 +2858,9 @@
                 }
               }
             }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
             "description": "HTTP 403 error",
@@ -2691,6 +3022,9 @@
               }
             }
           },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
           "403": {
             "description": "HTTP 403 error",
             "content": {
@@ -2807,6 +3141,9 @@
                 }
               }
             }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
             "description": "HTTP 403 error",
@@ -2978,6 +3315,9 @@
               }
             }
           },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
           "403": {
             "description": "HTTP 403 error",
             "content": {
@@ -3108,6 +3448,118 @@
                       "on_finish": "off"
                     }
                   }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/triggers": {
+      "get": {
+        "operationId": "listTriggers",
+        "summary": "Read the current local trigger mapping",
+        "tags": [
+          "Library"
+        ],
+        "responses": {
+          "200": {
+            "description": "Sorted mapping records, or an empty array if the optional file is missing.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Trigger"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unexpected body or query.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "description": "Host or Origin rejected by the selected listener.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "The mapping is malformed or unavailable.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/triggers/check": {
+      "get": {
+        "operationId": "checkTriggers",
+        "summary": "Check exact saved Pattern references and managed device bindings",
+        "description": "Returns every mapping in sorted order, with per-row issues and informational cached connection. An absent file returns an empty report. This operation performs no USB I/O or playback.",
+        "tags": [
+          "Library"
+        ],
+        "responses": {
+          "200": {
+            "description": "Read-only mapping check. Individual invalid references are reported in items.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TriggerCheckReport"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unexpected body or query.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "description": "Host or Origin rejected by the selected listener.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "The mapping file is malformed or unavailable.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
                 }
               }
             }
@@ -4533,15 +4985,16 @@
             "$ref": "#/components/schemas/ID"
           },
           "serial": {
-            "$ref": "#/components/schemas/Serial"
+            "$ref": "#/components/schemas/Serial",
+            "description": "Exact managed serial. Omit to use the running daemon’s trigger binding, configured default or sole managed device."
           },
           "id": {
             "$ref": "#/components/schemas/JobIDInput"
+          },
+          "trigger": {
+            "$ref": "#/components/schemas/TriggerName"
           }
         },
-        "required": [
-          "serial"
-        ],
         "additionalProperties": false,
         "oneOf": [
           {
@@ -4557,6 +5010,11 @@
           {
             "required": [
               "pattern_id"
+            ]
+          },
+          {
+            "required": [
+              "trigger"
             ]
           }
         ]
@@ -4793,6 +5251,17 @@
           },
           "error": {
             "type": "string"
+          },
+          "target_source": {
+            "type": "string",
+            "enum": [
+              "request",
+              "trigger",
+              "default",
+              "single_device",
+              "fallback"
+            ],
+            "description": "Selection source for routed submissions. Omitted for ordinary explicit v1 requests."
           }
         },
         "required": [
@@ -4969,6 +5438,7 @@
                   "invalid_json",
                   "not_found",
                   "job_conflict",
+                  "job_target_mismatch",
                   "device_busy",
                   "local_only",
                   "method_not_allowed",
@@ -4977,7 +5447,15 @@
                   "unsupported_capability",
                   "library_capacity",
                   "unavailable",
-                  "internal_error"
+                  "internal_error",
+                  "target_required",
+                  "device_not_managed",
+                  "device_offline",
+                  "trigger_not_found",
+                  "invalid_trigger_config",
+                  "unauthorized",
+                  "invalid_host",
+                  "invalid_origin"
                 ]
               },
               "message": {
@@ -5008,6 +5486,143 @@
             }
           }
         ]
+      },
+      "TriggerName": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9.-]{0,63}$"
+      },
+      "Trigger": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "$ref": "#/components/schemas/TriggerName"
+          },
+          "pattern_id": {
+            "$ref": "#/components/schemas/ID"
+          },
+          "serial": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}$"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 256
+          }
+        },
+        "required": [
+          "name",
+          "pattern_id"
+        ],
+        "additionalProperties": false,
+        "examples": [
+          {
+            "name": "build.done",
+            "pattern_id": "gentle-pulse"
+          }
+        ]
+      },
+      "TriggerCheckReport": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "$ref": "#/components/schemas/TriggerName"
+                },
+                "pattern_id": {
+                  "$ref": "#/components/schemas/ID"
+                },
+                "serial": {
+                  "type": "string",
+                  "pattern": "^[0-9a-fA-F]{8}$"
+                },
+                "title": {
+                  "type": "string",
+                  "maxLength": 256
+                },
+                "connection": {
+                  "type": "string",
+                  "description": "Cached connection when serial names a managed device."
+                },
+                "issues": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "enum": [
+                          "pattern_not_found",
+                          "pattern_unavailable",
+                          "device_not_managed"
+                        ]
+                      },
+                      "message": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "code",
+                      "message"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "name",
+                "pattern_id",
+                "issues"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "additionalProperties": false,
+        "examples": [
+          {
+            "items": [
+              {
+                "name": "build.done",
+                "pattern_id": "gentle-pulse",
+                "issues": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "Use the token configured for this listener. The optional HTTPS listener always requires its remote token."
+      }
+    },
+    "responses": {
+      "Unauthorized": {
+        "description": "The listener requires a valid Bearer token.",
+        "headers": {
+          "WWW-Authenticate": {
+            "description": "Bearer challenge.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
       }
     }
   }

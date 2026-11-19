@@ -2,8 +2,11 @@
 
 [English](changelog.md) · [产品导览](overview.zh-CN.md)
 
-开发候选、本地验收和已发布版本分别记录。当前安装示例使用 nb1 v0.1.2；以下历史条目保留原日期与范围。
-新的 API v1 发行。完整来源与文件散列见[内容来源记录](/content-provenance.json)。
+安装指南对应 nb1 v0.1.3。历史条目保留当时的验证日期与范围。[内容来源记录](/content-provenance.json)
+
+## v0.1.3 {#release-v013}
+
+[完整英文发版记录](changelog.md#release-v013)列出 blink1-go v0.0.3 与 nb1 v0.1.3 的改动、Tag、源码和验证结果。[nb1 发布说明与下载](https://github.com/b1ug/nb1/releases/tag/v0.1.3) · [blink1-go 发布说明](https://github.com/b1ug/blink1-go/releases/tag/v0.0.3)
 
 ## 2026-11-19 — nb1 v0.1.3 预览（尚未发布）
 

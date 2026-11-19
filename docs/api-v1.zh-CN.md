@@ -2,11 +2,11 @@
 
 [English](api-v1.md)
 
-本页是nb1 v0.1.2 英文规范的完整中文对照，依据核心提交 `88fc2be8326c076b6f09932054b0c8f11d89c0a0`。说明文字译为中文，代码标识、字段、枚举、数值和命令保持原样。实际硬件证据按原日期与来源保留；版本进展见[变更记录](changelog.zh-CN.md)。
+本页对应 nb1 v0.1.3 的 HTTP API。程序返回的标识、错误及 JSON 字段保持英文。[变更记录](changelog.zh-CN.md)
 
-nb1 v0.1.2 通过 HTTP 和 `nb1 control` 提供 Action → Sequence → Job 执行路径。本机正在运行的安装版本有其独立验收过的源码版本。
+本版有 19 个 HTTP 操作，覆盖设备控制、内容库、Trigger 路由与诊断。内嵌工作台使用同一 daemon。
 
-[OpenAPI 3.1 规范](https://github.com/b1ug/nb1/blob/88fc2be8326c076b6f09932054b0c8f11d89c0a0/docs/api-v1.openapi.json)描述当前 HTTP 操作、请求与响应 schema、约束和软件测试样例。`resolve` 是合法的本地颜色名，因此它有明确的 PUT 操作，与 POST 颜色解析操作并存。
+[OpenAPI 3.1 规范](https://github.com/b1ug/nb1/blob/48895be5babc11d6f3b2a7ab16e316bd564e726e/docs/api-v1.openapi.json)描述当前 HTTP 操作、请求与响应 schema、约束和软件测试样例。`resolve` 是合法的本地颜色名，因此它有明确的 PUT 操作，与 POST 颜色解析操作并存。
 
 ## 用户配置 {#user-configuration}
 
@@ -20,13 +20,13 @@ nb1 config show
 
 `config init` 在选定的配置路径创建私有模板，拒绝覆盖已有文件。在该配置文件创建之前，`config path` 和 `config show` 可能会报告既有的 `setting.yaml` 回退来源。模板中为空的 `device` 和 `server.devices` 把设备选择留给用户。这些命令不会枚举 USB，也不会启动 daemon。`config show` 展示从所选文件、默认值与环境解析出的设置，包括 `NB1_DEVICE`、`NB1_PORT` 和 `NB1_LIBRARY_DIR`；它不检查或重新加载正在运行的 daemon。
 
-以下配置和显式端口示例对应已发布的 v0.1.2 API 规范。待发布的 v0.1.3 的默认端口为 `5885`。要继续使用 `8931`，请显式设置 `server.listen`，并让 API 客户端连接同一地址。
+默认仅在回环地址监听。启用远程访问时，在独立 HTTPS listener 配置证书、密钥与 Bearer token；同一 listener 可提供 `/v1` 和 `/mcp`。本机可另配 `server.local_token_file`。[配置示例](remote-access.zh-CN.md)
 
 ```yaml
 device: ""
 server:
   devices: []
-  listen: "127.0.0.1:8931"
+  listen: "127.0.0.1:5885"
 jobs:
   terminal_limit: 16384
   terminal_ttl: 30m
@@ -119,19 +119,17 @@ Serial 标称时长为 `repeat * sum(fade_ms + hold_ms + 10)`。Interval 标称�
 创建一个只包含一个 Action 或 Sequence 的输入文件，例如 `{"action":{"kind":"pulse","color":"lime","cycles":2}}`，可直接用 CLI 播放；预览可选。
 
 ```sh
-nb1 control --endpoint http://127.0.0.1:8931 run action.json --wait
-nb1 control --endpoint http://127.0.0.1:8931 state
-nb1 control --endpoint http://127.0.0.1:8931 job j_7K3XJNY9ZM
-nb1 control --endpoint http://127.0.0.1:8931 cancel j_7K3XJNY9ZM --wait
+nb1 control --endpoint http://127.0.0.1:5885 run action.json --wait
+nb1 control --endpoint http://127.0.0.1:5885 state
+nb1 control --endpoint http://127.0.0.1:5885 job j_7K3XJNY9ZM
+nb1 control --endpoint http://127.0.0.1:5885 cancel j_7K3XJNY9ZM --wait
 ```
 
 需要检查编译结果而不播放时，可单独使用 `nb1 control preview action.json`。
 
 `control run [SERIAL] FILE` 和 `control state [SERIAL]` 的设备选择优先级依次为：显式位置参数序列号、根命令 `--device`、`NB1_DEVICE`、配置文件 `device`。明确或首选的目标即使离线、缺失也会保留；提交失败或结果未知都不会改选其他设备。
 
-::: info CLI 版本边界
-已发布 v0.1.2 只在恰好配置一只设备时推断目标。下列自动规则属于尚未发布的 v0.1.3。HTTP API v1 schema 与 MCP 显式序列号要求不变。
-:::
+使用 `control run FILE --daemon-default` 可以显式委托 daemon 选择目标。HTTP 与 MCP 播放请求省略 `serial` 时也使用 daemon 路由。[设备选择及绑定顺序](trigger-routing.zh-CN.md)
 
 均未指定目标时，v0.1.3 把 daemon 缓存中的已配置设备按序列号的字节序升序排列，选择第一只 `connection: "online"` 的设备。没有在线设备时，选择第一只已配置序列号，使 `state` 显示该目标状态、`run` 返回该目标的真实错误。空列表报错；未知或缺失连接状态不算在线。存在活动 Job 不会把在线设备排除在选择之外。
 
@@ -154,23 +152,31 @@ nb1 control --endpoint http://127.0.0.1:8931 cancel j_7K3XJNY9ZM --wait
 - 带请求体的操作必须使用 `Content-Type: application/json`；接受 `charset=utf-8` 等媒体类型参数。整个请求体连同空白最多 1,048,576 字节。每个内嵌 ColorInput 还有更小的 4,096 字节上限。
 - 发送一个有效的 Unicode JSON 对象。未知键、重复键、大小写不正确的键、尾随值、超过 64 层的嵌套，以及任意位置显式出现的 `null` 都会被拒绝。省略可选字段才能使用文档指定的默认值；`null` 不表示省略。
 - 空值不是通用默认值。`id: ""` 请求生成 Job ID；`title: ""` 清空 Pattern 标题。空的 `serial`、`pattern_id`、`color`、`timing`、`on_finish`，以及必填目标／Step 的空数组都无效。
-- 预览、Job、设备和库路由拒绝查询参数，单独尾随的 `?` 也不例外。Job 查询／取消及设备／库 GET 路由不接受请求体，连 `{}` 或分块传输的请求体也不接受。没有请求体时无需 `Content-Type`。共享的 `/healthz`、`/v1/transport-metrics` 处理器目前只检查方法，不检查请求体／查询值；客户端两者都不应发送。
-- 使用回环 Host。若存在浏览器 `Origin`，它必须与请求 scheme 和精确的 Host／端口匹配。没有 Origin 时接受非浏览器客户端；其他浏览器来源，包括 `Origin: null`，均被拒绝。此 API 不是跨源远程控制端点。
+- 除 Job 取消可使用 `serial` 外，预览、Job、设备和库路由拒绝查询参数，单独尾随的 `?` 也不例外。Job 查询／取消及设备／库 GET 路由不接受请求体，连 `{}` 或分块传输的请求体也不接受。没有请求体时无需 `Content-Type`。共享的 `/healthz`、`/v1/transport-metrics` 处理器目前只检查方法，不检查请求体／查询值；客户端两者都不应发送。
+- 本机 listener 使用回环 Host。若存在浏览器 `Origin`，它必须与请求 scheme 和精确的 Host／端口匹配。没有 Origin 时接受非浏览器客户端；其他浏览器来源，包括 `Origin: null`，均被拒绝。跨机连接可显式配置独立的 HTTPS listener。
+
+- 远程 HTTPS listener 上，发送 `Authorization: Bearer <token>` 并使用配置的 Host 与端口。浏览器提供的 Origin 必须与其 HTTPS 来源一致。远程设备状态可读 `GET /v1/devices`。仅本机提供 `/healthz`、`/v1/presence`、`/v1/service-status` 和 `/demo/`。
+- 本机 presence 与 service-status 诊断也支持 `https://b1ug.github.io` 及 HTTP/HTTPS 回环来源。WebHID 首先读取 presence 标识，然后按同一端口读取状态摘要。configured 是配置的设备数，online 是缓存在线的设备数，0 为已知结果；`devices: null` 代表计数不可用。浏览器可能要求本地网络权限。计数说明 daemon 的缓存状态；它不能识别某个具体设备是否被占用。
+- 启用 `server.local_token_file` 时，本机 `/healthz` 和 `/v1/presence` 仍可无 token 访问，`/v1/service-status` 及其他 API 需 token，内嵌调试器返回 `403 workbench_unavailable`。WebHID 可提示检测到 nb1，设备数未知。
 
 ### 请求与成功状态 {#requests-and-success-statuses}
 
 | 请求 | 必填输入 | 可选输入／省略默认值 | 成功响应 |
 | --- | --- | --- | --- |
 | `POST /v1/preview` | `action`、`sequence`、`pattern_id` 三者中恰好一个。 | `serial`：省略表示仅编译，不检查设备。 | `200`，Preview 对象。 |
-| `POST /v1/jobs` | `serial`，以及 `action`、`sequence`、`pattern_id` 三者中恰好一个。 | `id`：省略或 `""` 表示生成 ID。 | 新受理返回 `202`，匹配的重放返回 `200`。二者都返回 Job 与 `Location: /v1/jobs/{id}`。 |
+| `POST /v1/jobs` | `action`、`sequence`、`pattern_id`、`trigger` 四选一。 | 省略 `serial` 使用 daemon 路由；省略 `id` 或传 `""` 生成 ID。 | 新受理为 `202`，匹配的重放为 `200`。返回 Job 及 `Location: /v1/jobs/{id}`。 |
 | `GET /v1/jobs/{id}` | 路径中的 Job ID；无请求体。 | 无。 | `200`，Job 对象，包括该 Job 已失败的情形。 |
-| `POST /v1/jobs/{id}/cancel` | 路径中的 Job ID；无请求体。 | 无。 | 仍在取消中时为 `202`；已经终止或尚未执行就被取消时为 `200`。返回当前 Job。 |
+| `POST /v1/jobs/{id}/cancel` | 路径中提供 Job ID，无请求体。 | 可选查询参数 `serial` 必须匹配已受理 Job 的设备；省略只按 ID 取消。 | 取消中为 `202`，已终止或执行前已取消为 `200`。返回当前 Job。 |
 | `POST /v1/colors/resolve` | `color`：一个 ColorInput。 | 无。 | `200`，`{"color":"#rrggbb"}`。不保存或播放。 |
 | `GET /v1/colors` | 无请求体。 | 无。 | `200`，Color 记录数组；空库返回 `[]`。 |
 | `PUT /v1/colors/{name}` | 路径中的颜色名，以及请求体中的 `color`：一个 ColorInput。 | 无。 | `200`，保存后的 Color 记录；创建与替换均如此。 |
 | `GET /v1/patterns` | 无请求体。 | 无。 | `200`，`{id,title?}` 摘要数组，不包含 Sequence 内容。空库返回 `[]`。 |
 | `GET /v1/patterns/{id}` | 路径中的 Pattern ID；无请求体。 | 无。 | `200`，完整 Pattern 记录。 |
 | `PUT /v1/patterns/{id}` | 路径中的 Pattern ID，以及请求体中 `action` 或 `sequence` 恰好一个。 | `title`：省略或 `""` 均表示无标题，并替换原标题。 | `200`，完整保存的 Pattern；创建与替换均如此。不播放。 |
+| `GET /v1/triggers` | 无请求体或查询。 | 无。 | `200`，有序映射数组，文件不存在时为空。 |
+| `GET /v1/triggers/check` | 无请求体或查询。 | 无。 | `200`，`{"items":[...]}` 按项记录 Pattern、设备绑定诊断。 |
+| `GET /v1/presence` | 无。 | 无。 | `200`，固定服务标识 `{"service":"nb1","api_version":"v1"}`。 |
+| `GET /v1/service-status` | 无。 | 无。 | `200`，返回 `service`、`api_version`、`health`，以及包含 `configured`、`online` 的 `devices` 对象。无法获取设备数时该字段为 `null`。 |
 | `GET /v1/devices` | 无请求体。 | 无。 | `200`，按序列号排序的已配置设备状态；没有配置设备时为 `[]`。不发现 USB。 |
 | `GET /v1/devices/{serial}` | 路径中的已配置序列号；无请求体。 | 无。 | `200`，一个缓存的 Device 对象。没有匹配序列号时返回 `404`。 |
 | `GET /healthz` | 无字段。 | 无。 | `200`，`{"status":"ok","api_version":"v1"}`。HTTP 健康不代表设备可用。 |
@@ -201,6 +207,7 @@ Serial 计划要求 `set`、`sequence`、`raw-rgb`；interval 计划要求 `set`
 | --- | --- |
 | `id`、`serial` | 始终出现。标识这次受理的执行及设备。 |
 | `status` | 始终出现：`queued`、`running`、`cancelling`、`succeeded`、`cancelled`、`failed`。 |
+| `target_source` | 路由请求返回选灯来源：`request`、`trigger`、`default`、`single_device` 或 `fallback`。普通显式 v1 提交可省略此字段。 |
 | `completed_steps`、`total_steps` | 始终为整数，满足 `0 <= completed_steps <= total_steps <= 1024` 且 `total_steps >= 1`。计数包括重复，不包括 interval 初始目标和清理。进度表示主机 Step／interval 完成，不表示光学稳定。 |
 | `created_at` | 始终出现，为 UTC 时间戳。 |
 | `started_at` | 执行开始前省略；尚在队列就被取消的 Job 可以始终省略。 |
@@ -231,6 +238,12 @@ HTTP 错误采用 `{"error":{"code":"...","message":"..."}}`。Action 编译无�
 | --- | --- | --- |
 | `400` | `invalid_request` | JSON 语法或结构无效，未知／重复／null 字段，标识符、颜色、时序无效，禁止的位置出现 body／query，缺少必填输入，或只读运行时拒绝执行。颜色别名不存在也使用此码。 |
 | `400` | `invalid_json` | 读取 HTTP 请求体时出错。这些 v1 带请求体路由的常规 JSON 解码／验证失败使用 `invalid_request`。 |
+| `401` | `unauthorized` | 提供该 listener 配置的 Bearer token；响应头为 `WWW-Authenticate: Bearer`。 |
+| `403` | `invalid_host`、`invalid_origin` | HTTPS Host 或浏览器来源与远程 listener 配置不匹配。 |
+| `409` | `job_target_mismatch` | 取消的目标与原 Job 绑定序列号不同。 |
+| `400` | `target_required` | 有多只托管设备，请求、Trigger 和配置均未确定目标。 |
+| `404` | `trigger_not_found`、`device_not_managed` | Trigger 不存在或选定设备未受托管。 |
+| `503` | `device_offline`、`invalid_trigger_config` | 选定设备离线或当前映射文件无效。 |
 | `403` | `local_only` | Host 不是回环地址，或浏览器 Origin 不匹配。 |
 | `404` | `not_found` | 路由不存在，或找不到对应的已配置设备、保留的 Job、已保存 Pattern。Job 已过期／被淘汰也使用此码；记录不存在不证明它从未执行。 |
 | `405` | `method_not_allowed` | 不支持该方法。`Allow` 列出路由支持的方法；HEAD 不隐含等同于 GET。 |
@@ -278,7 +291,7 @@ nb1 service install --devices DEVICE_SERIAL --start
 
 服务安装从自身命令行参数与选定配置文件中解析设备和监听地址。若选择了配置文件，会记录其实际绝对路径，并把设备／监听值保存为显式启动参数。这些参数使已经安装的设备选择和地址不会因配置文件编辑而改变。macOS/Linux 托管服务还在受控启动环境中记录选定的 XDG 根目录，使默认库在不同登录环境下保持稳定。库与 Job 缓存设置会在重启时从配置读取。要改变设备列表或监听地址，应显式更新托管服务配置。
 
-跨平台 `service render` 仍要求明确的目标 `--binary` 路径。Windows 服务安装尚不支持。Homebrew 构建默认选择已校验的稳定 `opt/nb1/bin/nb1` 入口；升级包不会自动重启 daemon。显式 `--binary` 路径保持固定，必须保留对应程序。不同升级／回滚约定见[包生命周期](https://github.com/b1ug/nb1/blob/88fc2be8326c076b6f09932054b0c8f11d89c0a0/packaging/homebrew/README.md#upgrades-and-service-paths)。
+跨平台 `service render` 仍要求明确的目标 `--binary` 路径。Windows 服务安装尚不支持。Homebrew 构建默认选择已校验的稳定 `opt/nb1/bin/nb1` 入口；升级包不会自动重启 daemon。显式 `--binary` 路径保持固定，必须保留对应程序。不同升级／回滚约定见[包生命周期](https://github.com/b1ug/nb1/blob/48895be5babc11d6f3b2a7ab16e316bd564e726e/packaging/homebrew/README.md#upgrades-and-service-paths)。
 
 ## 设备执行范围 {#device-execution-scope}
 

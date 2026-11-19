@@ -2,7 +2,7 @@
 
 [简体中文](architecture.zh-CN.md)
 
-nb1 has three separate Web deliverables: this static documentation site, an embedded Workbench served by the native nb1 server, and standalone browser tools that use WebHID. They share terminology and visual assets, but have different device owners and release paths. These guides describe released core `88fc2be8326c076b6f09932054b0c8f11d89c0a0` for nb1 v0.1.2. A browser development preview is not a new native release.
+nb1 has three separate Web deliverables: this static documentation site, an embedded Workbench served by the native nb1 server, and standalone browser tools that use WebHID. They share terminology and visual assets, but have different device owners and release paths. These guides describe released core `48895be5babc11d6f3b2a7ab16e316bd564e726e` for nb1 v0.1.3. A browser development preview is not a new native release.
 
 Maintained Markdown lives in `docs/` and the home pages in `pages/`. Content preparation creates ignored `site/` content; VitePress produces ignored `dist/` output, local search, raw Markdown, OpenAPI and build receipts. The documentation site requests no hardware permission and does not start a daemon. Its decorative 3D model is a screen illustration, not device readback.
 
@@ -62,7 +62,7 @@ The separately maintained nb1 Workbench frontend is compiled into a verified sta
 
 The [Workbench source](https://github.com/b1ug/nb1-debugger) is public frontend source, not a separately hosted device controller. The daemon retains native ownership and its existing Origin policy. An HTTP request being accepted, cached RGB and emitted physical light are distinct observations. Installing or upgrading nb1 does not automatically replace an already running daemon.
 
-The upcoming v0.1.3 bundle adds deterministic initial device selection and preserves the chosen serial when using its Refresh control or changing language on the current page, including offline or removed targets. A full browser reload or another entry starts a new default selection. It displays count/target and readiness reasons without changing the HTTP schema. Its rules are documented [by version](getting-started.md#choose-among-several-lights); released v0.1.2 retains its own bundled frontend until explicitly upgraded and restarted.
+The v0.1.3 bundle adds deterministic initial device selection and preserves the chosen serial when using its Refresh control or changing language on the current page, including offline or removed targets. A full browser reload or another entry starts a new default selection. It displays count/target and readiness reasons on the same page. Its rules are documented [by version](getting-started.md#choose-among-several-lights); released v0.1.2 retains its own bundled frontend until explicitly upgraded and restarted.
 
 ### Per-device execution, shared daemon
 
@@ -99,8 +99,10 @@ Maintain each delivery path independently:
 - **Browser tools:** their maintainers own WebHID, WASM packaging, extension permissions, preview hosting and experimental compatibility claims. Browser publication does not imply Chrome Web Store acceptance or completed hardware qualification.
 - **Documentation:** this repository owns static guides, navigation, paired translations and verified links. Updating it neither opens USB nor changes an installed bundle.
 
+v0.1.3 embeds [nb1 Debugger 9dc2a915](https://github.com/b1ug/nb1-debugger/tree/9dc2a9155354c6650b38a3355f3eebdb911f8320). The core validates its assets against `internal/webui/manifest.lock.json`.
+
 The public source snapshots are [Workbench 90225555](https://github.com/b1ug/nb1-debugger/tree/90225555dad6ac2a17eac8d46a2469d00a04256e) and [Browser Tools e2701e05](https://github.com/b1ug/nb1-webhid/tree/e2701e05aebcc0858cc328df0e728fd5c0cec2e4). Their publication does not replace the bundle already shipped in nb1 v0.1.1. nb1 v0.1.2, core `88fc2be8326c076b6f09932054b0c8f11d89c0a0`, adopts Workbench 90225555. Older installed releases retain their original manifest and lock, and publishing a new executable does not replace a running daemon. The browser preview retains its own compiler identity in its build record.
 
 Publish only public technical provenance: repository, commit, dirty state, API contract, dependency lock and asset hashes as appropriate. Local planning records, machine paths, device serials and unrelated private history are not public website content. Documentation should link only to destinations that actually exist; unannounced source or preview URLs are not install instructions.
 
-The API and terminology snapshots come from released nb1 v0.1.2 commit `88fc2be8326c076b6f09932054b0c8f11d89c0a0`, published 2026-11-18. Its [MIT license](../LICENSE) is included. Historical hardware and notification evidence retains its original source and date; publication does not silently renew it.
+The API and terminology snapshots come from released nb1 v0.1.3 commit `48895be5babc11d6f3b2a7ab16e316bd564e726e`. Its [MIT license](../LICENSE) is included. Historical hardware and notification evidence retains its original source and date; publication does not silently renew it.
