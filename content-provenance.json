@@ -112,13 +112,13 @@
       },
       {
         "path": "docs/agents.md",
-        "bytes": 2752,
-        "sha256": "8134f49b8a70f8536c88720a00b1c0f68a99dada6df0aa4f4242b017f8d20fc9"
+        "bytes": 2964,
+        "sha256": "78b892a0189823b4e26756374a8cdc6fd266c93eedcf11ec61c3cbb345ed3106"
       },
       {
         "path": "docs/agents.zh-CN.md",
-        "bytes": 2536,
-        "sha256": "7bb637e6bb5b11be29948b90f1058b1fbaa857b5b177ec9a5c8786375113c649"
+        "bytes": 2735,
+        "sha256": "123b421f502f623e7a57999cf4f4a623fd83c505b9a04945cd25a06bd8946a74"
       },
       {
         "path": "docs/api-v1-terminology.md",
@@ -132,13 +132,13 @@
       },
       {
         "path": "docs/api-v1.md",
-        "bytes": 41004,
-        "sha256": "f6fea612ca65f4d9544f8c6fb58ef57b4dafc73b59d4e29c354d4f26e387d03d"
+        "bytes": 41233,
+        "sha256": "49137e6368e78876c64e7f256c91ca780607c72e202aee9d51dee306f9799c75"
       },
       {
         "path": "docs/api-v1.zh-CN.md",
-        "bytes": 39390,
-        "sha256": "f871d5d51bb4279b08ae3e2ea347ecf6e5b985aea7892bef9640033a33da3df2"
+        "bytes": 39612,
+        "sha256": "7b79ae6efeb16acb4e1956eb011f0e35a6c339695ff2ac44670fcebd15b5a51e"
       },
       {
         "path": "docs/architecture.md",
@@ -172,23 +172,23 @@
       },
       {
         "path": "docs/getting-started.md",
-        "bytes": 5512,
-        "sha256": "d6f79a479ecafc85161c758b82bdde9d4b0fc0a451b2ee2739df0f5942e4af82"
+        "bytes": 5584,
+        "sha256": "e5b3cb74861b0692425a6ebf324eeaa443ac192f95e7ae622e305e0d5dcb59cc"
       },
       {
         "path": "docs/getting-started.zh-CN.md",
-        "bytes": 5208,
-        "sha256": "4d0597be872ec1512997948409280a1ca07e403d941825d90ac1f0c35298a20d"
+        "bytes": 5284,
+        "sha256": "a0f56c99cc504d9fa1a9563deda92369007d21a7c77e2d2dd6d77da562e1e3bc"
       },
       {
         "path": "docs/install.md",
-        "bytes": 11390,
-        "sha256": "bb566500fdda2f6ea309e14e1077266a8a82e16f2e9507915c9abe0549137f63"
+        "bytes": 12025,
+        "sha256": "930e2ac8f8c0128a30c510b29a5a10d4c5f56ac9566181eb386362b64e9b333f"
       },
       {
         "path": "docs/install.zh-CN.md",
-        "bytes": 9542,
-        "sha256": "74042cf541888ea6d503d2c21807e1428c4c42646a4e2ec6151475aed5de670d"
+        "bytes": 10167,
+        "sha256": "da8df94611dead72e5a4016eedc0c5ecf977ebaf15de55ac9c986fd4b05794c6"
       },
       {
         "path": "docs/overview.md",

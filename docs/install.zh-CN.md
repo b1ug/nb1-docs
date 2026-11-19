@@ -57,7 +57,16 @@ Formula 要求 macOS 15 或 Homebrew 支持的 Linux 环境。源码构建有独
 ./nb1 server --devices DEVICE_SERIAL
 ```
 
-把 `DEVICE_SERIAL` 换成真实灯的序列号，再打开 **http://127.0.0.1:8931/demo/**。选择设备、灯效或 Sequence，直接点 **Play**；Preview 可选，Play 会校验当前草稿。打开页面、编辑颜色或屏幕预览不会向真实灯提交任务。
+把 `DEVICE_SERIAL` 换成真实灯的序列号。工作台地址取决于正在运行的 daemon。
+
+| Daemon | 默认工作台地址 |
+| --- | --- |
+| 已发布的 v0.1.2 下载版或 Homebrew Formula | `http://127.0.0.1:8931/demo/` |
+| 待发布的 v0.1.3 候选版 | `http://127.0.0.1:5885/demo/` |
+
+继续使用 8931 时，保留配置里的 `server.listen`，也可以通过 `nb1 server --devices DEVICE_SERIAL --listen 127.0.0.1:8931` 启动。默认端口已变更的客户端可用 `nb1 control --endpoint http://127.0.0.1:8931 devices` 连接旧服务。如果将 daemon 迁到 5885，请同步更新显式指定的客户端地址、MCP host 参数和工作台书签。
+
+在浏览器打开对应的工作台。选择设备、灯效或 Sequence，直接点 **Play**；Preview 可选，Play 会校验当前草稿。打开页面、编辑颜色或屏幕预览不会向真实灯提交任务。
 
 页面、字体、编辑器、3D 模型和双面 fallback 都已内嵌，无需外置 Web 目录或 CDN。默认英文，可切中文。若改过 `server.listen` 或 `--listen`，请使用实际回环监听地址加 `/demo/`。
 

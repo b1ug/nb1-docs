@@ -20,6 +20,8 @@ nb1 config show
 
 `config init` 在选定的配置路径创建私有模板，拒绝覆盖已有文件。在该配置文件创建之前，`config path` 和 `config show` 可能会报告既有的 `setting.yaml` 回退来源。模板中为空的 `device` 和 `server.devices` 把设备选择留给用户。这些命令不会枚举 USB，也不会启动 daemon。`config show` 展示从所选文件、默认值与环境解析出的设置，包括 `NB1_DEVICE`、`NB1_PORT` 和 `NB1_LIBRARY_DIR`；它不检查或重新加载正在运行的 daemon。
 
+以下配置和显式端口示例对应已发布的 v0.1.2 API 规范。待发布的 v0.1.3 的默认端口为 `5885`。要继续使用 `8931`，请显式设置 `server.listen`，并让 API 客户端连接同一地址。
+
 ```yaml
 device: ""
 server:

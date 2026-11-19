@@ -28,8 +28,7 @@ server 保持在这个终端运行。在另一个终端进入相同目录，将�
 ```
 
 Preview 可选：用 `./nb1 control preview action.json` 查看编译计划而不播放。`run --wait` 等待 Job 终态，应检查状态是否成功，并保留返回
-的 ID 与 endpoint，方便以后查询。默认地址是 `http://127.0.0.1:8931`，打开该 server
-的 `/demo/` 路径即可使用中英双语内嵌工作台。文档站本身不打开 USB；独立的[浏览器工具](browser.zh-CN.md)提供显式 WebHID 访问。
+的 ID 与 endpoint，方便以后查询。v0.1.2 下载版默认使用 `http://127.0.0.1:8931`，待发布的 v0.1.3 默认使用 `http://127.0.0.1:5885`。打开运行中服务的 `/demo/` 路径即可使用中英双语内嵌工作台。文档站本身不打开 USB；独立的[浏览器工具](browser.zh-CN.md)提供显式 WebHID 访问。
 
 用 Ctrl-C 停止前台 server。安装程序或运行 `server` 都不会安装登录服务。
 

@@ -12,6 +12,8 @@
 {"command":"/absolute/path/to/nb1-mcp","args":["--endpoint","http://127.0.0.1:8931","--timeout","10s"]}
 ```
 
+以上示例连接已发布的 v0.1.2 daemon。连接使用默认端口的 v0.1.3 候选 daemon 时，把 `--endpoint` 改为 `http://127.0.0.1:5885`。MCP host 与适配器之间仍使用 stdio。
+
 外围配置格式由 host 决定。Windows 使用 `nb1-mcp.exe` 的绝对路径。初始化的 `v0.1.2` 描述当前适配器，不代表另一份运行中 daemon 的版本。stdout 仅传 JSON-RPC。MCP 独立指定 endpoint，不读取 nb1 YAML。
 
 ## 使用共同词汇
