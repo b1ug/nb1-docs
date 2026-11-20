@@ -35,11 +35,11 @@ Stop 取消后续 Step，不能冻结已经发出的硬件渐变。Off 停调度
 
 ## 加载 Chrome 扩展
 
-该扩展有独立版本，目前以可解压加载的**实验性开发包**分发，尚未上架 Chrome Web Store。
+下载[实验性 Chrome 扩展](https://b1ug.github.io/nb1-webhid/extension-download/zh.html)。解压后打开 `chrome://extensions`，启用开发者模式，点**加载已解压的扩展程序**，选择包含 `manifest.json` 的目录。手动安装后也从同一页面获取更新。
 
-2026 年 11 月 20 日，用户在 macOS 的 Chrome for Testing 156 中授权扩展访问一只 blink(1) MK2。我们设好一分钟后的紫色提醒，关闭弹窗和设置页，并在倒计时结束前断开调试器。到点后观察到实体灯亮起，点击 **Off** 后熄灭。
+2026 年 11 月 20 日，用户在 macOS 的 Chrome for Testing 156 中授权 **0.1.0** 扩展访问一只 blink(1) MK2。我们设好一分钟后的紫色提醒，关闭弹窗和设置页，并在倒计时结束前断开调试器。到点后观察到实体灯亮起，点击 **Off** 后熄灭。
 
-请阅读匹配包的[安装与更新指南](https://github.com/b1ug/nb1-webhid/blob/e2701e05aebcc0858cc328df0e728fd5c0cec2e4/docs/DISTRIBUTION.zh-CN.md)和[隐私指南](https://github.com/b1ug/nb1-webhid/blob/e2701e05aebcc0858cc328df0e728fd5c0cec2e4/docs/PRIVACY.zh-CN.md)。开发包通过 Chrome 的**加载已解压的扩展程序**选择包含 `manifest.json` 的目录；扩展设备权限与网站权限独立，连接前仍应释放其他控制者。
+请阅读匹配包的[安装与更新指南](https://b1ug.github.io/nb1-webhid/extension-download/docs/DISTRIBUTION.zh-CN.md)和[隐私指南](https://b1ug.github.io/nb1-webhid/extension-download/docs/PRIVACY.zh-CN.md)。**0.1.1** 通过了中英文工具栏测试，其后台、HID 传输和 Go／WASM 与实测包逐字节相同。扩展单独申请设备权限，连接前请先释放其他控制者。
 
 本次测试期间 Mac 保持唤醒，设备一直连接，授权持续有效。系统睡眠、浏览器重启、撤销授权或拔出设备后的提醒送达情况仍待验证。需要脱离浏览器运行时，也可以使用原生 daemon。平台权限模型见 Chrome 官方[扩展 WebHID 文档](https://developer.chrome.com/docs/extensions/how-to/web-platform/webhid)。
 
@@ -62,12 +62,12 @@ Preview 可选；保存主机 Pattern 既不播放，也不写设备内存。浏
 
 ## 数据、权限与兼容性
 
-浏览器页面在本地处理颜色和导入文件，并使用其来源下的存储保存自身偏好。扩展使用独立的 Chrome profile 存储及权限流程。授权前请阅读[隐私与权限指南](https://github.com/b1ug/nb1-webhid/blob/e2701e05aebcc0858cc328df0e728fd5c0cec2e4/docs/PRIVACY.zh-CN.md)；文档本身不能授予权限或检查设备。
+浏览器页面在本地处理颜色和导入文件，并使用其来源下的存储保存自身偏好。扩展使用独立的 Chrome profile 存储及权限流程。授权前请阅读[隐私与权限指南](https://b1ug.github.io/nb1-webhid/extension-download/docs/PRIVACY.zh-CN.md)；文档本身不能授予权限或检查设备。
 
 当前浏览器工作是开发预览。软件渲染、Go／WASM 与假 HID 测试不构成实体播放、光学或倒计时生命周期资格。成功连接浏览器或原生 Mac／MK2 证据不能证明 Linux／Windows USB、MK3，或另一实体观察角度。设备 Pattern RAM、Flash、Notes 与上电效果仍不属于此浏览器流程。
 
 ## 候选身份
 
-首次发布的浏览器预览源码为 [e2701e05aebcc0858cc328df0e728fd5c0cec2e4](https://github.com/b1ug/nb1-webhid/tree/e2701e05aebcc0858cc328df0e728fd5c0cec2e4)。[在线构建记录](https://b1ug.github.io/nb1-webhid/site-build.json)独立固定编译器核心 v0.1.1（`b5cfe68cbb412d81a80d948b845aee5b0aba586b`），原生 v0.1.2 不会暗中替换浏览器编译器。公开托管与英中文软件预览已在不申请 HID 权限的情况下检查，不能当作新的实体设备或扩展提醒验收。报告问题时使用实际部署包的构建记录和资源散列。Go 编译器输入、前端源码、WASM 和扩展产物可以分别固定来源。分支名、源码链接或 manifest 版本不是发行校验值。
+[在线构建记录](https://b1ug.github.io/nb1-webhid/site-build.json)列出当前部署的前端来源、扩展版本和 Go／WASM 编译器。当前浏览器构建固定使用 nb1 核心 v0.1.1（`b5cfe68cbb412d81a80d948b845aee5b0aba586b`）。报告问题时请附上构建记录和所下载 ZIP 的校验值。[首次公开预览](https://github.com/b1ug/nb1-webhid/tree/e2701e05aebcc0858cc328df0e728fd5c0cec2e4)的源码可供历史对照。
 
 原生 [nb1 v0.1.3](install.zh-CN.md)、内嵌 Workbench、浏览器开发预览和扩展包是独立交付物。发布预览不会升级已安装的 daemon、更新旧硬件证据，也不代表 Web Store 上架。
