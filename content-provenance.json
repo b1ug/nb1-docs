@@ -152,13 +152,13 @@
       },
       {
         "path": "docs/browser.md",
-        "bytes": 8003,
-        "sha256": "460276cee152ab3899c148d164023ec5de43eb218c593e87be1bf568832b0584"
+        "bytes": 7762,
+        "sha256": "ef9c016920c4c70d8ad91cd957124838307b4e9464feff2bfaa74ca9dfdc5662"
       },
       {
         "path": "docs/browser.zh-CN.md",
-        "bytes": 7036,
-        "sha256": "007d688bab03ec10e27b51158cc658043278329f6eb706c3eb65c16d35a179e1"
+        "bytes": 6852,
+        "sha256": "7609687265cfd164e879d3151cfd756720f22f94ab4ebabc522088f397b83f97"
       },
       {
         "path": "docs/changelog.md",

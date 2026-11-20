@@ -35,11 +35,11 @@ Keep the page visible during playback. Browser timing and USB latency can add to
 
 ## Load the Chrome companion
 
-The **experimental** extension has its own version and ships as an unpacked development package. It has no Chrome Web Store listing.
+Download the [experimental Chrome extension](https://b1ug.github.io/nb1-webhid/extension-download/). Unzip it, enable **Developer mode** on `chrome://extensions`, and use **Load unpacked** to select the folder containing `manifest.json`. Manual installs are updated through the same download page.
 
-On November 20, 2026, a user granted the extension access to one blink(1) MK2 in Chrome for Testing 156 on macOS. We set a one-minute purple reminder, closed the popup and settings page, and detached the debugger before the timer expired. The lamp visibly lit at the reminder and returned to its unlit state after **Off**.
+On November 20, 2026, a user granted extension **0.1.0** access to one blink(1) MK2 in Chrome for Testing 156 on macOS. We set a one-minute purple reminder, closed the popup and settings page, and detached the debugger before the timer expired. The lamp visibly lit at the reminder and returned to its unlit state after **Off**.
 
-Use the matching package's [installation and update guide](https://github.com/b1ug/nb1-webhid/blob/e2701e05aebcc0858cc328df0e728fd5c0cec2e4/docs/DISTRIBUTION.md) and [privacy guide](https://github.com/b1ug/nb1-webhid/blob/e2701e05aebcc0858cc328df0e728fd5c0cec2e4/docs/PRIVACY.md). For a development package, Chrome's **Load unpacked** flow selects the directory containing `manifest.json`; device permission belongs to that extension separately from a website. Release the other controller before connecting.
+Use the matching package's [installation and update guide](https://b1ug.github.io/nb1-webhid/extension-download/docs/DISTRIBUTION.md) and [privacy guide](https://b1ug.github.io/nb1-webhid/extension-download/docs/PRIVACY.md). Version **0.1.1** passed English and Chinese toolbar tests. Its background worker, HID transport and Go/WASM are byte-identical to the physically tested package. The extension requests its own device permission. Release the other controller before connecting.
 
 This test kept the Mac awake, the device connected and the permission grant active. Delivery across system sleep, browser restart, permission revocation or device removal remains unverified. The native daemon also supports workflows that run without a browser. See Chrome's [extension WebHID documentation](https://developer.chrome.com/docs/extensions/how-to/web-platform/webhid) for the platform's permission model.
 
@@ -62,12 +62,12 @@ Preview is optional; saving a host Pattern neither plays it nor writes device me
 
 ## Data, permissions and compatibility
 
-The browser page processes colors and imported files locally and uses its origin's storage for its own preferences. The extension has separate Chrome profile storage and permission handling. Read its [privacy and permissions guide](https://github.com/b1ug/nb1-webhid/blob/e2701e05aebcc0858cc328df0e728fd5c0cec2e4/docs/PRIVACY.md) before granting access; documentation alone cannot grant permission or inspect a device.
+The browser page processes colors and imported files locally and uses its origin's storage for its own preferences. The extension has separate Chrome profile storage and permission handling. Read its [privacy and permissions guide](https://b1ug.github.io/nb1-webhid/extension-download/docs/PRIVACY.md) before granting access; documentation alone cannot grant permission or inspect a device.
 
 The current browser work is a development preview. Software rendering, Go/WASM and fake-HID tests do not establish real playback, optical or timer-lifecycle qualification. A successful browser connection or native Mac/MK2 evidence does not qualify Linux/Windows USB, MK3 or another physical viewing angle. Device Pattern RAM, Flash, Notes and startup effects remain outside this browser workflow.
 
 ## Candidate identity
 
-The original public preview was built from [e2701e05aebcc0858cc328df0e728fd5c0cec2e4](https://github.com/b1ug/nb1-webhid/tree/e2701e05aebcc0858cc328df0e728fd5c0cec2e4). Its [deployed build record](https://b1ug.github.io/nb1-webhid/site-build.json) separately pins compiler core v0.1.1 (`b5cfe68cbb412d81a80d948b845aee5b0aba586b`); the native v0.1.2 version does not silently replace that browser compiler. Public hosting and English/Chinese software previews were checked without requesting HID permission, not as new real-device or extension-reminder acceptance. Use the exact deployed package's build record and asset hashes when reporting a problem. Its Go compiler input, frontend source, WASM and extension artifacts can have their own pinned identities. A branch name, source link or manifest version is not a release checksum.
+The [live build record](https://b1ug.github.io/nb1-webhid/site-build.json) identifies the deployed frontend, extension version and Go/WASM compiler. The current browser build pins nb1 core v0.1.1 (`b5cfe68cbb412d81a80d948b845aee5b0aba586b`). Include the build record and the downloaded ZIP checksum when reporting a problem. The [first public preview](https://github.com/b1ug/nb1-webhid/tree/e2701e05aebcc0858cc328df0e728fd5c0cec2e4) is available as a historical reference.
 
 The native [nb1 v0.1.3 release](install.md), embedded Workbench bundle, browser development preview and extension package are separate deliverables. Publishing a preview does not upgrade an installed daemon, renew old hardware evidence, or imply Web Store publication.
