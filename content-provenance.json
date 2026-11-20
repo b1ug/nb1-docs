@@ -82,13 +82,13 @@
       },
       {
         "path": "README.md",
-        "bytes": 7882,
-        "sha256": "b87c02bdba7adbe75836f2a6d74749853dde0ed6c5bd3a25fdbd50aa3ecb716f"
+        "bytes": 7928,
+        "sha256": "cdec491a557e44fea52327c78c0cf72dc5e8fe6f903e26ce91db6c094f2ea3e9"
       },
       {
         "path": "README.zh-CN.md",
-        "bytes": 6774,
-        "sha256": "7886d7ea5985e0f9bbdcfc3ed634caceaba50eca435e328203b0c5a2de0251e0"
+        "bytes": 6889,
+        "sha256": "54639bcac882ad9058d46a2f2ec06ad7e679812ce4e32159681b9a2156e9e9fd"
       },
       {
         "path": "assets/nb1-icon.png",
@@ -142,23 +142,23 @@
       },
       {
         "path": "docs/architecture.md",
-        "bytes": 13232,
-        "sha256": "025e92a2f22f498251ff6174c8137fff08c0cae0219a2c33e2e3ad187bccf73b"
+        "bytes": 13174,
+        "sha256": "13e02f0a51a47b8346d8aa20a0eb5af1a6ca31df4c47c4af78527b1ce3cf81c4"
       },
       {
         "path": "docs/architecture.zh-CN.md",
-        "bytes": 11577,
-        "sha256": "229fb5981a29be05c3dbe85314b3fb5d52f5c682e553c69ea079513dc57069f1"
+        "bytes": 11574,
+        "sha256": "bc60bdd186a4a99a8f92af4ed56d8b9db56c01d206b88aee7a5156b4f87a6e36"
       },
       {
         "path": "docs/browser.md",
-        "bytes": 7875,
-        "sha256": "64f761b20c9322b3f2bb2f1dc1c22658d1f83a0dac17897d69b4951c1388ac86"
+        "bytes": 8003,
+        "sha256": "460276cee152ab3899c148d164023ec5de43eb218c593e87be1bf568832b0584"
       },
       {
         "path": "docs/browser.zh-CN.md",
-        "bytes": 6828,
-        "sha256": "8ec22788a73622095083a16f3949b184e89befdc91593271bc3f6f91ddeb04a5"
+        "bytes": 7036,
+        "sha256": "007d688bab03ec10e27b51158cc658043278329f6eb706c3eb65c16d35a179e1"
       },
       {
         "path": "docs/changelog.md",
@@ -302,8 +302,8 @@
       },
       {
         "path": "public/llms.txt",
-        "bytes": 2645,
-        "sha256": "3e8492540ff16d128ed982116e7df6a452c27bbe42b4011e083b32803946739b"
+        "bytes": 2757,
+        "sha256": "3f07984a2975015f945f5a13ca2934154a333de9ff95e49bafe5cdf4abcaef4d"
       },
       {
         "path": "public/nightlab/source-receipt.json",
@@ -572,7 +572,20 @@
       "preview": "https://b1ug.github.io/nb1-webhid/",
       "channel": "development-preview",
       "compiler_core_source": "b5cfe68cbb412d81a80d948b845aee5b0aba586b",
-      "extension_status": "experimental; real background reminder acceptance pending; not a Web Store release"
+      "extension_status": "Experimental unpacked extension with independent versioning and no Chrome Web Store listing.",
+      "extension_reminder_test": {
+        "date": "2026-11-20",
+        "extension_version": "0.1.0",
+        "source_commit": "3218ae0e6cdfb8e4c0b043ab055de268c6024e1a",
+        "setup": "One user-authorized blink(1) MK2 in Chrome for Testing 156 on macOS.",
+        "observed": "One-minute reminder lit the device after the popup and settings page closed with the debugger detached. Off extinguished it.",
+        "untested": [
+          "system sleep",
+          "browser restart",
+          "permission revocation",
+          "device removal"
+        ]
+      }
     },
     "origin_policy": "GitHub Pages project paths share https://b1ug.github.io; WebHID grants are origin-scoped, not isolated by path. Documentation code performs no HID calls."
   }

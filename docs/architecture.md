@@ -54,7 +54,7 @@ Screen preview is optional. Explicit Play validates the current draft before sen
 
 The docs and hosted browser preview share the GitHub Pages origin `https://b1ug.github.io`. WebHID authorization is scoped to that origin; different project paths do not isolate grants. The docs code does not call HID or request a device, which is a code behavior rather than a separate permission origin.
 
-The nb1 Light Reminders Chrome extension remains experimental, is not listed in the Web Store, and still needs user acceptance of its background reminder behavior. A software or fake-HID test is not proof of physical playback, optical behavior, MK3 support or timer delivery across sleep and restart.
+The experimental nb1 Light Reminders extension controls USB independently. Its background timer lit one physical MK2 with the popup closed in Chrome for Testing 156 on macOS. [Test conditions and limits](browser.md#load-the-chrome-companion).
 
 ## Embedded debugger
 

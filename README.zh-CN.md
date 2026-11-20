@@ -68,7 +68,7 @@ API、OpenAPI、安装及匹配 MCP／Skill 指引对应发行核心 `48895be5ba
 | [nb1 Embedded Workbench](https://github.com/b1ug/nb1-debugger) | 由 nb1 HTTP server 提供的本机 `/demo/` 页面。 | 已运行的 nb1 daemon 持有原生 USB，页面调用同源 API。 |
 | [nb1 WebHID](https://github.com/b1ug/nb1-webhid) | 独立开发预览，通过共享 Go／WASM 编译器直接使用 WebHID。 | 浏览器页面或实验性扩展，需显式授权并交接控制权。 |
 
-Workbench 前端独立维护，通过校验后的静态产物导入 nb1；它是 UI，不是另一个 daemon。[在线浏览器预览](https://b1ug.github.io/nb1-webhid/)有独立的发布与兼容性政策；它的 **nb1 Light Reminders** Chrome 扩展仍为实验版本，尚未上架 Web Store，其后台提醒行为仍待用户验收。详见[架构](docs/architecture.zh-CN.md)与[浏览器工具](docs/browser.zh-CN.md)。
+Workbench 前端独立维护，通过校验后的静态产物导入 nb1；它是 UI，不是另一个 daemon。[在线浏览器预览](https://b1ug.github.io/nb1-webhid/)有独立的发布与兼容性政策；它的 **nb1 Light Reminders** Chrome 扩展仍为实验版本，尚未上架 Chrome Web Store。[一分钟提醒实测](https://b1ug.github.io/nb1-guide/zh/browser#load-the-chrome-companion)覆盖 macOS 上关闭弹窗后点亮一只实体 MK2。详见[架构](docs/architecture.zh-CN.md)与[浏览器工具](docs/browser.zh-CN.md)。
 
 文档站与浏览器预览都是 GitHub Pages 项目，共享 `https://b1ug.github.io` 来源。WebHID 授权按 origin 生效，不按项目路径隔离。文档代码不调用 HID，但所在路径并不提供独立的浏览器权限边界。
 
