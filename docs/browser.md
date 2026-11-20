@@ -10,7 +10,7 @@
 | --- | --- | --- |
 | Embedded nb1 Workbench at `/demo/` | Native nb1 daemon | Uses the same local HTTP API, Jobs, colors and Patterns as native clients. |
 | Standalone browser page | Foreground browser page | Direct WebHID; nine Actions and finite Sequences, optional Preview, explicit Play, Stop and Off. |
-| Experimental Chrome extension | Extension context | Direct control and one reminder workflow; no Web Store release or completed user acceptance of background reminders. |
+| Experimental Chrome extension | Extension context | Direct USB control and a background timer. [Tested setup](#load-the-chrome-companion). |
 | This documentation site | None | Static guides and a decorative model; no hardware permission or daemon. |
 
 A browser does not share native nb1 process locks. Before direct WebHID access, stop or disconnect the other controller holding the same light. Before returning to native nb1, Disconnect the browser owner. A confirmation checkbox acknowledges the handoff; it cannot release another process's device handle.
@@ -35,11 +35,13 @@ Keep the page visible during playback. Browser timing and USB latency can add to
 
 ## Load the Chrome companion
 
-The extension is **experimental**. It is not listed in Chrome Web Store, and its background reminder behavior still requires user acceptance. Its source or development-package version does not establish production readiness or match the native CLI version automatically.
+The **experimental** extension has its own version and ships as an unpacked development package. It has no Chrome Web Store listing.
+
+On November 20, 2026, a user granted the extension access to one blink(1) MK2 in Chrome for Testing 156 on macOS. We set a one-minute purple reminder, closed the popup and settings page, and detached the debugger before the timer expired. The lamp visibly lit at the reminder and returned to its unlit state after **Off**.
 
 Use the matching package's [installation and update guide](https://github.com/b1ug/nb1-webhid/blob/e2701e05aebcc0858cc328df0e728fd5c0cec2e4/docs/DISTRIBUTION.md) and [privacy guide](https://github.com/b1ug/nb1-webhid/blob/e2701e05aebcc0858cc328df0e728fd5c0cec2e4/docs/PRIVACY.md). For a development package, Chrome's **Load unpacked** flow selects the directory containing `manifest.json`; device permission belongs to that extension separately from a website. Release the other controller before connecting.
 
-A browser restart, sleep, permission change or lost device can interrupt reminders. Do not rely on the extension for guaranteed delivery or assume it reconnects and replays a previous session. The native daemon is the separate choice for a workflow that must not depend on a visible page. See Chrome's [extension WebHID documentation](https://developer.chrome.com/docs/extensions/how-to/web-platform/webhid) for the platform's permission model.
+This test kept the Mac awake, the device connected and the permission grant active. Delivery across system sleep, browser restart, permission revocation or device removal remains unverified. The native daemon also supports workflows that run without a browser. See Chrome's [extension WebHID documentation](https://developer.chrome.com/docs/extensions/how-to/web-platform/webhid) for the platform's permission model.
 
 ## Move a Sequence between tools
 

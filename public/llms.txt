@@ -13,7 +13,7 @@ Preview is optional; explicit Play/run validates directly. Action expresses inte
 - [OpenAPI 3.1](./api-v1.openapi.json): exact released HTTP schema.
 - [Agents](./agents): register Codex with `codex mcp add nb1 -- nb1 mcp`, check the connection with `list_devices` and `preview_light`, then use the same daemon for playback. Includes the twelve tools and the optional Skill.
 - [Notifications](./agent-notifications): opt-in examples, preview by default.
-- [Browser tools](./browser): public WebHID development preview, experimental Chrome extension and ownership handoff.
+- [Browser tools](./browser): public WebHID development preview, experimental Chrome extension and ownership handoff. One user-authorized MK2 lit for a one-minute reminder with the popup closed in Chrome for Testing 156 on macOS.
 - [Support](./support): system requirements and independently scoped physical evidence.
 - [Chinese API](./zh/api-v1): translated explanations with identical identifiers.
 - [Source record](./site-info.json): document/build identity.

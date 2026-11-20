@@ -54,7 +54,7 @@ nb1 有三个独立的 Web 交付物：这个静态文档站、由原生 nb1 ser
 
 文档站与在线浏览器预览共享 GitHub Pages 的 `https://b1ug.github.io` 来源。WebHID 授权按该 origin 生效，不同项目路径不隔离授权。文档代码不调用 HID 或请求设备，这是代码行为，不是另一个独立的权限来源。
 
-nb1 Light Reminders Chrome 扩展仍为实验版本，未上架 Web Store，其后台提醒行为仍待用户验收。软件或假 HID 测试不能证明实体播放、光学表现、MK3 支持，或睡眠／重启后的提醒送达。
+实验性扩展 nb1 Light Reminders 独立控制 USB。在 macOS 的 Chrome for Testing 156 上，关闭弹窗后，后台提醒成功点亮了一只实体 MK2。[测试条件与范围](browser.zh-CN.md#load-the-chrome-companion)。
 
 ## 内嵌调试器 {#embedded-debugger}
 

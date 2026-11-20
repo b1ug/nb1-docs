@@ -10,7 +10,7 @@
 | --- | --- | --- |
 | `/demo/` 的 nb1 内嵌 Workbench | 原生 nb1 daemon | 与原生客户端共用本机 HTTP API、Job、颜色与 Pattern。 |
 | 独立浏览器页面 | 前台浏览器页面 | 直连 WebHID，九种 Action 与有限 Sequence，可选 Preview、显式 Play、Stop、Off。 |
-| 实验性 Chrome 扩展 | 扩展上下文 | 直连控制与一个提醒流程；没有 Web Store 发行，后台提醒仍待用户验收。 |
+| 实验性 Chrome 扩展 | 扩展上下文 | 通过 USB 直连控制和设置后台提醒。[已验证的环境](#load-the-chrome-companion)。 |
 | 这个文档站 | 无 | 静态指南与装饰模型，不申请硬件权限，不提供 daemon。 |
 
 浏览器不参与原生 nb1 进程锁。直连 WebHID 前，应先停止或断开持有同灯的其他控制者；回到原生 nb1 前先 Disconnect 浏览器持有者。确认框只表示你已完成交接，不能替你释放另一个进程的设备句柄。
@@ -35,11 +35,13 @@ Stop 取消后续 Step，不能冻结已经发出的硬件渐变。Off 停调度
 
 ## 加载 Chrome 扩展
 
-扩展仍为**实验版本**，未上架 Chrome Web Store，后台提醒行为仍待用户验收。它的源码或开发包版本不代表生产就绪，也不会自动等于原生 CLI 版本。
+该扩展有独立版本，目前以可解压加载的**实验性开发包**分发，尚未上架 Chrome Web Store。
+
+2026 年 11 月 20 日，用户在 macOS 的 Chrome for Testing 156 中授权扩展访问一只 blink(1) MK2。我们设好一分钟后的紫色提醒，关闭弹窗和设置页，并在倒计时结束前断开调试器。到点后观察到实体灯亮起，点击 **Off** 后熄灭。
 
 请阅读匹配包的[安装与更新指南](https://github.com/b1ug/nb1-webhid/blob/e2701e05aebcc0858cc328df0e728fd5c0cec2e4/docs/DISTRIBUTION.zh-CN.md)和[隐私指南](https://github.com/b1ug/nb1-webhid/blob/e2701e05aebcc0858cc328df0e728fd5c0cec2e4/docs/PRIVACY.zh-CN.md)。开发包通过 Chrome 的**加载已解压的扩展程序**选择包含 `manifest.json` 的目录；扩展设备权限与网站权限独立，连接前仍应释放其他控制者。
 
-浏览器重启、睡眠、授权变化或设备丢失都可能中断提醒，不能依赖扩展保证送达，也不能假设它会重连并补播上一次会话。需要不依赖前台页面的流程时，原生 daemon 是另一条独立路径。平台权限模型见 Chrome 官方[扩展 WebHID 文档](https://developer.chrome.com/docs/extensions/how-to/web-platform/webhid)。
+本次测试期间 Mac 保持唤醒，设备一直连接，授权持续有效。系统睡眠、浏览器重启、撤销授权或拔出设备后的提醒送达情况仍待验证。需要脱离浏览器运行时，也可以使用原生 daemon。平台权限模型见 Chrome 官方[扩展 WebHID 文档](https://developer.chrome.com/docs/extensions/how-to/web-platform/webhid)。
 
 ## 在工具间传递 Sequence
 
