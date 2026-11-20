@@ -24,10 +24,10 @@ features:
     details: Choose an effect, then adjust its colors and timing.
     link: /api-v1
     linkText: View the API
-  - title: Connect your tools
-    details: Use HTTP, MCP and optional agent notifications.
-    link: /agent-notifications
-    linkText: Connect a workflow
+  - title: Connect an AI agent
+    details: Register nb1 in Codex and try a read-only MCP call.
+    link: /agents
+    linkText: Set up MCP
 ---
 
 ## Start with an idea {#start-with-an-idea}

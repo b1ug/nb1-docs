@@ -112,13 +112,13 @@
       },
       {
         "path": "docs/agents.md",
-        "bytes": 2855,
-        "sha256": "56c0f96dd3bafb3ad81fbeda35f9612554d03a97f573ff4c5c775e39e0468405"
+        "bytes": 4453,
+        "sha256": "171ee0f5c8cd3eeb7e3720108c3bfec38516218790e01c8932d6bdca67c92fb1"
       },
       {
         "path": "docs/agents.zh-CN.md",
-        "bytes": 2660,
-        "sha256": "405da359e993a36dbb1fcb4e51574d20179352102392e3385fa56aad51f21ca1"
+        "bytes": 4239,
+        "sha256": "42103ee984fcc395083efcf624765459273eb858f8970962d1c106bb4bc31415"
       },
       {
         "path": "docs/api-v1-terminology.md",
@@ -172,13 +172,13 @@
       },
       {
         "path": "docs/getting-started.md",
-        "bytes": 5261,
-        "sha256": "c435c79916c4316deec99e7319eb4cac054c987a7f948590141825e5bb5fa55d"
+        "bytes": 7229,
+        "sha256": "f48a838971614bd3ce18e3c43ce49cc3ebbb692a72cf80e0bf68c2993c7df3c6"
       },
       {
         "path": "docs/getting-started.zh-CN.md",
-        "bytes": 5026,
-        "sha256": "e68e3dac1ccc76f8584830da12aa1c0d7bd3b832084fc1e2ff4d1864406a7bf5"
+        "bytes": 6983,
+        "sha256": "3decbb016445012f50cc6738aacfc269592d1f7b83100837426960f6684f70e4"
       },
       {
         "path": "docs/install.md",
@@ -242,13 +242,13 @@
       },
       {
         "path": "pages/index.md",
-        "bytes": 1977,
-        "sha256": "229665a3ff0cc2346acdd3758395b4eb5f17145819279776179a7fc538641fb7"
+        "bytes": 1961,
+        "sha256": "4564b382d4b098257937bf4861d94871323e2c0696e47806fb52dd161b6b4114"
       },
       {
         "path": "pages/zh/index.md",
-        "bytes": 1951,
-        "sha256": "4b9a69905fbca7b02d3ced86f63dd1012191a2be539a0261731a2f71e40be708"
+        "bytes": 1940,
+        "sha256": "9ba3a3036bec9958dc632d2fb1d27db0ce0d276f7ea15b4a6138b6cb0982c5d4"
       },
       {
         "path": "public/LICENSE.txt",
@@ -302,8 +302,8 @@
       },
       {
         "path": "public/llms.txt",
-        "bytes": 2367,
-        "sha256": "5373b162f5e3af8f90a00a3319e42f006da05ddf1c2bab167e7f2097383cee77"
+        "bytes": 2645,
+        "sha256": "3e8492540ff16d128ed982116e7df6a452c27bbe42b4011e083b32803946739b"
       },
       {
         "path": "public/nightlab/source-receipt.json",
