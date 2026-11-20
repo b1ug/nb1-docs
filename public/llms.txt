@@ -7,18 +7,18 @@ Preview is optional; explicit Play/run validates directly. Action expresses inte
 ## Read
 
 - [Install](./install): verified release downloads, optional Homebrew and user services.
-- [Get started](./getting-started): native CLI/server and explicit direct mode.
+- [Get started](./getting-started): install nb1, verify the daemon at http://127.0.0.1:5885/healthz, list devices, open /demo/ and play by serial from CLI or HTTP.
 - [API](./api-v1): required fields, defaults, limits, errors and recovery.
 - [Raw API Markdown](./source/docs/api-v1.md.txt): original machine-readable text.
 - [OpenAPI 3.1](./api-v1.openapi.json): exact released HTTP schema.
-- [Agents](./agents): embedded MCP (stdio or HTTPS), twelve tools and the Skill.
+- [Agents](./agents): register Codex with `codex mcp add nb1 -- nb1 mcp`, check the connection with `list_devices` and `preview_light`, then use the same daemon for playback. Includes the twelve tools and the optional Skill.
 - [Notifications](./agent-notifications): opt-in examples, preview by default.
 - [Browser tools](./browser): public WebHID development preview, experimental Chrome extension and ownership handoff.
 - [Support](./support): system requirements and independently scoped physical evidence.
 - [Chinese API](./zh/api-v1): translated explanations with identical identifiers.
 - [Source record](./site-info.json): document/build identity.
 
-MCP uses the official Go MCP SDK over stdio or explicitly enabled remote Streamable HTTP, not a CLI subprocess or separate USB owner. The notification helper deliberately uses the CLI. Reading a Skill or this site installs nothing, starts no daemon, enables no hook and requests no hardware permissions. This static site does not control a lamp.
+Local MCP clients launch `nb1 mcp` over stdio. Remote clients can use explicitly enabled HTTPS Streamable HTTP. Both use the official Go MCP SDK and share the daemon's USB connection. The notification helper deliberately uses the CLI. Reading a Skill or this site installs nothing, starts no daemon, enables no hook and requests no hardware permissions. This static site does not control a lamp.
 
 API v1 rejects a competing Job on the same device. A Trigger plays a saved Pattern. Devices execute independently. Public queues, preemption, and device-native deployment remain planned.
 

@@ -1,60 +1,82 @@
 # Your first light
 
-[简体中文](getting-started.zh-CN.md) · [Install nb1](install.md) · [Troubleshooting](support.md)
+[简体中文](getting-started.zh-CN.md) · [Installation options](install.md) · [Connect an AI agent](agents.md)
 
-nb1 is one executable with two explicit modes: a foreground server shares a
-device with CLI, HTTP, MCP and the embedded workbench; direct mode plays one
-request without a server. This guide describes the native toolkit.
-Download v0.1.3 for your platform; recorded physical-device evidence is separately scoped to macOS / MK2 / FW204.
+One nb1 daemon can share a blink(1) with the CLI, the HTTP API, the browser debugger and an AI agent. This walkthrough uses v0.1.3 on the computer with the light attached.
+
+## Install nb1
+
+On macOS or Linux with Homebrew:
+
+```sh
+brew tap b1ug/tap
+brew install b1ug/tap/nb1
+nb1 version --json
+```
+
+For a manual installation, choose the [verified download for your platform](install.md#choose-and-verify-a-download). The release includes Mac and Linux arm64/amd64 and Windows amd64. The examples assume `nb1` is on PATH. For an unpacked archive, run `./nb1` (PowerShell: `.\nb1.exe`) in its directory. Check that `version --json` reports `v0.1.3` for this walkthrough.
 
 ## Start a server and play
 
-After [verifying and unpacking v0.1.3](install.md), enter its CLI
-directory. Replace `DEVICE_SERIAL` with the serial printed by `list`:
+On a machine already running nb1, check its address first. The default from v0.1.3 is `http://127.0.0.1:5885`. Earlier installations with an explicit listener keep their configured address. Substitute that address throughout, including in the MCP setup. In Windows PowerShell, use `curl.exe` for the curl examples.
 
 ```sh
-./nb1 list
-./nb1 server --devices DEVICE_SERIAL
+curl -fsS http://127.0.0.1:5885/healthz
 ```
 
-The server remains in that terminal. In a second terminal in the same directory,
-save this as `action.json`:
+If the response contains `"status":"ok"` and `"api_version":"v1"`, use the running daemon. On a fresh install, plug in the light, run `nb1 list`, then replace `DEVICE_SERIAL` below with its serial. For several lights, pass their serials in one comma-separated list.
+
+```sh
+nb1 server --devices DEVICE_SERIAL
+```
+
+Keep that terminal open. Ctrl-C stops the foreground server. To start it at login, see [optional user services](install.md#optional-user-service) for macOS and Linux. On Windows, run the foreground server.
+
+In a second terminal, check the devices configured on this daemon. The light you want should show its serial and `"connection":"online"`. A healthy daemon can have zero online devices.
+
+```sh
+curl -fsS http://127.0.0.1:5885/v1/devices
+```
+
+**Play from the browser.** Open the [local debugger on port 5885](http://127.0.0.1:5885/demo/), select that serial, choose **Pulse**, then **Play**. **Preview** plays on screen. For two steady colors, choose **Solid → Separate colors** and set **LED 1 · blink(1)** and **LED 2 · ThingM**. This debugger uses the daemon's connection. If local token authentication is enabled, use the authenticated CLI or API. [Access settings](remote-access.md)
+
+**Play from the CLI.** Save this as `action.json` and run it against your serial:
 
 ```json
 {"action":{"kind":"pulse","color":"teal","cycles":3}}
 ```
 
 ```sh
-./nb1 control devices
-./nb1 control run DEVICE_SERIAL action.json --wait
+nb1 control run DEVICE_SERIAL action.json --wait
 ```
 
-Preview is optional: use `./nb1 control preview action.json` to inspect a plan without playing. `run --wait` waits for a terminal Job; check
-its status for success. Save the returned ID and endpoint for later lookup.
-An existing daemon explicitly configured on port 8931 keeps that address. v0.1.3 defaults to `http://127.0.0.1:5885`. Open the running server's `/demo/` path
-for its embedded English/Chinese workbench. This documentation site does not open USB; the separate [browser tools](browser.md)
-provide explicit WebHID access.
+A Job with `status` equal to `succeeded` confirms execution. To inspect the compiled Sequence without a light, use `nb1 control preview action.json`.
 
-Stop the foreground server with Ctrl-C. Installing the executable or starting
-`server` does not install a login service.
+## Send the same effect over HTTP
 
-::: tip Workbench controls
-**Play** checks the current draft and selected device, then submits it once. **Preview** is optional and plays the effect on screen.
+Save the following as `job.json`, substituting your online serial. Use the same Job ID in the file and the lookup URL below. Choose a fresh ID for each **new** playback.
 
-For two steady colors, choose **Separate colors** in **Solid** and edit **LED 1 · blink(1)** and **LED 2 · ThingM**. One Play submits the colors as one Sequence. The shared-color setting remains available.
-:::
+```json
+{"id":"first-teal-pulse","serial":"DEVICE_SERIAL","action":{"kind":"pulse","color":"teal","cycles":3}}
+```
+
+```sh
+curl -i -H "Content-Type: application/json" --data-binary "@job.json" http://127.0.0.1:5885/v1/jobs
+curl -fsS http://127.0.0.1:5885/v1/jobs/first-teal-pulse
+```
+
+`202 Accepted` means the daemon accepted the Job. Repeat only the GET until the Job reaches a terminal status. After a lost response, query the same ID. In v0.1.3 a competing playback on the same light returns `409 device_busy`; a different serial can play independently. [API fields and error codes](api-v1.md) · [Connect Codex through MCP](agents.md#set-up-mcp)
 
 ## Choose among several lights
 
-
 An explicit positional serial takes priority over `--device`, `NB1_DEVICE`, then profile `device`. With none selected, v0.1.3 reads the daemon's cached configured devices, sorts serials in ascending byte order, and chooses the first whose connection is `online`. If none is online, it chooses the first configured serial: `state` shows that target's status, and `run` reports its real error. This order is not USB insertion order.
 
-For example, replace these example serials with values from `list`, start `./nb1 server --devices 20000002,20000001`, then use another terminal:
+For example, replace these example serials with values from `list`, start `nb1 server --devices 20000002,20000001`, then use another terminal:
 
 ```sh
-./nb1 control state
-./nb1 control run action.json --wait
-./nb1 control run 20000002 action.json --wait
+nb1 control state
+nb1 control run action.json --wait
+nb1 control run 20000002 action.json --wait
 ```
 
 The first two commands use the default rule. The third explicitly selects `20000002`, even when another device is online. Automatic selection with multiple configured devices prints the count and selected serial as an English notice on stderr; stdout stays JSON. A busy device, failure or unknown result never sends the request to the next light. HTTP and MCP can omit `serial` to use [daemon routing](trigger-routing.md). Direct mode requires an explicit or preferred target.
@@ -63,10 +85,12 @@ The v0.1.3 embedded Workbench initially uses the same serial order. Choosing a d
 
 ## Prefer one direct playback?
 
+**Share the daemon or use USB directly.** The embedded debugger, CLI and MCP share one daemon. The separate WebHID page (development preview) and Chrome reminder extension (experimental) each open USB themselves. Release the light from its previous controller before switching. [Browser ownership and extension setup](browser.md)
+
 After the other controller has released the device:
 
 ```sh
-./nb1 control --direct run DEVICE_SERIAL action.json
+nb1 control --direct run DEVICE_SERIAL action.json
 ```
 
 Direct execution always waits. It uses the same device ownership lock, accepts
@@ -76,7 +100,7 @@ switches to direct USB.
 
 ## Keep your choices
 
-`./nb1 config init` creates a private template without overwriting an existing
+`nb1 config init` creates a private template without overwriting an existing
 file. `config path` and `config show` inspect the selected file and settings.
 macOS/Linux default to `~/.config/nb1/config.yaml`; set an absolute
 `XDG_CONFIG_HOME` to choose another root. Windows uses `%APPDATA%\nb1`.

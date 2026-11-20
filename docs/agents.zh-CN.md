@@ -4,9 +4,26 @@
 
 MCP 随 v0.1.3 的 `nb1` 主程序提供，使用官方 Go MCP SDK，本机和跨机均可接入。灯由 daemon 控制。
 
+如果这是一台新电脑，也可以把安装工作交给 AI：
+
+> 请参照 https://b1ug.github.io/nb1-guide/zh/getting-started 为本机平台安装 nb1 v0.1.3 并核对版本。如果已有 daemon 就沿用，否则为我选定的序列号启动服务。告诉我服务地址、设备序列号与连接状态，再做一次预览。等我要求播放时再点灯。
+
 ## 配置 MCP
 
-先用 `nb1 server --devices DEVICE_SERIAL` 启动 daemon。把下面的命令及参数填入 MCP 客户端，Windows 使用 `nb1.exe` 的绝对路径。
+先在插着灯的电脑上[完成首次启动](getting-started.zh-CN.md)。确认 `/healthz` 有回应后，**Codex CLI** 可以用同一个 `nb1` 程序启动本地 stdio 适配器。如果已经注册过 `nb1`，请用 `codex mcp get nb1` 检查并保留已有地址和鉴权设置。首次注册运行：
+
+```sh
+codex mcp add nb1 -- nb1 mcp
+codex mcp get nb1
+```
+
+检查传输方式为 `stdio`、命令为 `nb1`，且参数包含 `mcp`。若客户端无法从 PATH 找到程序，将 `--` 后的 `nb1` 换成可执行文件的完整路径，Windows 上指向 `nb1.exe`。若使用自定义地址，在 `mcp` 后加 `--endpoint http://127.0.0.1:PORT`。[Codex MCP 配置](https://developers.openai.com/codex/mcp/)
+
+新开一个 Codex 会话，先试一条只读请求：
+
+> 用 nb1 的 `list_devices` 列出每个设备的序列号和连接状态。再用 `preview_light` 预览 `{"action":{"kind":"pulse","color":"teal","cycles":3}}`，告诉我计划执行的 Sequence。灯保持原样。
+
+设备列表（可以为空）和编译成功的预览表示客户端已连通 daemon。需要点亮真灯时，请它向 `run_light` 提供选定的在线序列号，再用返回的 ID 调 `get_job`。其他接收命令和参数数组的客户端可使用同一 stdio 配置：
 
 ```json
 {"command":"/absolute/path/to/nb1","args":["mcp","--endpoint","http://127.0.0.1:5885","--timeout","10s"]}
@@ -28,7 +45,7 @@ Preview 可选。直接调用工具也会校验并播放：
 
 ## 添加 Skill
 
-把 `blink1-control-v0.1.3.zip` 解压到新的 `blink1-control` 文件夹，完整复制到项目 `.agents/skills/`，保留 `SKILL.md`、`agents/`、`references/` 和 `LICENSE`。阅读其适用范围与触发方式。Skill 为既有连接提供指引，不安装软件、注册 MCP、启动服务或启用 hook。
+下载[可选的 v0.1.3 Skill ZIP](https://github.com/b1ug/nb1/releases/download/v0.1.3/blink1-control-v0.1.3.zip)，解压到新的 `blink1-control` 文件夹，完整复制到项目 `.agents/skills/`，保留 `SKILL.md`、`agents/`、`references/` 和 `LICENSE`。阅读其适用范围与触发方式。Skill 为既有连接提供指引，不安装软件、注册 MCP、启动服务或启用 hook。
 
 [核心 Agent 指引](https://github.com/b1ug/nb1/blob/48895be5babc11d6f3b2a7ab16e316bd564e726e/docs/agent-guide.zh-CN.md) · [机器可读站点指引](/llms.txt)
 

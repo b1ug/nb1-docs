@@ -24,10 +24,10 @@ features:
     details: 选择效果，再调整颜色与时间。
     link: /zh/api-v1
     linkText: 查看 API
-  - title: 接入工具
-    details: 连接 HTTP、MCP 与按需启用的 Agent 通知。
-    link: /zh/agent-notifications
-    linkText: 接入工作流
+  - title: 接入 AI Agent
+    details: 在 Codex 注册 nb1，先用只读调用验证连接。
+    link: /zh/agents
+    linkText: 配置 MCP
 ---
 
 ## 从一个想法开始 {#start-with-an-idea}
