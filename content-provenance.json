@@ -83,12 +83,12 @@
       {
         "path": "README.md",
         "bytes": 7928,
-        "sha256": "cdec491a557e44fea52327c78c0cf72dc5e8fe6f903e26ce91db6c094f2ea3e9"
+        "sha256": "0406add68d7af3cd54cd9206e433eeaec3dc25c5bcd89469caec165e5b9e21bb"
       },
       {
         "path": "README.zh-CN.md",
         "bytes": 6889,
-        "sha256": "54639bcac882ad9058d46a2f2ec06ad7e679812ce4e32159681b9a2156e9e9fd"
+        "sha256": "412f1fbc62f800493b90c5318fecd9d589ddf99317aa7d61d34d7adc9abc35ea"
       },
       {
         "path": "assets/nb1-icon.png",
@@ -112,13 +112,13 @@
       },
       {
         "path": "docs/agents.md",
-        "bytes": 4453,
-        "sha256": "171ee0f5c8cd3eeb7e3720108c3bfec38516218790e01c8932d6bdca67c92fb1"
+        "bytes": 4548,
+        "sha256": "3a5165f630d69196a0a97085701b4d7dad9dd150423c84843ca5cdcf9904676b"
       },
       {
         "path": "docs/agents.zh-CN.md",
-        "bytes": 4239,
-        "sha256": "42103ee984fcc395083efcf624765459273eb858f8970962d1c106bb4bc31415"
+        "bytes": 4362,
+        "sha256": "72341347bafbec07a98cf953ec151d5cbbae7b345086783569bcc614b91b400a"
       },
       {
         "path": "docs/api-v1-terminology.md",
@@ -132,103 +132,113 @@
       },
       {
         "path": "docs/api-v1.md",
-        "bytes": 45076,
-        "sha256": "3c3b72642e3a6fd779196920986eb3f8fe260644776b885d7eb370460a22d349"
+        "bytes": 52046,
+        "sha256": "9b63314c988d3941fcede48d16fca35306afa594f29b513a45143d577e775731"
       },
       {
         "path": "docs/api-v1.zh-CN.md",
-        "bytes": 41952,
-        "sha256": "7ed7e46b1510cca43e7a0b8cc3687711137e561ac128813d8e5477c46e5f4e64"
+        "bytes": 44492,
+        "sha256": "299084b16f4d178fad366cad445bab8c40d253f2cbcce861b8922bbec0122823"
       },
       {
         "path": "docs/architecture.md",
-        "bytes": 13174,
-        "sha256": "13e02f0a51a47b8346d8aa20a0eb5af1a6ca31df4c47c4af78527b1ce3cf81c4"
+        "bytes": 13261,
+        "sha256": "aa3702f03cb2e6a0a0e11589ea4ccc115604748ce92b17f4ef810db566110d9f"
       },
       {
         "path": "docs/architecture.zh-CN.md",
-        "bytes": 11574,
-        "sha256": "bc60bdd186a4a99a8f92af4ed56d8b9db56c01d206b88aee7a5156b4f87a6e36"
+        "bytes": 11695,
+        "sha256": "520cf46b03df0ecde275b4b15a12e691f66404fa64501a5a0ae1f3bef4f3ec7d"
       },
       {
         "path": "docs/browser.md",
         "bytes": 7762,
-        "sha256": "ef9c016920c4c70d8ad91cd957124838307b4e9464feff2bfaa74ca9dfdc5662"
+        "sha256": "cdc377022ea62ab8ca1e86a664738b9dd0974f42e9d69354f5c972d0544325c5"
       },
       {
         "path": "docs/browser.zh-CN.md",
         "bytes": 6852,
-        "sha256": "7609687265cfd164e879d3151cfd756720f22f94ab4ebabc522088f397b83f97"
+        "sha256": "4d9df846a36e62e719388a58b955ccac306f814dbc34d75dcdf0b0f2011d9677"
       },
       {
         "path": "docs/changelog.md",
-        "bytes": 11790,
-        "sha256": "582586c04c4e9b463af1a8778c95b27be569b53f44968795641e4607aa52dfd1"
+        "bytes": 13406,
+        "sha256": "c923dd68e587bc7b03314a5c284a1c46b7e8efcc68e854f1fbfc0d40e6022946"
       },
       {
         "path": "docs/changelog.zh-CN.md",
-        "bytes": 8763,
-        "sha256": "330916e962e0326c3c127823a07d266c538395696c33dd28da7c4fdd66922e3f"
+        "bytes": 10234,
+        "sha256": "689d778fa48ecb60253c27ef2f0dd625a1f6fc33bda302b7e0f868858c269e7e"
+      },
+      {
+        "path": "docs/device-flash-reset.md",
+        "bytes": 2225,
+        "sha256": "9fcb0699674860de6405f180a75e5d9cfbee9955a0c785f0ed6a9edfd12fd8f6"
+      },
+      {
+        "path": "docs/device-flash-reset.zh-CN.md",
+        "bytes": 1944,
+        "sha256": "c9960f73e08714edbb160028c2d4de156e9280bc84beaae894d75c6e95d742e7"
       },
       {
         "path": "docs/getting-started.md",
-        "bytes": 7229,
-        "sha256": "f48a838971614bd3ce18e3c43ce49cc3ebbb692a72cf80e0bf68c2993c7df3c6"
+        "bytes": 7309,
+        "sha256": "247d3f97a96da2a49a13aa57116459375e97d0f3adbec71758b5018b56bdcb77"
       },
       {
         "path": "docs/getting-started.zh-CN.md",
-        "bytes": 6983,
-        "sha256": "3decbb016445012f50cc6738aacfc269592d1f7b83100837426960f6684f70e4"
+        "bytes": 7060,
+        "sha256": "ddf487faaae12ad928b551b3b9014217ebc45e4be29962d8c41e3e74e0dbaeeb"
       },
       {
         "path": "docs/install.md",
-        "bytes": 12999,
-        "sha256": "361138762b6cca29dc3324fd140a3eb9c38586ca38c10407e437ea2facd3853a"
+        "bytes": 13139,
+        "sha256": "ac965f6d3d522a83315aba2a2ce12a92a0b42934be34e0420490d80ea0a01afe"
       },
       {
         "path": "docs/install.zh-CN.md",
-        "bytes": 10294,
-        "sha256": "15c48d92d79207556ec6309d4bc05dac1896681dc52b9281b45053a893087eb0"
+        "bytes": 10496,
+        "sha256": "65a5fc05f376c83004b42c9bacbebb129e494e2bffffa8dbe953becc6e4d407f"
       },
       {
         "path": "docs/overview.md",
-        "bytes": 2371,
-        "sha256": "1746285e46dac4c2e4f302d1cf5fc753851d8aac244f53956b0cf6c4f833ad5d"
+        "bytes": 2458,
+        "sha256": "b2b5b74987c62f16303928a5f6d6a1585de26999742ff5bf01026bf2a3a53962"
       },
       {
         "path": "docs/overview.zh-CN.md",
-        "bytes": 2135,
-        "sha256": "3a8a6ad5fe442f8bdf00562a8b38552bcf8422fee2e847ea13d6f7ea8e439c10"
+        "bytes": 2239,
+        "sha256": "e322e6a895abf87808757ee367320e09ac032c32c3e904a31043f26856062e70"
       },
       {
         "path": "docs/remote-access.md",
         "bytes": 6196,
-        "sha256": "f358ab48928d7c3d751b447846416e0d2831760fc308aedbf1c6b7c6ea55f2e7"
+        "sha256": "6f262a89ccf8168fdfb474d50427bdbb44912927045bf72aaade858dd8018619"
       },
       {
         "path": "docs/remote-access.zh-CN.md",
         "bytes": 5868,
-        "sha256": "4a7ef123ecaacd632547555b11b95e57755c595421a240738fbfbd76f5d11783"
+        "sha256": "5aadae6d290bac5e414fbbf9f4dd70c03b5bf7deb51b801d4f68621da657b6ad"
       },
       {
         "path": "docs/support.md",
-        "bytes": 5664,
-        "sha256": "d74a64aa7f21bdab817386248a9a6c94f95af0b944dc0f37a3feae7bf1194d6a"
+        "bytes": 6202,
+        "sha256": "c3a4185083c5141eb351b2ae29078c6a5230ba4fd7f97dc87ac6612aaa4a9aaf"
       },
       {
         "path": "docs/support.zh-CN.md",
-        "bytes": 5049,
-        "sha256": "6ec04a5bd1340d6de7b6f0f59a5db75df1ae90148af6e36524601918e42b1989"
+        "bytes": 5439,
+        "sha256": "df576bebbff610f53f825455d63b96f9e1c025a9cf3fbccb736cc9912ec098a3"
       },
       {
         "path": "docs/trigger-routing.md",
-        "bytes": 5588,
-        "sha256": "d7703ed61206dcaace80d76627edec97611ccb04a8889d3a9f80620da9bece5a"
+        "bytes": 6384,
+        "sha256": "daa5edaf0e80516e780a8356de879e5c3a2096ac466d69b9d46988cc9917561b"
       },
       {
         "path": "docs/trigger-routing.zh-CN.md",
-        "bytes": 4435,
-        "sha256": "6ef82f54ff18a44c54e1893acbb151daa6b786ac0492d4e1359388d90b16acb2"
+        "bytes": 5220,
+        "sha256": "a28a1fab3099d983928f7b6b39c81f17e988c5990439d66d4bab6dbcb3698ed4"
       },
       {
         "path": "package-lock.json",
@@ -243,12 +253,12 @@
       {
         "path": "pages/index.md",
         "bytes": 1961,
-        "sha256": "4564b382d4b098257937bf4861d94871323e2c0696e47806fb52dd161b6b4114"
+        "sha256": "66fa79f19b16222c430658471e448543308f0410d4f7f11dde1af376b938f4f5"
       },
       {
         "path": "pages/zh/index.md",
         "bytes": 1940,
-        "sha256": "9ba3a3036bec9958dc632d2fb1d27db0ce0d276f7ea15b4a6138b6cb0982c5d4"
+        "sha256": "3981438bd6c68e15fd81226958ced5bc8b01c19fd9f8490f60b666c3793baf35"
       },
       {
         "path": "public/LICENSE.txt",
@@ -257,8 +267,8 @@
       },
       {
         "path": "public/api-v1.openapi.json",
-        "bytes": 175567,
-        "sha256": "bdd93a3a5d07011ee48726ce14bf65f00d8d4f89549eef054859cd755d6d4c0d"
+        "bytes": 206523,
+        "sha256": "cf6683a6cd556a32e67930363e84f4bc31e01f370beae2d31e18b7a87d35493f"
       },
       {
         "path": "public/assets/fonts/Fredoka-OFL.txt",
@@ -357,8 +367,8 @@
       },
       {
         "path": "scripts/content-map.mjs",
-        "bytes": 993,
-        "sha256": "4dcdc80d493e1d62ad115da78cd2d61e94de799d1694144e998321128b2404ad"
+        "bytes": 1064,
+        "sha256": "e4ad95f87b85448ce702976e9868fe2a34abc77c117e6fabfa7df9a57b7cfa45"
       },
       {
         "path": "scripts/prepare-content.mjs",

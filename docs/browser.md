@@ -2,7 +2,7 @@
 
 [简体中文](browser.zh-CN.md) · [Native installation](install.md) · [Architecture](architecture.md)
 
-[nb1 WebHID](https://b1ug.github.io/nb1-webhid/) and its [public source](https://github.com/b1ug/nb1-webhid) are a separate **development preview**. Their foreground page uses WebHID directly, with a shared Go/WASM compiler; the **nb1 Light Reminders** Chrome extension is experimental. Neither is the native nb1 daemon or this static documentation site. Native nb1 v0.1.3 remains an independent supported installation path.
+[nb1 WebHID](https://b1ug.github.io/nb1-webhid/) and its [public source](https://github.com/b1ug/nb1-webhid) are a separate **development preview**. Their foreground page uses WebHID directly, with a shared Go/WASM compiler; the **nb1 Light Reminders** Chrome extension is experimental. Neither is the native nb1 daemon or this static documentation site. Native nb1 v0.1.4 remains an independent supported installation path.
 
 ## Choose who controls the light
 
@@ -70,4 +70,4 @@ The current browser work is a development preview. Software rendering, Go/WASM a
 
 The [live build record](https://b1ug.github.io/nb1-webhid/site-build.json) identifies the deployed frontend, extension version and Go/WASM compiler. The current browser build pins nb1 core v0.1.1 (`b5cfe68cbb412d81a80d948b845aee5b0aba586b`). Include the build record and the downloaded ZIP checksum when reporting a problem. The [first public preview](https://github.com/b1ug/nb1-webhid/tree/e2701e05aebcc0858cc328df0e728fd5c0cec2e4) is available as a historical reference.
 
-The native [nb1 v0.1.3 release](install.md), embedded Workbench bundle, browser development preview and extension package are separate deliverables. Publishing a preview does not upgrade an installed daemon, renew old hardware evidence, or imply Web Store publication.
+The native [nb1 v0.1.4 release](install.md), embedded Workbench bundle, browser development preview and extension package are separate deliverables. Publishing a preview does not upgrade an installed daemon, renew old hardware evidence, or imply Web Store publication.

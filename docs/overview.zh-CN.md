@@ -2,7 +2,7 @@
 
 [English](overview.md)
 
-[nb1 v0.1.3](https://github.com/b1ug/nb1/releases/tag/v0.1.3) 把 CLI、可选本地 daemon、HTTP API 与双语 Nightlab 调试器放在同一个程序里。可以共用 server，也可以显式直连；安装不会暗中启动服务，客户端也不会静默切换 USB。
+[nb1 v0.1.4](https://github.com/b1ug/nb1/releases/tag/v0.1.4) 把 CLI、可选本地 daemon、HTTP API 与双语 Nightlab 调试器放在同一个程序里。可以共用 server，也可以显式直连；安装不会暗中启动服务，客户端也不会静默切换 USB。
 
 ## 从这里开始
 
@@ -12,7 +12,7 @@
 
 Action 包括 `set`、`off`、`fade`、`blink`、`breathe`、`pulse`、`alternate`、`orbit` 和七色 `rainbow`。Sequence 用统一 `steps[]` 指定 LED targets 及 serial／interval 时序。编译与调度由核心完成。Preview 可选，明确点 Play 会校验当前草稿；一条 Sequence 可以让两灯显示不同颜色。
 
-颜色支持色名、Hex3／Hex6、RGB8、HSV／HSB 与本地 `@name`。命名颜色与 Pattern 存在电脑上；保存 Pattern 固定已解析 Sequence，不写设备 RAM、Flash 或上电效果。DeviceSequence 部署、新源内容目录、排队与抢占仍为后续计划。[Trigger](trigger-routing.zh-CN.md) 可以指定保存的 Pattern 和播放设备。
+颜色支持色名、Hex3／Hex6、RGB8、HSV／HSB 与本地 `@name`。命名颜色与 Pattern 存在电脑上；保存 Pattern 固定已解析 Sequence，不写设备 RAM、Flash 或上电效果。通用设备端 Sequence 创作与 RAM 播放仍在规划中；v0.1.4 为受支持的 MK2 Flash 增加有保护的预设重置，见[设备 Flash 重置](device-flash-reset.zh-CN.md)。[Trigger](trigger-routing.zh-CN.md) 可以指定保存的 Pattern 和播放设备。
 
 ## 追踪原 Job
 

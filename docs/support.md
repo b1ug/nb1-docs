@@ -37,7 +37,7 @@ Device RGB is timestamped cached state, not an optical measurement. Job records 
 
 ## Released software and physical evidence
 
-v0.1.3 packages the CLI, daemon and MCP together for macOS 15+, Linux glibc 2.38+ and Windows x64. [Get v0.1.3](https://github.com/b1ug/nb1/releases/tag/v0.1.3). The published Apple Silicon executable ran nine Actions and two Sequences on each of two blink(1) MK2 lamps with firmware 204. [Two-device release record](changelog.md#release-v013) · [Five-platform release](https://github.com/b1ug/nb1/actions/runs/44616849013).
+v0.1.4 packages the CLI, daemon, MCP and embedded Workbench together for macOS 15+, Linux glibc 2.38+ and Windows x64. It adds per-device queue/preemption policies, a read-only API welcome at `/`, and guarded MK2 Flash preset reset. [Get v0.1.4](https://github.com/b1ug/nb1/releases/tag/v0.1.4) · [Five-platform release](https://github.com/b1ug/nb1/actions/runs/44899127748). Historical two-device Action/Sequence evidence remains under its original v0.1.3 record at [changelog](changelog.md#release-v013); it is not a new v0.1.4 optical qualification.
 
 The following table records verification for the earlier v0.1.2 release.
 
@@ -61,3 +61,6 @@ On macOS, ownership locks remain under `~/Library/Application Support/nb1/device
 Windows foreground operation is included; automatic service installation/start/stop/uninstall is not. Linux service management needs a systemd user manager; a container without one can run a foreground server.
 
 For a report, include OS/architecture, model/firmware if known, `version --json`, the exact command, a redacted error and expected/observed behavior. Keep credentials, message text and unrelated paths out of shared diagnostics. [Complete API errors and recovery](api-v1.md).
+
+
+Flash reset hardware acceptance used pre-release candidates on two MK2 / FW204 devices. One Flash save was not acknowledged by USB; two later cold reads matched all 32 rows, and the restored original pattern also matched twice. nb1 therefore reports `unconfirmed` and asks the operator to inspect the device rather than silently retrying. This does not qualify USB on every platform, MK3, or optical output.

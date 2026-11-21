@@ -6,7 +6,7 @@
 
 [nb1](https://github.com/b1ug/nb1) 的文档与示例仓库，让 blink(1) 通过合适的本地软件形态被人和 Agent 使用。
 
-本文档对应 [nb1 v0.1.3](https://github.com/b1ug/nb1/releases/tag/v0.1.3)，固定发行核心 `48895be5babc11d6f3b2a7ab16e316bd564e726e`。VitePress 1.6.4 提供 26 个英中文页面、本地搜索和已批准的 Nightlab 呈现。默认英文，可显式切换中文，静态站点不申请硬件权限。生产目标为 **https://b1ug.github.io/nb1-guide/**；构建与实际部署分开，由 GitHub Pages workflow 记录发布状态。
+本文档对应 [nb1 v0.1.4](https://github.com/b1ug/nb1/releases/tag/v0.1.4)，固定发行核心 `0a2199cab89621888782baa154522c37ad83b641`。VitePress 1.6.4 提供 28 个英中文页面、本地搜索和已批准的 Nightlab 呈现。默认英文，可显式切换中文，静态站点不申请硬件权限。生产目标为 **https://b1ug.github.io/nb1-guide/**；构建与实际部署分开，由 GitHub Pages workflow 记录发布状态。
 
 [多设备选择](docs/getting-started.zh-CN.md#choose-among-several-lights) · [Trigger 路由](docs/trigger-routing.zh-CN.md) · [远程 MCP 与 HTTP](docs/remote-access.zh-CN.md)
 
@@ -17,7 +17,7 @@
 | 内容 | 作用 |
 | --- | --- |
 | [导览](docs/overview.zh-CN.md) | 选择本地控制方式、找到各类指南。 |
-| [入门](docs/getting-started.zh-CN.md) | 安装 v0.1.3、选设备并显式播放，预览可选。 |
+| [入门](docs/getting-started.zh-CN.md) | 安装 v0.1.4、选设备并显式播放，预览可选。 |
 | [API v1](docs/api-v1.zh-CN.md) | 字段、默认、范围、错误与恢复。 |
 | [Agent 接入](docs/agents.zh-CN.md) | 同版 MCP 工具与 Skill。 |
 | [Agent 通知](docs/agent-notifications.zh-CN.md) | 可选 Codex 回合结束通知及已验范围。 |
@@ -56,7 +56,7 @@ VitePress 固定为稳定版 `1.6.4`，其 Vite 依赖显式覆盖到已修补�
 
 ## 来源与范围
 
-API、OpenAPI、安装及匹配 MCP／Skill 指引对应发行核心 `48895be5babc11d6f3b2a7ab16e316bd564e726e`。[内容来源清单](content-provenance.json)记录上游与本地文件散列。中文保持相同代码标识、字段、命令与限制。历史硬件与通知证据保留原始日期和来源，不随新版本自动扩大。
+API、OpenAPI、安装及匹配 MCP／Skill 指引对应发行核心 `0a2199cab89621888782baa154522c37ad83b641`。[内容来源清单](content-provenance.json)记录上游与本地文件散列。中文保持相同代码标识、字段、命令与限制。历史硬件与通知证据保留原始日期和来源，不随新版本自动扩大。
 
 [nb1 定稿形象](assets/nb1-mascot.webp)和 [favicon](assets/nb1-icon.png) 与内嵌工作台一致，是唯一生产品牌衍生。语言通过显式入口切换，默认保持英文。
 

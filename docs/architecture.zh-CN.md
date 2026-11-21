@@ -2,7 +2,7 @@
 
 [English](architecture.md)
 
-nb1 有三个独立的 Web 交付物：这个静态文档站、由原生 nb1 server 提供的内嵌 Workbench，以及直接使用 WebHID 的独立浏览器工具。它们共享术语和视觉资源，但设备持有者与发布路径不同。本文对应 nb1 v0.1.3 的发行核心 `48895be5babc11d6f3b2a7ab16e316bd564e726e`。浏览器开发预览不是新的原生发行版本。
+nb1 有三个独立的 Web 交付物：这个静态文档站、由原生 nb1 server 提供的内嵌 Workbench，以及直接使用 WebHID 的独立浏览器工具。它们共享术语和视觉资源，但设备持有者与发布路径不同。本文对应 nb1 v0.1.4 的发行核心 `0a2199cab89621888782baa154522c37ad83b641`。浏览器开发预览不是新的原生发行版本。
 
 维护的 Markdown 位于 `docs/`，首页位于 `pages/`。内容准备生成被忽略的 `site/`，VitePress 生成被忽略的 `dist/`、本地搜索、原始 Markdown、OpenAPI 与构建记录。文档站不申请硬件权限，也不启动 daemon；装饰用 3D 模型是屏幕示意，不是设备读回。
 
@@ -62,7 +62,7 @@ nb1 有三个独立的 Web 交付物：这个静态文档站、由原生 nb1 ser
 
 [Workbench 仓库](https://github.com/b1ug/nb1-debugger)提供公开前端源码，不是另一个独立托管的设备控制器。daemon 保留原生设备归属与既有 Origin 政策。HTTP 接受请求、缓存 RGB 和实体发光是不同的观察结果。安装或升级 nb1 不会自动替换已经运行的 daemon。
 
-v0.1.3 产物加入确定的首次设备选择，并在当前页面内点击刷新控件或切换语言时保留所选序列号，包括离线或已移除的目标；浏览器整页重新加载或打开另一个入口会重新采用默认选择。页面显示数量／目标及就绪理由。[分版本规则](getting-started.zh-CN.md#choose-among-several-lights)说明具体行为；已发布 v0.1.2 在主动升级和重启之前继续使用原内嵌前端。
+v0.1.3 产物首次加入确定性设备选择，并在当前页面内点击刷新控件或切换语言时保留所选序列号，包括离线或已移除的目标；v0.1.4 保留该行为。浏览器整页重新加载或打开另一个入口会重新采用默认选择。页面显示数量／目标及就绪理由。[分版本规则](getting-started.zh-CN.md#choose-among-several-lights)说明具体行为；已安装版本会继续使用自己的内嵌前端，直到显式升级并重启。
 
 ### 按设备执行，共享 daemon {#per-device-execution-shared-daemon}
 
@@ -71,10 +71,10 @@ daemon 是共用入口，不是一个共享播放槽。请求解析到 serial �
 | 每个实体 serial 所属 | daemon 共享 |
 | --- | --- |
 | 原生设备拥有者、worker、活动槽、待处理工作、连接与缓存状态。 | 配置、内容库、daemon HTTP／服务生命周期、保留中的 Job ID 命名空间及终态 TTL/LRU 缓存。 |
-| API v1 的 busy 拒绝，以及对绑定到该 serial 的 Job 的取消。 | 显式关闭 server 时停止接受工作并清理其受管设备。 |
-| 未来队列容量、等待截止时间、抢占与清队必须限定于冻结后的目标 serial。 | 全局 ID 冲突及终态缓存保留不构成共享播放队列。 |
+| API v1 的 `reject`／`queue`／`preempt` 调度，以及对绑定到该 serial 的 Job 的取消。 | 显式关闭 server 时停止接受工作并清理其受管设备。 |
+| 队列容量和抢占清理都限定于已固定的目标 serial。 | 全局 ID 冲突及终态缓存保留不构成共享播放队列。 |
 
-A 满队或取消不能占用 B 的队列容量，也不能取消 B。排队／抢占 API 仍属规划，未来抢占时保留待播项尚不是公开合同。当前遇忙拒绝的边界见[设备执行范围](api-v1.zh-CN.md#device-execution-scope)。MCP adapter 关闭或客户端断开不会停止 daemon，也不取消已接受的 Job。后端设备独立不表示一个 Workbench 页面已经能同时监控多个 Job。
+A 设备排满队列或取消任务，不会占用 B 的队列容量，也不会取消 B。v0.1.4 中每台设备有独立调度器，默认 `reject`，也可明确选择 `queue` 或 `preempt`。[设备执行范围](api-v1.zh-CN.md#device-execution-scope)说明队列容量、清理与恢复规则。MCP adapter 关闭或客户端断开不会停止 daemon，也不会取消已接受的 Job。后端设备独立，不代表一个 Workbench 页面已经能同时监控多个 Job。
 
 设备级调度是逻辑隔离，不是对操作系统或后端故障的完全隔离。当前 macOS 后端会串行化枚举和打开：A 卡在打开时，B 的重新打开可能等待。已打开的 B 句柄上的 report I/O 不使用该枚举／打开锁；这不构成普遍的时序或故障隔离保证。
 
@@ -99,10 +99,10 @@ A 满队或取消不能占用 B 的队列容量，也不能取消 B。排队／�
 - **浏览器工具：**维护者负责 WebHID、WASM 打包、扩展权限、预览托管和实验兼容性说明。浏览器发布不代表 Chrome Web Store 接受，也不代表硬件验收完成。
 - **文档：**本仓库负责静态指南、导航、成对翻译与有效链接；更新文档既不打开 USB，也不修改已安装的产物。
 
-v0.1.3 内嵌 [nb1 Debugger 9dc2a915](https://github.com/b1ug/nb1-debugger/tree/9dc2a9155354c6650b38a3355f3eebdb911f8320)，资源由 nb1 内的 `internal/webui/manifest.lock.json` 校验。
+v0.1.3 首次内嵌 [nb1 Debugger 9dc2a915](https://github.com/b1ug/nb1-debugger/tree/9dc2a9155354c6650b38a3355f3eebdb911f8320)，v0.1.4 继续使用该工作台；资源由 nb1 内的 `internal/webui/manifest.lock.json` 校验。
 
 公开源码快照分别为 [Workbench 90225555](https://github.com/b1ug/nb1-debugger/tree/90225555dad6ac2a17eac8d46a2469d00a04256e)和 [Browser Tools e2701e05](https://github.com/b1ug/nb1-webhid/tree/e2701e05aebcc0858cc328df0e728fd5c0cec2e4)。源码公开不会替换已经随 nb1 v0.1.1 发出的产物；nb1 v0.1.2 的发行核心 `88fc2be8326c076b6f09932054b0c8f11d89c0a0` 采用 Workbench 90225555。更早的安装版本保留其原 manifest 和 lock；发布新程序不替换已运行的 daemon。浏览器预览在自身构建记录中保留独立的编译器身份。
 
 公开的来源说明只包含适当的技术信息：仓库、提交、dirty 状态、API 合同、依赖锁与资源散列。本地规划记录、本机路径、设备序列号和无关私有历史不属于公开网站内容。文档只链接真实存在的目标，不把未公布的源码或预览 URL 当作安装说明。
 
-API 与术语快照来自 nb1 v0.1.3 的发行提交 `48895be5babc11d6f3b2a7ab16e316bd564e726e`。仓库包含其 [MIT 许可证](../LICENSE)。历史硬件和通知证据保留原source与日期，不随公开发布自动扩大。
+API 与术语快照来自 nb1 v0.1.4 的发行提交 `0a2199cab89621888782baa154522c37ad83b641`。仓库包含其 [MIT 许可证](../LICENSE)。历史硬件和通知证据保留原 source 与日期，不随公开发布自动扩大。

@@ -2,7 +2,7 @@
 
 [English](getting-started.md) · [安装方式](install.zh-CN.md) · [接入 AI Agent](agents.zh-CN.md)
 
-在插着 blink(1) 的电脑上启动一个 nb1 daemon，CLI、HTTP API、浏览器调试器和 AI 就能共用同一盏灯。以下步骤适用于 v0.1.3。
+在插着 blink(1) 的电脑上启动一个 nb1 daemon，CLI、HTTP API、浏览器调试器和 AI 就能共用同一盏灯。以下步骤适用于 v0.1.4。
 
 ## 安装 nb1
 
@@ -14,11 +14,11 @@ brew install b1ug/tap/nb1
 nb1 version --json
 ```
 
-手动安装可按平台[下载并校验安装包](install.zh-CN.md#choose-and-verify-a-download)。提供 Mac、Linux 的 arm64／amd64 版，以及 Windows amd64 版。下文假定终端能直接运行 `nb1`。如果只做了解压，请在解压目录用 `./nb1`，PowerShell 用 `.\nb1.exe`。用 `version --json` 确认这里使用的是 `v0.1.3`。
+手动安装可按平台[下载并校验安装包](install.zh-CN.md#choose-and-verify-a-download)。提供 Mac、Linux 的 arm64／amd64 版，以及 Windows amd64 版。下文假定终端能直接运行 `nb1`。如果只做了解压，请在解压目录用 `./nb1`，PowerShell 用 `.\nb1.exe`。用 `version --json` 确认这里使用的是 `v0.1.4`。
 
 ## 启动服务，播放一次
 
-如果电脑上已经运行 nb1，先检查服务地址。v0.1.3 起默认使用 `http://127.0.0.1:5885`。旧服务显式配置过监听地址时会继续使用原地址，请把下文和 MCP 配置中的地址一起替换。Windows PowerShell 中的 curl 示例请用 `curl.exe`。
+如果电脑上已经运行 nb1，先检查服务地址。v0.1.3 引入、并由 v0.1.4 沿用的默认地址是 `http://127.0.0.1:5885`。旧服务显式配置过监听地址时会继续使用原地址，请把下文和 MCP 配置中的地址一起替换。Windows PowerShell 中的 curl 示例请用 `curl.exe`。
 
 ```sh
 curl -fsS http://127.0.0.1:5885/healthz
@@ -65,11 +65,11 @@ curl -i -H "Content-Type: application/json" --data-binary "@job.json" http://127
 curl -fsS http://127.0.0.1:5885/v1/jobs/first-teal-pulse
 ```
 
-`202 Accepted` 表示服务已接受请求。接下来只重复 GET，直到 Job 进入终态；中途丢失响应，也查原 ID。v0.1.3 中，同一盏灯已有任务时，再提交播放会返回 `409 device_busy`。不同序列号可以独立播放。[API 字段与错误码](api-v1.zh-CN.md) · [让 Codex 通过 MCP 调用](agents.zh-CN.md#set-up-mcp)
+`202 Accepted` 表示服务已接受请求。接下来只重复 GET，直到 Job 进入终态；中途丢失响应，也查原 ID。同一盏灯的默认策略仍是遇忙拒绝；明确需要时可设 `policy: "queue"` 排队，或设 `policy: "preempt"` 抢占。每个序列号有独立调度器。[API 字段与错误码](api-v1.zh-CN.md) · [让 Codex 通过 MCP 调用](agents.zh-CN.md#set-up-mcp)
 
 ## 在多只灯之间选择 {#choose-among-several-lights}
 
-显式位置参数序列号优先于 `--device`、`NB1_DEVICE`，再到 profile `device`。均未指定时，v0.1.3 读取 daemon 的已配置设备缓存，按序列号的字节序升序排列，选择第一只连接状态为 `online` 的设备。没有在线设备时，选择第一只已配置序列号：`state` 显示该目标的状态，`run` 返回它的真实错误。这个顺序不是 USB 插入顺序。
+显式位置参数序列号优先于 `--device`、`NB1_DEVICE`，再到 profile `device`。均未指定时，v0.1.4 读取 daemon 的已配置设备缓存，按序列号的字节序升序排列，选择第一只连接状态为 `online` 的设备。没有在线设备时，选择第一只已配置序列号：`state` 显示该目标的状态，`run` 返回它的真实错误。这个顺序不是 USB 插入顺序。
 
 例如，把以下示例序列号换成 `list` 的实际输出，用 `nb1 server --devices 20000002,20000001` 启动服务，再在另一个终端运行：
 
@@ -81,7 +81,7 @@ nb1 control run 20000002 action.json --wait
 
 前两条使用默认规则；第三条明确选择 `20000002`，即使另有设备在线也不改变目标。配置了多只设备且自动选择时，stderr 会以英文提示数量与所选序列号，stdout 保持 JSON。设备忙、失败或结果未知都不会把请求转给下一只灯。HTTP 和 MCP 可省略 `serial` 以使用 [daemon 路由](trigger-routing.zh-CN.md)，direct 仍须明确或首选目标。
 
-v0.1.3 内嵌 Workbench 首次加载采用相同序列号顺序。选择设备、点击页面内的**刷新**控件或切换语言都不会播放。该控件在当前打开的页面内保留目标，包括离线设备；目标从配置中消失时，也保留其序列号和说明，直到你选择另一只。无法确认所选设备在线时，**播放**会禁用并显示理由，可用**刷新**重新检查或主动选择设备。浏览器整页重新加载或打开另一个 Workbench 入口时，会重新采用默认选择，不跨页面保存所选设备。结果未知的 Job 仍保留原 ID 与目标，绝不自动重播。
+v0.1.4 内嵌 Workbench 首次加载采用相同序列号顺序。选择设备、点击页面内的**刷新**控件或切换语言都不会播放。该控件在当前打开的页面内保留目标，包括离线设备；目标从配置中消失时，也保留其序列号和说明，直到你选择另一只。无法确认所选设备在线时，**播放**会禁用并显示理由，可用**刷新**重新检查或主动选择设备。浏览器整页重新加载或打开另一个 Workbench 入口时，会重新采用默认选择，不跨页面保存所选设备。结果未知的 Job 仍保留原 ID 与目标，绝不自动重播。
 
 ## 想直接播放一次？
 
@@ -109,5 +109,5 @@ direct 始终等待，使用同一设备所有权锁，不接受 `--id`、`--end
 颜色支持名称、Hex3／Hex6、RGB8、HSV／HSB 与本机 `@name` 引用。Action 描述意图，
 由核心编译为 Sequence，再作为 Job 执行。
 
-依据：[nb1 v0.1.3 安装指南](https://github.com/b1ug/nb1/blob/48895be5babc11d6f3b2a7ab16e316bd564e726e/docs/install.zh-CN.md)
-与[当前 API 合同](https://github.com/b1ug/nb1/blob/48895be5babc11d6f3b2a7ab16e316bd564e726e/docs/api-v1.md)。
+依据：[nb1 v0.1.4 安装指南](https://github.com/b1ug/nb1/blob/0a2199cab89621888782baa154522c37ad83b641/docs/install.zh-CN.md)
+与[当前 API 合同](https://github.com/b1ug/nb1/blob/0a2199cab89621888782baa154522c37ad83b641/docs/api-v1.md)。

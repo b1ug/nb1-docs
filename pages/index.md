@@ -44,6 +44,6 @@ The same vocabulary works from the CLI, HTTP clients and agents. [Get started](/
 
 A blue notification can mean an agent turn ended. It does not guess whether your task succeeded. Keep the original Job ID, inspect its result, and recover without automatically replaying a request. [Agent notifications](/agent-notifications).
 
-::: info nb1 v0.1.3
-[Download nb1](https://github.com/b1ug/nb1/releases/tag/v0.1.3) for the CLI, daemon, MCP and embedded debugger. Bind a saved Pattern to a name like `build.done` to send each build to its own light. [Route a Trigger](/trigger-routing) · [Connect from another computer](/remote-access)
+::: info nb1 v0.1.4
+[Download nb1](https://github.com/b1ug/nb1/releases/tag/v0.1.4) for the CLI, daemon, MCP and embedded debugger. Bind a saved Pattern to a name like `build.done` to send each build to its own light. [Route a Trigger](/trigger-routing) · [Connect from another computer](/remote-access)
 :::

@@ -1,8 +1,10 @@
-# API v1 implementation
+# API v1
 
-nb1 v0.1.3 exposes 19 HTTP operations for device control, saved content, Trigger routing and diagnostics. The same daemon serves the embedded Workbench.
+This reference describes nb1 v0.1.4. The API keeps English identifiers and protocol values. [简体中文](api-v1.zh-CN.md) · [Changelog](changelog.md).
 
-The [OpenAPI 3.1 contract](https://github.com/b1ug/nb1/blob/48895be5babc11d6f3b2a7ab16e316bd564e726e/docs/api-v1.openapi.json) describes the current HTTP operations, request and response schemas, constraints and software-fixture examples. The valid saved-color name `resolve` has a concrete PUT operation alongside POST color resolution.
+This page documents the daemon’s sequence-v1 HTTP contract and the matching `nb1 control` operations. `GET /` identifies the running executable and lists its live route profile; `api_version` identifies the wire contract, while `build.version` identifies the binary.
+
+The [OpenAPI 3.1 contract](api-v1.openapi.json) describes the current HTTP operations, request and response schemas, constraints and software-fixture examples. The valid saved-color name `resolve` has a concrete PUT operation alongside POST color resolution.
 
 ## User configuration
 
@@ -56,7 +58,7 @@ All Action durations are integer milliseconds. Use nonnegative integer JSON nota
 | Action | Required beyond `kind` | Timing fields: omission default; inclusive range | Compiled Steps per cycle / maximum `cycles` |
 | --- | --- | --- | --- |
 | `set` | `color` | No timing fields. One immediate update, then hold. | 1 / not accepted |
-| `off` | None | No timing fields. Sets the selected output to black, then holds. This does not cancel another Job. | 1 / not accepted |
+| `off` | None | No timing fields. Sets the selected output to black, then holds. The Job admission policy controls any interruption. | 1 / not accepted |
 | `fade` | `color`, `duration_ms` | `duration_ms`: required, 10–600,000, multiple of 10. Starts from the current device color, then holds the target. | 1 / not accepted |
 | `blink` | `color` | `on_ms`: 250; 10–3,600,010. `off_ms`: 250; same range. These include each update's 10ms allowance. | 2 / 512 |
 | `breathe` | `color` | `period_ms`: 2,000; 330–9,600,314. A symmetric envelope, currently 16 fades plus the initial black Step. | 17 / 60 |
@@ -125,7 +127,7 @@ For `control run [SERIAL] FILE` and `control state [SERIAL]`, select the device 
 
 With no selected target, the client reads the daemon's cached configured-device list, sorts it by serial and chooses the first device whose cached `connection` is `"online"`. If none is online, it chooses the first serial so `state` can show its actual status and `run` can report the daemon's submission error. Unknown or missing connection states are not treated as online. An empty list reports an error. With two or more configured devices, a short English notice on stderr identifies the count, selected serial and `--device SERIAL` override; stdout remains the same JSON result. The choice is made once per invocation. A later connection failure, busy device or uncertain submission never triggers a second-device attempt.
 
-This lookup uses the running daemon’s cached device list. Direct execution still requires its own explicit or preferred serial. Use `control run FILE --daemon-default` to delegate routing to the daemon in v0.1.3. A positional serial, `--device` or `NB1_DEVICE` still takes precedence. Published v0.1.2 expects an explicit serial in HTTP and MCP playback requests. See the [routing guide](trigger-routing.md) for configuration, precedence and examples.
+This lookup uses the running daemon’s cached device list. Direct execution still requires its own explicit or preferred serial. Use `control run FILE --daemon-default` to delegate routing to the daemon. A positional serial, `--device` or `NB1_DEVICE` still takes precedence. In HTTP and MCP playback requests, omit `serial` to use the daemon’s configured `device`; with no configured default, the sole managed device is selected, while multiple managed devices require a target or trigger binding. `server.default_device_fallback: single_online` is an explicit opt-in when a configured default is unavailable. See the [Trigger routing and default devices](trigger-routing.md) guide for precedence and recovery behavior.
 
 `control preview FILE` leaves `serial` absent by default, including when the profile has a preferred device. Add `--serial SERIAL` explicitly for the selected device's cached capability check.
 
@@ -147,6 +149,8 @@ Action/Sequence run; it does not replay an uncertain daemon submission.
 
 These operations are the current runtime's API v1 route table. Success bodies are the values described below, without a surrounding `result` wrapper. They use JSON with `Cache-Control: no-store`. Preview compiles and optionally checks cached capabilities; it never starts playback.
 
+`GET /` returns a JSON welcome and discovery document with the executable version, API profile, endpoint directory, configured default device and cached device states. This is a snapshot; it performs no USB I/O. The page at `console_url` is the embedded **nb1 Workbench**, currently served at `/demo/`. `/demo/` is a browser console/static-resource route, not an HTTP API endpoint. Use `GET /healthz` for a minimal liveness check and `/v1/service-status` for cached device counts.
+
 ### Common request rules
 
 - Body-bearing operations require `Content-Type: application/json`; media-type parameters such as `charset=utf-8` are accepted. The entire body, including whitespace, is limited to 1,048,576 bytes. Each embedded ColorInput has its smaller 4,096-byte limit.
@@ -163,8 +167,9 @@ These operations are the current runtime's API v1 route table. Success bodies ar
 
 | Request | Required input | Optional input / omission default | Success |
 | --- | --- | --- | --- |
+| `GET /` | No body or query. | None. | `200`, service/build identity, current API directory and cached device summary. |
 | `POST /v1/preview` | Exactly one of `action`, `sequence`, `pattern_id`. | `serial`: omitted means compile without a device check. | `200`, Preview object. |
-| `POST /v1/jobs` | Exactly one of `action`, `sequence`, `pattern_id`, `trigger`. | `serial`: omitted delegates target selection to the daemon. `id`: omitted or `""` generates an ID. | `202` for new acceptance; `200` for matching replay. Both return a Job and `Location: /v1/jobs/{id}`. |
+| `POST /v1/jobs` | Exactly one of `action`, `sequence`, `pattern_id`, `trigger`. | `serial`: omitted delegates target selection to the daemon. `id`: omitted or `""` generates an ID. `policy`: omitted means `reject`. | `202` for new acceptance; `200` for matching replay. Both return a Job and `Location: /v1/jobs/{id}`. |
 | `GET /v1/jobs/{id}` | Job ID in the path; no body. | None. | `200`, Job object, including when that Job failed. |
 | `POST /v1/jobs/{id}/cancel` | Job ID in the path; no body. | Query `serial`: require the accepted Job's serial to match. Omit it for ID-only cancellation. | `202` while cancellation remains in progress; `200` when already terminal or cancelled before execution. Returns the current Job. |
 | `POST /v1/colors/resolve` | `color`: one ColorInput. | None. | `200`, `{"color":"#rrggbb"}`. Does not save or play. |
@@ -177,6 +182,8 @@ These operations are the current runtime's API v1 route table. Success bodies ar
 | `GET /v1/triggers/check` | No body or query. | None. | `200`, `{"items":[...]}` with saved Pattern and device binding diagnostics. An absent mapping file yields an empty `items` array. |
 | `GET /v1/devices` | No body. | None. | `200`, configured device states, sorted by serial; `[]` when none are configured. Does not discover USB. |
 | `GET /v1/devices/{serial}` | Configured serial in the path; no body. | None. | `200`, one cached Device object. An unmatched serial returns `404`. |
+| `GET /v1/devices/{serial}/flash/reset-ticket` | Explicit eight-hex-digit serial. | No body or query. | `200`, one-use ticket. |
+| `POST /v1/devices/{serial}/flash/reset` | Same serial, `X-NB1-Flash-Ticket` header and a JSON object. | Omit `preset` for `off`, or choose `off`, `rainbow`, `starlight`, `fireflies`. | `200`, [Flash reset receipt](#device-flash-reset). |
 | `GET /v1/presence` | No fields. | None. | `200`, `{"service":"nb1","api_version":"v1"}`. Constant marker, independent of connected devices. |
 | `GET /v1/service-status` | No fields. | None. | `200`, `{"service":"nb1","api_version":"v1","health":"ok","devices":{"configured":2,"online":1}}`. The `devices` value can also be `null`. |
 | `GET /healthz` | No fields. | None. | `200`, `{"status":"ok","api_version":"v1"}`. HTTP health does not imply device availability. |
@@ -184,9 +191,30 @@ These operations are the current runtime's API v1 route table. Success bodies ar
 
 There are no body fields beyond those listed for each operation. For example, Pattern PUT accepts no body `id` or `pattern_id`; Color PUT accepts no body `name`. `PUT /v1/colors/resolve` saves a color whose valid name is `resolve`; `POST` at that same path resolves a color without saving.
 
-Job IDs and Pattern IDs are case-sensitive strings of 1–64 ASCII letters, digits, hyphens or underscores. Saved color names are case-sensitive lowercase strings matching `[a-z][a-z0-9-]{0,31}`. Preview/submission `serial` is a required nonempty string when present, with 1–128 ASCII letters, digits, hyphens or underscores. It must exactly match a configured device to execute. This HTTP grammar is wider than the profile's eight-hex-digit device setting. The device GET performs a direct cached lookup; an unmatched path value returns `404`, rather than a separate serial-format error.
+Job IDs and Pattern IDs are case-sensitive strings of 1–64 ASCII letters, digits, hyphens or underscores. Saved color names are case-sensitive lowercase strings matching `[a-z][a-z0-9-]{0,31}`. Preview/submission `serial` is optional; when present it must be a nonempty string of 1–128 ASCII letters, digits, hyphens or underscores. It must exactly match a configured device to execute. This HTTP grammar is wider than the profile's eight-hex-digit device setting. The device GET performs a direct cached lookup; an unmatched path value returns `404`, rather than a separate serial-format error.
 
 An execution input can refer to a locally saved Pattern with `{"pattern_id":"gentle-pulse"}`. That reference is required to exist when compiling a new input. Pattern PUT instead requires an Action or Sequence and freezes its resolved Sequence. A matching replay of a retained Job returns the original Job before reading the current library.
+
+### Choosing what happens on a busy device
+
+The optional Job field `policy` applies to Actions, Sequences, saved Patterns and Triggers. The daemon resolves and validates the new Job before changing playback on its selected serial.
+
+| Policy | Effect on the selected device |
+| --- | --- |
+| `reject` (default) | Start on an idle device. Return `409 device_busy` when another Job is active or waiting. |
+| `queue` | Join the end of this device’s waiting list. Jobs with this policy play in admission order. |
+| `preempt` | Request cancellation of the active Job and put the new Job first in line. Existing waiting Jobs keep their relative order. |
+
+For example, if A is playing and B and C are waiting, submitting D with `preempt` gives playback order D, B, C once A finishes its cleanup. A cancelled Job never resumes. An in-flight USB call can delay handover. A cleanup failure marks affected waiting Jobs failed. Use `GET /v1/jobs/{id}` for each outcome. Other serials have independent workers.
+
+Each device has room for eight waiting Jobs by default, including a waiting preemption. A full queue rejects new waiting Jobs. While a preemption is pending, a second preemption is rejected before it can affect playback. Use a stable ID to retry after a lost response. A matching replay never triggers a second interruption.
+
+```sh
+nb1 control run 20000001 notice.json --policy queue --id notice-1
+nb1 control emit build.failed --policy preempt --id build-42
+```
+
+`--policy` is a daemon option. Direct USB execution has no shared Job queue. v0.1.4 accepts all three policies. Earlier v0.1.3 binaries accept requests only when `policy` is omitted.
 
 ### Preview and Job responses
 
@@ -243,13 +271,19 @@ An HTTP error is `{"error":{"code":"...","message":"..."}}`. Invalid Action comp
 | `403` | `invalid_host`, `invalid_origin` | The HTTPS authority or browser Origin does not match the configured remote listener. |
 | `404` | `not_found` | Unknown route, configured device, retained Job or saved Pattern. Expired/evicted Jobs also return this code; absence does not prove they never ran. |
 | `405` | `method_not_allowed` | Unsupported method. `Allow` lists the route's supported method(s); HEAD is not an implicit GET. |
-| `409` | `job_conflict` | Retained ID is bound to a different device or JSON input. Query the original ID; do not invent a new ID to retry uncertain work. |
+| `409` | `job_conflict` | Retained ID is bound to a different device, policy or author input. Query the original ID; do not invent a new ID to retry uncertain work. |
 | `409` | `job_target_mismatch` | The cancellation serial differs from the retained Job's accepted serial. The Job remains unchanged. |
-| `409` | `device_busy` | Device is owned/busy, an execution or inspection is active, or admission cannot enqueue it. These v1 submissions reject competing work; no replace/queue policy field is accepted. |
+| `409` | `device_busy` | The selected device already has work under the default policy, or exclusive maintenance prevents playback. |
+| `409` | `queue_full` | All waiting slots on this serial are occupied. The submitted Job was rejected and active playback continues. |
+| `409` | `preemption_pending` | The previous handover is still pending on this serial. Even if the urgent Job was cancelled before it ran, the interrupted Job must finish cleanup. |
 | `413` | `body_too_large` | HTTP body exceeds 1 MiB. A smaller ColorInput or compiled-Pattern limit violation instead uses `400 invalid_request`. |
 | `415` | `json_required` | Missing, malformed or non-`application/json` Content-Type on a body-bearing operation. |
 | `422` | `unsupported_capability` | Submission needs capabilities absent from the device's cached profile. |
 | `429` | `library_capacity` | Library record count exceeds its limit, or adding a new color/Pattern would exceed capacity. Replacing an existing record at capacity is allowed. |
+| `501` | `flash_reset_unsupported` | The service does not implement Flash reset. A daemon predating this route returns `404 not_found`. |
+| `502` | `flash_staging_failed` | The `result` field contains the RAM progress. A failed RAM write may have changed the next row. The daemon did not send the Flash save command. |
+| `502` | `flash_unconfirmed` | The `result` field contains the fully staged and verified RAM counts. The Flash save was attempted once and may have succeeded. Verify after a cold power cycle. |
+| `503` | `flash_outcome_unknown` | The request ended before the result was available. Do not resend automatically. |
 | `503` | `unavailable` | Runtime closed/offline, sequence execution unsupported by the service, request context ended, or local library unavailable/unreadable/unsafe/locked. |
 | `400` | `target_required` | Implicit request with multiple managed devices and no default or trigger binding. |
 | `404` | `trigger_not_found` / `device_not_managed` | An unknown trigger or a routed target outside the managed set. |
@@ -293,30 +327,17 @@ Omitting `--binary` selects the current process's executable through the operati
 
 Service installation resolves devices and listen address from its flags and selected profile. It records the actual configuration file's absolute path when a file is selected, and stores device/listen values as explicit startup arguments. Those arguments keep the installed device selection and address stable when the profile is edited. macOS/Linux managed services also record the selected XDG root in their controlled startup environment, keeping the default library stable across login environments. Library and Job-cache settings are read from the profile on restart. Update the managed service configuration explicitly when changing its device list or listen address.
 
-Cross-platform `service render` still requires an explicit target `--binary` path. Windows service installation remains unsupported. Homebrew builds select the validated stable `opt/nb1/bin/nb1` entry by default; upgrading a package does not restart the running daemon. An explicit `--binary` path remains fixed and must stay installed. See the [package lifecycle](https://github.com/b1ug/nb1/blob/48895be5babc11d6f3b2a7ab16e316bd564e726e/packaging/homebrew/README.md#upgrades-and-service-paths) for the distinct upgrade and rollback contract.
+Cross-platform `service render` still requires an explicit target `--binary` path. Windows service installation remains unsupported. Homebrew builds select the validated stable `opt/nb1/bin/nb1` entry by default; upgrading a package does not restart the running daemon. An explicit `--binary` path remains fixed and must stay installed. See the [package lifecycle](https://github.com/b1ug/nb1/blob/v0.1.4/packaging/homebrew/README.md#upgrades-and-service-paths) for the distinct upgrade and rollback contract.
 
 ## Device execution scope
 
-Resolve the target `serial` before admission. Each configured physical device has its own native owner, worker, active execution slot, pending work and cached state. A busy device A does not block otherwise valid work on device B. CLI, HTTP, MCP and the embedded Workbench use the same device worker; changing the client does not create a second slot.
-
-| Concern | Scope | Consequence |
-| --- | --- | --- |
-| Native ownership, active execution and pending work | One physical `serial` | LED 1 and LED 2 share this slot. Selecting another LED does not bypass the same-device busy rule. |
-| Connection, `active_job`, `queue_depth` and observed RGB | One physical `serial` | These describe that device, not a daemon-wide playback queue. |
-| Job cancellation | The cancelled Job's stored `serial` | It changes only that Job and its device cleanup. It does not cancel another device's Job or pending work. |
-| Retained Job IDs | The whole daemon | Reusing an ID for another serial conflicts; each independent execution needs its own ID. |
-| Terminal TTL/LRU cache | The whole daemon | Historical-record retention is separate from pending-work capacity. Cache pressure does not cancel accepted nonterminal work. |
-| Configuration, content library and service lifecycle | The daemon instance | Devices share these resources. Explicit daemon shutdown affects its configured devices; this is separate from cancelling one Job. |
-
-API v1 is **reject-only per device**. A Job may briefly be `queued` before its worker starts, and a device reports `queue_depth`; neither exposes a policy for adding competing work behind a busy device. Cancelling a still-queued Job removes it without executing its device writes.
-
-Future queue capacity, waiting deadlines, preemption and explicit queue clearing must belong to the Job's frozen resolved serial. Device A cannot consume device B's queue capacity or cancel its work. These public operations remain planned. Internal replacement code is not a public policy contract; whether future preemption preserves existing waiting Jobs is still a design decision.
+The host Sequence compiler and scheduler are distinct from device-native RAM playback and persistent Flash. The release includes only the guarded built-in Flash preset reset on supported MK2 firmware. General DeviceSequence read, upload and autonomous RAM playback remain outside the v0.1.4 HTTP/CLI/MCP contract. [Device Flash reset](device-flash-reset.md)
 
 ## Job IDs and deduplication
 
 An omitted or empty `id` generates `j_` followed by ten random Crockford Base32 characters. Custom IDs accept 1–64 ASCII letters, digits, hyphens and underscores. The CLI generates its ID before submission so it can report that ID when a response is lost.
 
-The daemon keeps each active Job. Terminal Jobs use a configurable soft TTL measured from terminal completion, defaulting to thirty minutes. LRU pressure or a daemon restart can remove records sooner. Job lookups, matching duplicate submissions and terminal cancellation queries update their LRU order while leaving the original expiration time intact. A duplicate ID with the same device and JSON input returns the existing Job with HTTP 200. Different input or device returns HTTP 409. Input identity ignores object-key ordering and preserves array order and number spelling. It compares author input, not just the compiled result: omitting a default versus supplying it, changing a color name's case or switching to an equivalent Hex value can therefore conflict even when the resulting light would be the same.
+The daemon keeps each active Job. Terminal Jobs use a configurable soft TTL measured from terminal completion, defaulting to thirty minutes. LRU pressure or a daemon restart can remove records sooner. Job lookups, matching duplicate submissions and terminal cancellation queries update their LRU order while leaving the original expiration time intact. A duplicate ID with the same requested target, policy and JSON input returns the existing Job with HTTP 200. Omitted policy and explicit `reject` are equivalent. A different input, target or policy returns HTTP 409. Input identity ignores object-key ordering and preserves array order and number spelling. It compares author input, not just the compiled result: omitting an Action or Sequence default versus supplying it, changing a color name's case or switching to an equivalent Hex value can therefore conflict even when the resulting light would be the same.
 
 The terminal cache defaults to 16,384 Jobs. Set its positive capacity with profile `jobs.terminal_limit` or server `--job-cache-size`, and set its positive TTL with `jobs.terminal_ttl` or `--job-cache-ttl`. Explicit server flags override profile values. Restart the daemon to apply changes. When the selected limit is exceeded, the least recently used terminal record is evicted. Active Jobs stay pinned and release their execution plans when they become terminal. Device ownership and per-Sequence limits govern new execution. Cache capacity does not reject new Jobs.
 
@@ -351,3 +372,43 @@ Existing recovered I/O retries remain a documented limitation. A tagged source o
 The source delivery includes the core execution path, local library, HTTP operations above, CLI commands, explicit direct run, embedded Web controls and MCP adapter. Software checks cover the integrated routes, direct lifecycle and Agent workflows. Recorded finite daemon CLI/HTTP checks on macOS 27.2 / MK2 FW204 cover serial and interval playback, Orbit, Job replay, busy rejection, cancellation, final RGB readback and ownership. Other recorded checks cover direct set/hold, explicit timeout and SIGINT cleanup, real stdio MCP preview/submission/Job lookup after session closure, and embedded Web behavior. Those observations retain their exact source and binary identities; they are not automatically requalified by a new release version. DeviceSequence routes remain planned. The [terminology table](api-v1-terminology.md) governs names across those surfaces.
 
 macOS/Linux user-service installation pins `XDG_CONFIG_HOME` to the verified configuration root used for that installation. A different login-manager environment cannot redirect the selected profile or default library. Device locks continue to follow the native OS coordination policy described above. Rendering alone can set the target configuration root with `service render --user-config-root`; it does not grant filesystem access.
+
+
+## Device Flash reset
+
+In the embedded Debugger, select the lamp by serial, open **Device Flash**, choose a startup preset and press **Reset Flash**. Selecting a preset leaves the lamp untouched. On the command line, `nb1 device reset 20000001` uses Off. Add a preset name to change it, or add `--json` to print the receipt.
+
+| Preset | Stored effect on both LEDs |
+| --- | --- |
+| `off` (default) | Black in every slot, with a positive duration so the firmware actually plays black. |
+| `rainbow` | Eight colors around the color wheel, red through magenta. |
+| `starlight` | Brief blue-white, violet and warm glints over a dark blue background. |
+| `fireflies` | Yellow-green and amber glows separated by dark rests. |
+
+Off is nb1's default for the saved pattern. The reset preserves factory settings and the host Pattern library. For immediate darkness, use the regular Off action. The legacy direct `write --reset` clears 32 RAM rows before a file write. After a cold start the MK2 firmware can briefly light the lamp before its stored pattern runs. A power-only USB supply lets you observe that pattern without a computer application taking control.
+
+The CLI and Debugger acquire a one-use ticket for each explicit reset. HTTP clients first GET `/v1/devices/{serial}/flash/reset-ticket`, then POST an `application/json` object to `/v1/devices/{serial}/flash/reset` with the same serial and the ticket in the `X-NB1-Flash-Ticket` header. The only optional body field is `preset`; `{}` selects Off. Use the same authorization on both requests when local API authentication is enabled.
+
+```sh
+device_url=http://127.0.0.1:5885/v1/devices/20000001/flash
+ticket=$(curl -fsS "$device_url/reset-ticket" | jq -er '.ticket') &&
+  curl -sS -H "X-NB1-Flash-Ticket: $ticket" -H 'Content-Type: application/json' \
+    -d '{"preset":"starlight"}' "$device_url/reset"
+```
+
+The ticket expires in 60 seconds and is consumed before device execution. Replaying the POST cannot trigger another save. A `409 flash_ticket_used_or_expired` after a lost response can mean the original operation already ran. Verify the lamp before requesting a fresh ticket.
+
+The daemon reserves the selected idle device. For matched MK2 firmware 204 and 205 it replaces persistent rows 0–15, reads each staged row back, then sends one Flash save. RAM-only rows 16–31 remain available. An active native or host playback needs to finish or stop first. Active portable transport tracing cannot record the complete native operation. MK3 firmware 304 saves startup parameters along with its rows, so this pattern-only operation is unavailable there. Check for the `flash-reset` capability in the device response.
+
+During reset, a recognized transient USB error can repeat the complete playback-state query (`S`) or RAM-row query (`R`), up to three total attempts per query. Transport metrics count these attempts. An unexpected response or a mismatch in the stored color, timing or LED stops verification. The daemon submits each row write and the final Flash save at most once. Independent native inspection still reports each read on its first attempt.
+
+| HTTP result | Meaning and next action |
+| --- | --- |
+| 200 with `acknowledged` | The save request returned successfully. Power-cycle the lamp to verify retention. |
+| 502 `flash_staging_failed` | Staging or its check failed before the Flash save. RAM may contain part of the new image. |
+| 502 `flash_unconfirmed` | The device may have persisted the preset despite the transport error. Check after a power cycle before considering another write. |
+| 400, 404, 409, 422 or 503 | Invalid request or read-only session, unknown device, device busy, unsupported hardware, or device offline. Read the response's error code and message. |
+
+A receipt identifies the `serial`, `preset`, `firmware` and `status`. The `lines` count is the size of the persistent region. The `staged` and `verified` counts record acknowledged RAM writes and matched readbacks. A 502 response includes this receipt under `result` alongside the API error. A lost HTTP response leaves the outcome unknown. Automatic replay is inappropriate for a Flash save. The ordinary API access rules apply, including a Bearer token if configured.
+
+Firmware references: [MK2 204](https://github.com/todbot/blink1/blob/f4bf437fa016b2975675fecc2ad18fd04c955fa8/hardware/firmware_mk2/main.c), [MK2 205](https://github.com/todbot/blink1/blob/101abe3599c661c4dd4d1204b4d50fb592293143/hardware/firmware_mk2/main.c), [MK3 304](https://github.com/todbot/blink1mk3/blob/ccf04e26726a4a41ef9689653ae12baa73dbc456/firmware/firmware-v30x/main.c).

@@ -1,6 +1,6 @@
 # Trigger 路由与默认设备
 
-Trigger 将一个固定名称映射到已保存的 Pattern，也可以绑定一只设备。修改映射会影响后续新建的 Job。已受理 Job 的 ID 和设备序列号保持固定。
+nb1 v0.1.4 中，调用方可以指定 Trigger 名称，由 daemon 选择目标设备。省略 `serial` 时使用配置的默认设备，或在只管理一只设备时选中它；也可显式传入 `serial`。每台设备有自己的调度器，默认拒绝冲突，也可排队或抢占。
 
 ## 选择目标设备
 
@@ -20,9 +20,13 @@ server:
 | 省略序列号，已配置默认设备 | 选择默认设备。默认的 `error` 策略对缺失或离线设备报错；其他设备仍可用。 |
 | 默认设备缺失或离线，启用 `single_online` | 仅在恰好有另一只在线设备时选择它，并返回 `target_source: "fallback"`。没有或有多只候选都会拒绝。 |
 | 无默认设备或绑定 | 只有一只托管设备时选择它。多设备返回 `400 target_required`。 |
-| 目标繁忙或能力不足 | 返回 `device_busy` 或 `unsupported_capability`。目标保持固定。 |
+| 目标繁忙或能力不足 | 默认 `reject` 返回 `device_busy`；`queue` 入该设备队列；`preempt` 请求清理活动 Job 后优先运行新 Job。仍会检查能力，目标保持固定。 |
 
 使用默认路由时省略 `serial` 字段。空字符串和 `null` 无效。修改 daemon 启动配置后需重启。Job 会返回已受理的设备序列号，后续查询、重放及取消都绑定到它。
+
+## 选择排队或抢占
+
+在 `POST /v1/jobs` 中传 `policy: "queue"` 或 `policy: "preempt"`，也可在 CLI 使用 `--policy`，或在 MCP `run_light` 中使用同名字段。每台设备默认最多有 8 个等待 Job。抢占会先请求清理活动 Job，再运行新 Job；已有等待项保持相对顺序，被取消的 Job 不会恢复。繁忙结果不会将请求改投其他序列号。限额与恢复方式见 [API v1](api-v1.zh-CN.md#choosing-what-happens-on-a-busy-device)。
 
 ## 配置 Trigger
 
@@ -69,4 +73,4 @@ MCP 的 `run_light` 接受相同的 `trigger`、`serial` 和 `id`。相同请求
 
 要核对取消目标，使用 Job 返回的序列号，例如 `nb1 control cancel j_7K3XJNY9ZM --serial 20000002 --wait`，或向 `/v1/jobs/j_7K3XJNY9ZM/cancel?serial=20000002` 提交空请求体的 POST。序列号不匹配时返回 `409 job_target_mismatch`。重试时保留此项检查。
 
-每只设备独立执行，同一只灯正忙时会拒绝新播放。公开排队、抢占与 Pattern 组合目前还在规划中。
+Trigger 播放与其他 Job 共用每设备 worker。默认 `reject`、显式 `queue` 和 `preempt` 都按选定序列号生效；Trigger 每次只选择一个已保存 Pattern。不同设备的竞争任务可以独立运行。

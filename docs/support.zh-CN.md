@@ -20,7 +20,7 @@
 | `control` 连不上 daemon | 启动 `nb1 server --devices DEVICE_SERIAL`，或明确选 `control --direct run`；不会自动启动或回退 USB。 |
 | 没有设备 | 用 `nb1 list` 检查连接和原生访问；`control devices` 读取 daemon 已配置的缓存，不是新 USB 扫描。 |
 | 配置了多只设备 | 显式指定序列号，或用 CLI 按序列号选择第一只缓存在线设备。HTTP 和 MCP 见 [Trigger 与默认设备](trigger-routing.zh-CN.md)。 |
-| Workbench 播放不可用 | v0.1.3 预览会在播放旁说明未就绪理由。刷新或明确选择在线目标；缺失目标会保留，不静默替换。未知 Job 应查询原 ID，不能重播。 |
+| Workbench 播放不可用 | v0.1.4 会在 Play 旁说明未就绪理由。刷新或明确选择在线目标；缺失目标会保留，不静默替换。未知 Job 应查询原 ID，不能重播。 |
 | 设备忙 | 让当前拥有者释放，包括独立 WebHID 网页／扩展；不要删除活跃锁来强行访问。 |
 | 端口已占用 | 查看现有 server，或同时选择新 `--listen` 与客户端 `--endpoint`。 |
 | 提交超时 | 保留原 endpoint 与 Job ID，先查询原任务，不自动替换或重新播放。 |
@@ -37,7 +37,7 @@
 
 ## 正式软件与硬件证据
 
-v0.1.3 由同一个程序提供 CLI、daemon 与 MCP，预编译下载支持 macOS 15 或更新版本、Linux glibc 2.38 或更新版本、Windows x64。[获取 v0.1.3](https://github.com/b1ug/nb1/releases/tag/v0.1.3)。从正式发行页面下载的 Apple Silicon 版 nb1，在两台固件 204 的 blink(1) MK2 上分别完成了九种 Action 和两种 Sequence 的真机测试。[双设备发版记录](changelog.md#release-v013) · [五平台构建与发布](https://github.com/b1ug/nb1/actions/runs/44616849013)。
+v0.1.4 由同一个程序提供 CLI、daemon、MCP 与内嵌工作台；新增每设备排队／抢占、只读 API 欢迎页和受保护的 MK2 Flash 预设重置。预编译下载支持 macOS 15 或更新版本、Linux glibc 2.38 或更新版本、Windows x64。[获取 v0.1.4](https://github.com/b1ug/nb1/releases/tag/v0.1.4) · [五平台构建与发布](https://github.com/b1ug/nb1/actions/runs/44899127748)。双设备 Action／Sequence 真机记录保留在原 v0.1.3 条目中；这不是 v0.1.4 的新光学校准或实物资格。[历史双设备记录](changelog.zh-CN.md#release-v013)。
 
 以下表格保留旧版本 v0.1.2 的独立验证结果。
 
@@ -61,3 +61,6 @@ Mac 归属锁仍在 `~/Library/Application Support/nb1/device-locks`。仅切配
 Windows 已包含前台运行，未实现自动服务安装／启停／卸载。Linux 服务需要用户级 systemd manager；缺少它的容器使用前台 server。
 
 报告问题时提供 OS／架构、已知型号／固件、`version --json`、准确命令、去敏错误及预期／实际结果。不要包含认证信息、消息正文或无关路径。[完整 API 错误与恢复](api-v1.zh-CN.md)。
+
+
+Flash 重置的实物验收使用预发布候选、两只 MK2／FW204。一次 Flash 保存未获 USB 确认，但之后两次冷读都匹配 32 行；原图案恢复后也两次匹配。程序因此保留 `unconfirmed` 结果，提示先检查，不自动重写。这不是全平台 USB、MK3 或光学验收。

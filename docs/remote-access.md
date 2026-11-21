@@ -5,7 +5,7 @@
 Plug the lamp into the computer running `nb1 server`. An MCP client on a
 second computer can connect to that daemon over HTTPS, select a device by
 serial, and play a saved Pattern or an Action. Both computers see the same
-Jobs and the library on the device host. Use nb1 v0.1.3 on the device host. The v0.1.2 daemon supports the local stdio adapter.
+Jobs and the library on the device host. Use nb1 v0.1.4 on the device host. The v0.1.2 daemon supports the local stdio adapter.
 
 ## On the computer with the lamp
 
@@ -71,7 +71,7 @@ The server URL and the variable name are the only settings needed here.
 
 Preview is optional. A lost connection can leave an accepted Job running.
 Reconnect to the same HTTPS `/mcp` URL and query the original Job ID.
-The remote tool result includes that URL in `endpoint`. [All twelve tools](https://github.com/b1ug/nb1/blob/48895be5babc11d6f3b2a7ab16e316bd564e726e/adapters/mcp/README.md#tools)
+The remote tool result includes that URL in `endpoint`. [All twelve tools](https://github.com/b1ug/nb1/blob/0a2199cab89621888782baa154522c37ad83b641/adapters/mcp/README.md#tools)
 
 The same listener also serves the device HTTP API at `/v1`. For example,
 `GET /v1/devices` lists the devices for a REST client. Send the same Bearer

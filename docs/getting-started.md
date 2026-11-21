@@ -2,7 +2,7 @@
 
 [简体中文](getting-started.zh-CN.md) · [Installation options](install.md) · [Connect an AI agent](agents.md)
 
-One nb1 daemon can share a blink(1) with the CLI, the HTTP API, the browser debugger and an AI agent. This walkthrough uses v0.1.3 on the computer with the light attached.
+One nb1 daemon can share a blink(1) with the CLI, the HTTP API, the browser debugger and an AI agent. This walkthrough uses v0.1.4 on the computer with the light attached.
 
 ## Install nb1
 
@@ -14,11 +14,11 @@ brew install b1ug/tap/nb1
 nb1 version --json
 ```
 
-For a manual installation, choose the [verified download for your platform](install.md#choose-and-verify-a-download). The release includes Mac and Linux arm64/amd64 and Windows amd64. The examples assume `nb1` is on PATH. For an unpacked archive, run `./nb1` (PowerShell: `.\nb1.exe`) in its directory. Check that `version --json` reports `v0.1.3` for this walkthrough.
+For a manual installation, choose the [verified download for your platform](install.md#choose-and-verify-a-download). The release includes Mac and Linux arm64/amd64 and Windows amd64. The examples assume `nb1` is on PATH. For an unpacked archive, run `./nb1` (PowerShell: `.\nb1.exe`) in its directory. Check that `version --json` reports `v0.1.4` for this walkthrough.
 
 ## Start a server and play
 
-On a machine already running nb1, check its address first. The default from v0.1.3 is `http://127.0.0.1:5885`. Earlier installations with an explicit listener keep their configured address. Substitute that address throughout, including in the MCP setup. In Windows PowerShell, use `curl.exe` for the curl examples.
+On a machine already running nb1, check its address first. The default introduced in v0.1.3 and retained in v0.1.4 is `http://127.0.0.1:5885`. Earlier installations with an explicit listener keep their configured address. Substitute that address throughout, including in the MCP setup. In Windows PowerShell, use `curl.exe` for the curl examples.
 
 ```sh
 curl -fsS http://127.0.0.1:5885/healthz
@@ -65,11 +65,11 @@ curl -i -H "Content-Type: application/json" --data-binary "@job.json" http://127
 curl -fsS http://127.0.0.1:5885/v1/jobs/first-teal-pulse
 ```
 
-`202 Accepted` means the daemon accepted the Job. Repeat only the GET until the Job reaches a terminal status. After a lost response, query the same ID. In v0.1.3 a competing playback on the same light returns `409 device_busy`; a different serial can play independently. [API fields and error codes](api-v1.md) · [Connect Codex through MCP](agents.md#set-up-mcp)
+`202 Accepted` means the daemon accepted the Job. Repeat only the GET until the Job reaches a terminal status. After a lost response, query the same ID. The default policy rejects competing work on one light; set `policy` to `queue` or `preempt` when that behavior is intended. Each serial has an independent scheduler. [API fields and error codes](api-v1.md) · [Connect Codex through MCP](agents.md#set-up-mcp)
 
 ## Choose among several lights
 
-An explicit positional serial takes priority over `--device`, `NB1_DEVICE`, then profile `device`. With none selected, v0.1.3 reads the daemon's cached configured devices, sorts serials in ascending byte order, and chooses the first whose connection is `online`. If none is online, it chooses the first configured serial: `state` shows that target's status, and `run` reports its real error. This order is not USB insertion order.
+An explicit positional serial takes priority over `--device`, `NB1_DEVICE`, then profile `device`. With none selected, v0.1.4 reads the daemon's cached configured devices, sorts serials in ascending byte order, and chooses the first whose connection is `online`. If none is online, it chooses the first configured serial: `state` shows that target's status, and `run` reports its real error. This order is not USB insertion order.
 
 For example, replace these example serials with values from `list`, start `nb1 server --devices 20000002,20000001`, then use another terminal:
 
@@ -81,7 +81,7 @@ nb1 control run 20000002 action.json --wait
 
 The first two commands use the default rule. The third explicitly selects `20000002`, even when another device is online. Automatic selection with multiple configured devices prints the count and selected serial as an English notice on stderr; stdout stays JSON. A busy device, failure or unknown result never sends the request to the next light. HTTP and MCP can omit `serial` to use [daemon routing](trigger-routing.md). Direct mode requires an explicit or preferred target.
 
-The v0.1.3 embedded Workbench initially uses the same serial order. Choosing a device, using its **Refresh** control or switching language does not play it. That control preserves the current target on the open page, including an offline device. If it disappears from the configuration, its serial remains selected with an explanation until you choose another. **Play** is disabled with a reason while the selected device cannot be confirmed online; retry the check with **Refresh** or choose a device. A full browser reload or opening another Workbench entry starts a new default selection; the device choice is not stored across page loads. An unknown Job keeps its original ID and target and is never automatically replayed.
+The v0.1.4 embedded Workbench initially uses the same serial order. Choosing a device, using its **Refresh** control or switching language does not play it. That control preserves the current target on the open page, including an offline device. If it disappears from the configuration, its serial remains selected with an explanation until you choose another. **Play** is disabled with a reason while the selected device cannot be confirmed online; retry the check with **Refresh** or choose a device. A full browser reload or opening another Workbench entry starts a new default selection; the device choice is not stored across page loads. An unknown Job keeps its original ID and target and is never automatically replayed.
 
 ## Prefer one direct playback?
 
@@ -111,4 +111,4 @@ Continue with the [API reference](api-v1.md) and [terminology](api-v1-terminolog
 Colors include names, Hex3/Hex6, RGB8, HSV/HSB and local `@name` references.
 Actions describe intent; the core compiles them into Sequences and executes Jobs.
 
-Source: [nb1 v0.1.3 installation](https://github.com/b1ug/nb1/blob/48895be5babc11d6f3b2a7ab16e316bd564e726e/docs/install.md) and [HTTP API](https://github.com/b1ug/nb1/blob/48895be5babc11d6f3b2a7ab16e316bd564e726e/docs/api-v1.md).
+Source: [nb1 v0.1.4 installation](https://github.com/b1ug/nb1/blob/0a2199cab89621888782baa154522c37ad83b641/docs/install.md) and [HTTP API](https://github.com/b1ug/nb1/blob/0a2199cab89621888782baa154522c37ad83b641/docs/api-v1.md).
