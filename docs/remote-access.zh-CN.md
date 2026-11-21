@@ -2,7 +2,7 @@
 
 [English](remote-access.md)
 
-把灯插在运行 `nb1 server` 的电脑上。另一台电脑的 MCP 客户端可通过 HTTPS 连到这个 daemon，按序列号选灯并播放 Action 或已保存的 Pattern。两端看到的是同一台主机上的 Job 和内容库。设备端使用 nb1 v0.1.3。v0.1.2 支持本地 stdio 适配器。
+把灯插在运行 `nb1 server` 的电脑上。另一台电脑的 MCP 客户端可通过 HTTPS 连到这个 daemon，按序列号选灯并播放 Action 或已保存的 Pattern。两端看到的是同一台主机上的 Job 和内容库。设备端使用 nb1 v0.1.4。v0.1.2 支持本地 stdio 适配器。
 
 ## 在插灯的电脑上
 
@@ -49,7 +49,7 @@ codex mcp add nb1-lan --url https://nb1.example.test:9443/mcp \
 | `run_light` | `{"serial":"20000001","id":"desk-check-01","action":{"kind":"pulse","color":"teal","cycles":2}}` | 实灯播放。替换为实际序列号，每次发起新的播放时选用新 ID。 |
 | `get_job` | `{"id":"desk-check-01"}` | 查询已受理的 Job，直到出现终态。 |
 
-可以直接播放，预览可选。连接中断后，已受理的 Job 可能仍在运行。重新连接同一个 HTTPS `/mcp` 地址，用原 Job ID 查询。远程工具结果的 `endpoint` 字段也会返回这个地址。[全部十二个工具](https://github.com/b1ug/nb1/blob/48895be5babc11d6f3b2a7ab16e316bd564e726e/adapters/mcp/README.md#tools)
+可以直接播放，预览可选。连接中断后，已受理的 Job 可能仍在运行。重新连接同一个 HTTPS `/mcp` 地址，用原 Job ID 查询。远程工具结果的 `endpoint` 字段也会返回这个地址。[全部十二个工具](https://github.com/b1ug/nb1/blob/0a2199cab89621888782baa154522c37ad83b641/adapters/mcp/README.md#tools)
 
 这个 HTTPS 监听器也在 `/v1` 提供设备 API，例如 REST 客户端可用 `GET /v1/devices` 列出设备。读取和写入均使用同一 Bearer 请求头。持有 Token 的客户端可控制已配置的灯并访问共享内容库。[HTTP API](api-v1.md)
 

@@ -2,7 +2,23 @@
 
 [简体中文](changelog.zh-CN.md) · [Overview](overview.md)
 
-The installation guide covers nb1 v0.1.3. Earlier entries retain their original verification dates and scope. [Content provenance](/content-provenance.json)
+The installation guide covers nb1 v0.1.4. Earlier entries retain their original verification dates and scope. [Content provenance](/content-provenance.json)
+
+
+## v0.1.4 {#release-v014}
+
+**nb1 v0.1.4 — Keep the light in rhythm**
+
+Per-device scheduling now supports an explicit waiting queue and preemption, while retaining `reject` as the default. The new `nb1 device reset SERIAL [off|rainbow|starlight|fireflies]` command stages and verifies a built-in startup preset before one Flash-save request on supported MK2 firmware. `GET /` now gives a read-only welcome and endpoint directory with build identity and cached device status. The CLI, daemon, embedded Workbench and MCP remain one native program.
+
+| Scope | Evidence |
+| --- | --- |
+| Source and native release | Source `0a2199cab89621888782baa154522c37ad83b641`; [annotated tag and release](https://github.com/b1ug/nb1/releases/tag/v0.1.4) · [five-platform release workflow](https://github.com/b1ug/nb1/actions/runs/44899127748). |
+| Queue and preemption | CI and two-device acceptance cover FIFO queueing, per-device isolation, preemption cleanup and no automatic target fallback. The default remains `reject`. |
+| Flash reset | Two MK2 / FW204 devices. One Flash save returned `unconfirmed`; two later cold reads matched all 32 rows. The original preset was restored and also matched twice. The result is not reported as acknowledged. |
+| Scope limits | No MK3 Flash reset, generic native Sequence API, optical calibration, or all-platform USB acknowledgement claim. |
+
+The physical feature checks used source-bound pre-release candidates; they are not a new optical qualification of the tagged bytes. On an `unconfirmed` Flash result, inspect and read back after power cycling before attempting another save.
 
 ## v0.1.3 {#release-v013}
 

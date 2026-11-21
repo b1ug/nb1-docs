@@ -44,6 +44,6 @@ features:
 
 一段蓝色通知可以表示 Agent 回合结束，但不推断任务是否成功。保留原 Job ID、检查结果，在不自动重播请求的前提下恢复。[了解 Agent 通知](/zh/agent-notifications)。
 
-::: info nb1 v0.1.3
-[下载 nb1](https://github.com/b1ug/nb1/releases/tag/v0.1.3) 后即可使用 CLI、daemon、MCP 和双语调试器。将保存的 Pattern 绑定到触发词，可以让一次构建只点亮负责它的设备。[设置 Trigger 与设备](/zh/trigger-routing) · [从另一台电脑连接](/zh/remote-access)
+::: info nb1 v0.1.4
+[下载 nb1](https://github.com/b1ug/nb1/releases/tag/v0.1.4) 后即可使用 CLI、daemon、MCP 和双语调试器。将保存的 Pattern 绑定到触发词，可以让一次构建只点亮负责它的设备。[设置 Trigger 与设备](/zh/trigger-routing) · [从另一台电脑连接](/zh/remote-access)
 :::

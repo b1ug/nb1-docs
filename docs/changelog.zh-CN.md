@@ -2,7 +2,23 @@
 
 [English](changelog.md) · [产品导览](overview.zh-CN.md)
 
-安装指南对应 nb1 v0.1.3。历史条目保留当时的验证日期与范围。[内容来源记录](/content-provenance.json)
+安装指南对应 nb1 v0.1.4。历史条目保留当时的验证日期与范围。[内容来源记录](/content-provenance.json)
+
+
+## v0.1.4 {#release-v014}
+
+**nb1 v0.1.4 — 让灯光保持节奏**
+
+每台设备现在支持明确的排队和抢占策略，默认仍为 `reject`。新增 `nb1 device reset SERIAL [off|rainbow|starlight|fireflies]`：在受支持的 MK2 固件上，它会逐行写入并校验自带上电预设，再只发送一次 Flash 保存请求。`GET /` 提供只读欢迎页 JSON、端点目录、构建身份与缓存设备状态。CLI、daemon、内嵌 Workbench 与 MCP 仍是一套原生程序。
+
+| 范围 | 记录 |
+| --- | --- |
+| 源码与原生发行 | 源码 `0a2199cab89621888782baa154522c37ad83b641`；[注释 Tag 与发行页](https://github.com/b1ug/nb1/releases/tag/v0.1.4) · [五平台发行工作流](https://github.com/b1ug/nb1/actions/runs/44899127748)。 |
+| 排队与抢占 | CI 与双设备验收覆盖 FIFO 排队、按设备隔离、抢占清理及不自动改投；默认仍为 `reject`。 |
+| Flash 重置 | 两只 MK2／FW204。一条 Flash 保存返回 `unconfirmed`；之后两次冷读均匹配 32 行。恢复原预设后也两次匹配。结果没有被伪报为已确认。 |
+| 范围限制 | 不包含 MK3 Flash 重置、通用设备端 Sequence API、光学校准，也不声称所有平台都能确认 USB Flash 保存。 |
+
+实物功能检查使用绑定源码身份的预发布候选，并非用已打 Tag 的二进制重新完成光学验收。Flash 返回 `unconfirmed` 时，先断电读回并检查设备，再考虑重新保存。
 
 ## v0.1.3 {#release-v013}
 

@@ -1,18 +1,18 @@
-# 安装与使用 nb1 v0.1.3
+# 安装与使用 nb1 v0.1.4
 
 [English](install.md)
 
-v0.1.3 将 CLI、本机 daemon、MCP 与内嵌调试器打包为一个程序。下面是该版本的安装步骤。正式下载以 [nb1 Releases](https://github.com/b1ug/nb1/releases) 中列出的版本为准。
+v0.1.4 将 CLI、本机 daemon、MCP 与内嵌调试器打包为一个程序。下面是该版本的安装步骤。正式下载以 [nb1 Releases](https://github.com/b1ug/nb1/releases) 中列出的版本为准。
 
 ## 下载与核验
 
 | 电脑 | CLI 包 |
 | --- | --- |
-| Apple Silicon Mac | `nb1-v0.1.3-darwin-arm64.tar.gz` |
-| Intel Mac | `nb1-v0.1.3-darwin-amd64.tar.gz` |
-| Linux arm64 | `nb1-v0.1.3-linux-arm64.tar.gz` |
-| Linux amd64 | `nb1-v0.1.3-linux-amd64.tar.gz` |
-| Windows amd64 | `nb1-v0.1.3-windows-amd64.zip` |
+| Apple Silicon Mac | `nb1-v0.1.4-darwin-arm64.tar.gz` |
+| Intel Mac | `nb1-v0.1.4-darwin-amd64.tar.gz` |
+| Linux arm64 | `nb1-v0.1.4-linux-arm64.tar.gz` |
+| Linux amd64 | `nb1-v0.1.4-linux-amd64.tar.gz` |
+| Windows amd64 | `nb1-v0.1.4-windows-amd64.zip` |
 
 预编译程序要求 macOS 15.0 及以上，或 Linux glibc 2.38 及以上。`nb1 mcp` 使用同一程序，系统要求相同。macOS 下载包未经过 Developer ID 公证。
 
@@ -21,7 +21,7 @@ v0.1.3 将 CLI、本机 daemon、MCP 与内嵌调试器打包为一个程序。�
 从同一 Release 下载所选包、`release.json` 和全局 `SHA256SUMS`，核对完整 SHA-256 与准确文件名。Apple Silicon Mac 示例：
 
 ```sh
-shasum -a 256 nb1-v0.1.3-darwin-arm64.tar.gz
+shasum -a 256 nb1-v0.1.4-darwin-arm64.tar.gz
 ```
 
 Linux 可用 `sha256sum`，Windows PowerShell 可用 `Get-FileHash -Algorithm SHA256`。全局清单还列着其他平台的包，仅下载一个平台时不要把其他文件缺失误判成当前包损坏。校验和检查内容一致性，不是独立签名；下载包和预期清单都应来自可信的 Release 页面。
@@ -29,16 +29,16 @@ Linux 可用 `sha256sum`，Windows PowerShell 可用 `Get-FileHash -Algorithm SH
 解压到独立的新目录，再检查包内清单。macOS 示例：
 
 ```sh
-mkdir nb1-v0.1.3
-tar -xzf nb1-v0.1.3-darwin-arm64.tar.gz -C nb1-v0.1.3
-cd nb1-v0.1.3
+mkdir nb1-v0.1.4
+tar -xzf nb1-v0.1.4-darwin-arm64.tar.gz -C nb1-v0.1.4
+cd nb1-v0.1.4
 shasum -a 256 -c SHA256SUMS
 ./nb1 version --json
 ```
 
 Linux tar 包用 `tar -xzf` 解压及 `sha256sum -c` 检查。Windows 解压 ZIP 后运行 `nb1.exe`。`build.json`、Release 清单和 `version --json` 应指向同一来源；它们描述下载的程序，不代表另一份已运行 daemon 的版本。若要注册服务，请把目录放在稳定位置。
 
-五个平台包共用一份校验清单。该版本共八项下载：五个平台包、可选的 `blink1-control-v0.1.3.zip`、`release.json` 和 `SHA256SUMS`。
+五个平台包共用一份校验清单。该版本共八项下载：五个平台包、可选的 `blink1-control-v0.1.4.zip`、`release.json` 和 `SHA256SUMS`。
 
 ## 用 Homebrew 安装
 
@@ -139,6 +139,6 @@ install 安排以后登录时可能加载；未加 `--start` 不请求本次立�
 
 ### 安装可选的 Skill
 
-将 `blink1-control-v0.1.3.zip` 解压到新的 `blink1-control` 文件夹，再完整复制到项目的 `.agents/skills/` 下，保留 `SKILL.md`、`agents/` 与 `references/`。[Agent 指引](agents.zh-CN.md)
+将 `blink1-control-v0.1.4.zip` 解压到新的 `blink1-control` 文件夹，再完整复制到项目的 `.agents/skills/` 下，保留 `SKILL.md`、`agents/` 与 `references/`。[Agent 指引](agents.zh-CN.md)
 
-本版支持 Action、Sequence、Job 和本机库。Trigger 可播放保存的 Pattern，省略串号时由 daemon 选灯，Job 会记录实际串号。多格式目录、公开排队与抢占、设备原生部署 API 继续独立推进。[Trigger 配置与选灯规则](trigger-routing.zh-CN.md) [开发候选安装指南](https://github.com/b1ug/nb1/blob/48895be5babc11d6f3b2a7ab16e316bd564e726e/docs/candidate-install.zh-CN.md)保留 `release:false` 的 CI 套件约定，不能把它和本正式版包混用。
+本版支持 Action、Sequence、Job 和电脑上的内容库。Trigger 可播放保存的 Pattern。省略序列号时，daemon 使用配置的默认设备；未配置默认设备且只管理一台设备时使用该设备；多台设备且没有可解析目标时会返回明确错误。每台设备有独立调度器，支持默认 `reject`、显式 `queue` 与 `preempt`。可编辑的多格式目录、通用设备端 Sequence 上传与 RAM 自主播放仍在后续规划中。[Trigger 配置与选灯规则](trigger-routing.zh-CN.md) [开发候选安装指南](https://github.com/b1ug/nb1/blob/v0.1.4/docs/candidate-install.zh-CN.md)记录 `release:false` 的 CI 套件；候选包不能替代正式 Release。

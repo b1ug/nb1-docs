@@ -2,11 +2,11 @@
 
 [English](api-v1.md)
 
-本页对应 nb1 v0.1.3 的 HTTP API。程序返回的标识、错误及 JSON 字段保持英文。[变更记录](changelog.zh-CN.md)
+本页对应 nb1 v0.1.4 的 HTTP API。程序返回的标识、错误及 JSON 字段保持英文。[变更记录](changelog.zh-CN.md)
 
-本版有 19 个 HTTP 操作，覆盖设备控制、内容库、Trigger 路由与诊断。内嵌工作台使用同一 daemon。
+本版有 22 个 HTTP 操作，覆盖设备控制、内容库、Trigger 路由、MK2 Flash 预设重置与诊断。内嵌工作台使用同一 daemon。
 
-[OpenAPI 3.1 规范](https://github.com/b1ug/nb1/blob/48895be5babc11d6f3b2a7ab16e316bd564e726e/docs/api-v1.openapi.json)描述当前 HTTP 操作、请求与响应 schema、约束和软件测试样例。`resolve` 是合法的本地颜色名，因此它有明确的 PUT 操作，与 POST 颜色解析操作并存。
+[OpenAPI 3.1 规范](https://github.com/b1ug/nb1/blob/0a2199cab89621888782baa154522c37ad83b641/docs/api-v1.openapi.json)描述当前 HTTP 操作、请求与响应 schema、约束和软件测试样例。`resolve` 是合法的本地颜色名，因此它有明确的 PUT 操作，与 POST 颜色解析操作并存。
 
 ## 用户配置 {#user-configuration}
 
@@ -131,7 +131,7 @@ nb1 control --endpoint http://127.0.0.1:5885 cancel j_7K3XJNY9ZM --wait
 
 使用 `control run FILE --daemon-default` 可以显式委托 daemon 选择目标。HTTP 与 MCP 播放请求省略 `serial` 时也使用 daemon 路由。[设备选择及绑定顺序](trigger-routing.zh-CN.md)
 
-均未指定目标时，v0.1.3 把 daemon 缓存中的已配置设备按序列号的字节序升序排列，选择第一只 `connection: "online"` 的设备。没有在线设备时，选择第一只已配置序列号，使 `state` 显示该目标状态、`run` 返回该目标的真实错误。空列表报错；未知或缺失连接状态不算在线。存在活动 Job 不会把在线设备排除在选择之外。
+均未指定目标时，daemon 把缓存中的已配置设备按序列号的字节序升序排列，选择第一只 `connection: "online"` 的设备。没有在线设备时，选择第一只已配置序列号，使 `state` 显示该目标状态、`run` 返回该目标的真实错误。空列表报错；未知或缺失连接状态不算在线。存在活动 Job 不会把在线设备排除在选择之外。
 
 配置了多只设备时，自动选择会向 stderr 写一条英文提示，包含数量、所选序列号和覆盖方法；stdout 保持原 JSON。每次调用只选择一次。之后出现 `device_busy`、目标缺失／离线或结果未知，都不会转向另一只灯或重新提交。此查找不枚举 USB、不启动 daemon、不保存新偏好，也不转为直接访问。`control devices` 仍列出 daemon 已配置的设备，不表示每只都在线。
 
@@ -163,8 +163,9 @@ nb1 control --endpoint http://127.0.0.1:5885 cancel j_7K3XJNY9ZM --wait
 
 | 请求 | 必填输入 | 可选输入／省略默认值 | 成功响应 |
 | --- | --- | --- | --- |
+| `GET /` | 无请求体或查询。 | 无。 | `200`，只读服务欢迎信息、构建身份、端点目录、默认设备策略与缓存状态；不访问 USB。 |
 | `POST /v1/preview` | `action`、`sequence`、`pattern_id` 三者中恰好一个。 | `serial`：省略表示仅编译，不检查设备。 | `200`，Preview 对象。 |
-| `POST /v1/jobs` | `action`、`sequence`、`pattern_id`、`trigger` 四选一。 | 省略 `serial` 使用 daemon 路由；省略 `id` 或传 `""` 生成 ID。 | 新受理为 `202`，匹配的重放为 `200`。返回 Job 及 `Location: /v1/jobs/{id}`。 |
+| `POST /v1/jobs` | `action`、`sequence`、`pattern_id`、`trigger` 四选一。 | 省略 `serial` 使用 daemon 路由；省略 `id` 或传 `""` 生成 ID；`policy` 省略为 `reject`，也可选 `queue` 或 `preempt`。 | 新受理为 `202`，匹配的重放为 `200`。返回 Job 及 `Location: /v1/jobs/{id}`。 |
 | `GET /v1/jobs/{id}` | 路径中的 Job ID；无请求体。 | 无。 | `200`，Job 对象，包括该 Job 已失败的情形。 |
 | `POST /v1/jobs/{id}/cancel` | 路径中提供 Job ID，无请求体。 | 可选查询参数 `serial` 必须匹配已受理 Job 的设备；省略只按 ID 取消。 | 取消中为 `202`，已终止或执行前已取消为 `200`。返回当前 Job。 |
 | `POST /v1/colors/resolve` | `color`：一个 ColorInput。 | 无。 | `200`，`{"color":"#rrggbb"}`。不保存或播放。 |
@@ -179,6 +180,8 @@ nb1 control --endpoint http://127.0.0.1:5885 cancel j_7K3XJNY9ZM --wait
 | `GET /v1/service-status` | 无。 | 无。 | `200`，返回 `service`、`api_version`、`health`，以及包含 `configured`、`online` 的 `devices` 对象。无法获取设备数时该字段为 `null`。 |
 | `GET /v1/devices` | 无请求体。 | 无。 | `200`，按序列号排序的已配置设备状态；没有配置设备时为 `[]`。不发现 USB。 |
 | `GET /v1/devices/{serial}` | 路径中的已配置序列号；无请求体。 | 无。 | `200`，一个缓存的 Device 对象。没有匹配序列号时返回 `404`。 |
+| `GET /v1/devices/{serial}/flash/reset-ticket` | 显式八位十六进制设备序列号；无请求体。 | 无。 | `200`，一次性 Flash 重置票据。 |
+| `POST /v1/devices/{serial}/flash/reset` | 同一设备序列号、`X-NB1-Flash-Ticket` 与 JSON 对象。 | `preset` 省略为 `off`；可选 `off`、`rainbow`、`starlight`、`fireflies`。 | `200`，Flash 重置回执。 |
 | `GET /healthz` | 无字段。 | 无。 | `200`，`{"status":"ok","api_version":"v1"}`。HTTP 健康不代表设备可用。 |
 | `GET /v1/transport-metrics` | 无字段。 | 无。 | `200`，TransportMetric 数组；没有计数器时为 `[]`。 |
 
@@ -187,6 +190,20 @@ nb1 control --endpoint http://127.0.0.1:5885 cancel j_7K3XJNY9ZM --wait
 Job ID 与 Pattern ID 为大小写敏感的字符串，包含 1–64 个 ASCII 字母、数字、连字符或下划线。本地颜色名大小写敏感，必须是匹配 `[a-z][a-z0-9-]{0,31}` 的小写字符串。预览／提交中的 `serial` 一旦出现，就必须是非空字符串，包含 1–128 个 ASCII 字母、数字、连字符或下划线；要执行，必须与已配置设备精确匹配。HTTP 语法比配置文件中的八位十六进制设备设置更宽。设备 GET 直接查询缓存；路径值未匹配时返回 `404`，而不另行返回序列号格式错误。
 
 执行输入可以用 `{"pattern_id":"gentle-pulse"}` 引用本地保存的 Pattern。编译新输入时，该引用必须存在。Pattern PUT 则要求 Action 或 Sequence，并固定解析后的 Sequence。对仍被保留的 Job 进行匹配重放时，会在读取当前库之前直接返回原 Job。
+
+### 忙设备的播放策略 {#choosing-what-happens-on-a-busy-device}
+
+Job 的可选字段 `policy` 适用于 Action、Sequence、已保存 Pattern 与 Trigger。daemon 会先解析并校验目标 Job，再更改该 serial 上的播放状态。
+
+| 策略 | 目标设备上的行为 |
+| --- | --- |
+| `reject`（默认） | 设备空闲时开始；已有播放或等待项时返回 `409 device_busy`。 |
+| `queue` | 加入该设备等待队尾，按受理顺序执行。 |
+| `preempt` | 请求活动 Job 取消并让新 Job 优先；已有等待项保持相对顺序。 |
+
+每台设备默认最多有 8 个等待 Job。队列已满返回 `queue_full`；前次抢占清理仍在进行时，新的抢占返回 `preemption_pending`。抢占中的 USB 调用或清理可能延迟交接，失败时受影响的等待 Job 会失败。查询每个原始 Job ID，不会自动重播或改投其他设备。其他序列号使用独立调度器。
+
+CLI 使用 `--policy queue` 或 `--policy preempt`；MCP `run_light` 与 HTTP `POST /v1/jobs` 使用同名 `policy` 字段。直接 USB 模式没有共享 Job 队列。
 
 ### Preview 与 Job 响应 {#preview-and-job-responses}
 
@@ -248,7 +265,7 @@ HTTP 错误采用 `{"error":{"code":"...","message":"..."}}`。Action 编译无�
 | `404` | `not_found` | 路由不存在，或找不到对应的已配置设备、保留的 Job、已保存 Pattern。Job 已过期／被淘汰也使用此码；记录不存在不证明它从未执行。 |
 | `405` | `method_not_allowed` | 不支持该方法。`Allow` 列出路由支持的方法；HEAD 不隐含等同于 GET。 |
 | `409` | `job_conflict` | 被保留的 ID 已绑定其他设备或 JSON 输入。查询原 ID；不要为重试结果不确定的任务而另造新 ID。 |
-| `409` | `device_busy` | 所选设备已被占有／正忙，或已有竞争的执行／检查。API v1 拒绝这次提交，不接受 replace／queue 策略字段；另一设备上的工作不会令当前目标变忙。 |
+| `409` | `device_busy`、`queue_full`、`preemption_pending` | 默认策略下设备繁忙、等待队列已满，或该设备的前一次抢占仍在清理中；目标不变。另一设备的工作不会占用本设备队列。 |
 | `413` | `body_too_large` | HTTP 请求体超过 1 MiB。更小的 ColorInput 或编译后 Pattern 限制被违反时，使用 `400 invalid_request`。 |
 | `415` | `json_required` | 带请求体的操作缺少 Content-Type、格式错误，或不是 `application/json`。 |
 | `422` | `unsupported_capability` | 提交所需能力不在设备的缓存配置中。 |
@@ -291,7 +308,7 @@ nb1 service install --devices DEVICE_SERIAL --start
 
 服务安装从自身命令行参数与选定配置文件中解析设备和监听地址。若选择了配置文件，会记录其实际绝对路径，并把设备／监听值保存为显式启动参数。这些参数使已经安装的设备选择和地址不会因配置文件编辑而改变。macOS/Linux 托管服务还在受控启动环境中记录选定的 XDG 根目录，使默认库在不同登录环境下保持稳定。库与 Job 缓存设置会在重启时从配置读取。要改变设备列表或监听地址，应显式更新托管服务配置。
 
-跨平台 `service render` 仍要求明确的目标 `--binary` 路径。Windows 服务安装尚不支持。Homebrew 构建默认选择已校验的稳定 `opt/nb1/bin/nb1` 入口；升级包不会自动重启 daemon。显式 `--binary` 路径保持固定，必须保留对应程序。不同升级／回滚约定见[包生命周期](https://github.com/b1ug/nb1/blob/48895be5babc11d6f3b2a7ab16e316bd564e726e/packaging/homebrew/README.md#upgrades-and-service-paths)。
+跨平台 `service render` 仍要求明确的目标 `--binary` 路径。Windows 服务安装尚不支持。Homebrew 构建默认选择已校验的稳定 `opt/nb1/bin/nb1` 入口；升级包不会自动重启 daemon。显式 `--binary` 路径保持固定，必须保留对应程序。不同升级／回滚约定见[包生命周期](https://github.com/b1ug/nb1/blob/0a2199cab89621888782baa154522c37ad83b641/packaging/homebrew/README.md#upgrades-and-service-paths)。
 
 ## 设备执行范围 {#device-execution-scope}
 
@@ -306,9 +323,9 @@ nb1 service install --devices DEVICE_SERIAL --start
 | 终态 TTL/LRU 缓存 | 整个 daemon | 历史记录保留与待播容量分开；缓存压力不取消已接受的非终态工作。 |
 | 配置、内容库与服务生命周期 | daemon 实例 | 设备共享这些资源。显式关闭 daemon 会影响其受管设备，与取消单个 Job 不同。 |
 
-API v1 是**每设备遇忙拒绝**。Job 在 worker 开始前可能短暂处于 `queued`，设备也会报告 `queue_depth`；这不表示已公开把竞争任务排在忙设备后面的策略。取消尚未开始的 Job 会移除它，不执行该任务的设备写入。
+API v1 的播放策略按已解析的设备隔离。默认 `reject` 在目标忙时返回 `device_busy`；`queue` 把 Job 放入该设备队列；`preempt` 请求当前 Job 清理后让新 Job 优先执行，并保留既有等待任务的相对顺序。其他序列号的队列互不影响。取消尚未开始的排队 Job 会将其移除，不执行设备写入。
 
-未来的队列容量、等待截止时间、抢占和显式清队必须归属于 Job 冻结后的最终 serial。A 设备不能占用 B 的队列容量或取消其工作。这些公开操作仍属规划；内部替换代码不是公开策略合同，未来抢占是否保留已有待播 Job 仍需定稿。
+默认每台设备最多等待 8 个 Job（包括等待抢占的 Job）；队列满返回 `queue_full`。前次抢占清理尚未完成时再次抢占会返回 `preemption_pending`。使用稳定 Job ID 查询丢失响应后的结果；匹配的重试不会再次中断播放。
 
 ## Job ID 与去重 {#job-ids-and-deduplication}
 
@@ -349,3 +366,10 @@ nb1 control patterns list
 源码交付包含核心执行路径、本地库、上文 HTTP 操作、CLI 命令、显式直连运行、内嵌 Web 和 MCP 适配器。软件检查覆盖集成路由、direct 生命周期和 Agent 流程。已有有限 macOS 27.2／MK2 FW204 CLI／HTTP 记录覆盖 serial／interval、Orbit、Job 重放、busy 拒绝、取消、RGB 缓存读回与设备归属；其他记录覆盖 direct set／hold、超时／SIGINT、真实 stdio MCP 和内嵌 Web 行为。所有记录保留准确源码与二进制身份，不因新版本发布自动重新取得硬件验收资格。DeviceSequence 路由仍为计划。[术语表](api-v1-terminology.zh-CN.md)规定各入口的命名。
 
 macOS/Linux 用户服务安装将 `XDG_CONFIG_HOME` 固定为安装时已验证的配置根目录。不同的登录 manager 环境不能把所选配置或默认库重定向到别处。设备锁继续遵循前述原生系统协调策略。单独渲染时，可用 `service render --user-config-root` 指定目标配置根目录；这不授予文件系统访问权限。
+
+
+## Device Flash reset {#device-flash-reset}
+
+重置操作把受支持 blink(1) MK2 的持久启动图案替换成内置预设，默认 `off`。它不恢复所有出厂设置，也不修改电脑上的 Pattern 库。按行暂存并读回后，daemon 最多提交一次 Flash 保存；结果不确定时不会自动重试。
+
+CLI 命令为 `nb1 device reset SERIAL [off|rainbow|starlight|fireflies]`。HTTP 客户端先获取一次性 `/v1/devices/{serial}/flash/reset-ticket`，再带 `X-NB1-Flash-Ticket` 调用 `/v1/devices/{serial}/flash/reset`。设备必须空闲，操作按显式 serial 绑定。MK3 未开放此 pattern-only 操作。细节和结果处理见[设备 Flash 重置](device-flash-reset.zh-CN.md)。

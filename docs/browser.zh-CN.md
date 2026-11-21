@@ -2,7 +2,7 @@
 
 [English](browser.md) · [原生安装](install.zh-CN.md) · [架构](architecture.zh-CN.md)
 
-[nb1 WebHID 在线版](https://b1ug.github.io/nb1-webhid/)及其[公开源码](https://github.com/b1ug/nb1-webhid)是独立的**开发预览**。前台页面通过共享 Go／WASM 编译器直接使用 WebHID；**nb1 Light Reminders** Chrome 扩展仍为实验版本。它们既不是原生 nb1 daemon，也不是这个静态文档站。原生 nb1 v0.1.3 仍是独立的正式安装路径。
+[nb1 WebHID 在线版](https://b1ug.github.io/nb1-webhid/)及其[公开源码](https://github.com/b1ug/nb1-webhid)是独立的**开发预览**。前台页面通过共享 Go／WASM 编译器直接使用 WebHID；**nb1 Light Reminders** Chrome 扩展仍为实验版本。它们既不是原生 nb1 daemon，也不是这个静态文档站。原生 nb1 v0.1.4 仍是独立的正式安装路径。
 
 ## 先选择谁控制小灯
 
@@ -70,4 +70,4 @@ Preview 可选；保存主机 Pattern 既不播放，也不写设备内存。浏
 
 [在线构建记录](https://b1ug.github.io/nb1-webhid/site-build.json)列出当前部署的前端来源、扩展版本和 Go／WASM 编译器。当前浏览器构建固定使用 nb1 核心 v0.1.1（`b5cfe68cbb412d81a80d948b845aee5b0aba586b`）。报告问题时请附上构建记录和所下载 ZIP 的校验值。[首次公开预览](https://github.com/b1ug/nb1-webhid/tree/e2701e05aebcc0858cc328df0e728fd5c0cec2e4)的源码可供历史对照。
 
-原生 [nb1 v0.1.3](install.zh-CN.md)、内嵌 Workbench、浏览器开发预览和扩展包是独立交付物。发布预览不会升级已安装的 daemon、更新旧硬件证据，也不代表 Web Store 上架。
+原生 [nb1 v0.1.4](install.zh-CN.md)、内嵌 Workbench、浏览器开发预览和扩展包是独立交付物。发布预览不会升级已安装的 daemon、更新旧硬件证据，也不代表 Web Store 上架。

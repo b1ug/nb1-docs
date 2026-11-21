@@ -2,7 +2,7 @@
 
 [简体中文](overview.zh-CN.md)
 
-[nb1 v0.1.3](https://github.com/b1ug/nb1/releases/tag/v0.1.3) provides a CLI, an optional local daemon, an HTTP API and an embedded bilingual Nightlab workbench in one executable. Use a shared server or explicitly choose direct playback. The installer does not silently start a service, and clients do not silently fall back to USB.
+[nb1 v0.1.4](https://github.com/b1ug/nb1/releases/tag/v0.1.4) provides a CLI, an optional local daemon, an HTTP API and an embedded bilingual Nightlab workbench in one executable. Use a shared server or explicitly choose direct playback. The installer does not silently start a service, and clients do not silently fall back to USB.
 
 ## Find your way
 
@@ -12,7 +12,7 @@ Start with [installation](install.md) and [your first light](getting-started.md)
 
 An Action names `set`, `off`, `fade`, `blink`, `breathe`, `pulse`, `alternate`, `orbit` or seven-color `rainbow`. A Sequence uses ordered `steps[]` with explicit LED targets and serial or interval timing. The core compiles and schedules both. Preview is optional; explicit Play validates the current draft. A single Sequence can give the two LEDs different colors.
 
-Colors accept names, Hex3/Hex6, RGB8, HSV/HSB and local `@name`. Named colors and saved Patterns live on the computer. Saved Patterns freeze a resolved Sequence; they do not write device RAM, Flash or startup effects. DeviceSequence deployment, new editable source libraries, queues and preemption remain planned. A [named Trigger](trigger-routing.md) can play a saved Pattern on a bound device.
+Colors accept names, Hex3/Hex6, RGB8, HSV/HSB and local `@name`. Named colors and saved Patterns live on the computer. Saved Patterns freeze a resolved Sequence; they do not write device RAM, Flash or startup effects. Device-native sequence authoring and general RAM playback remain planned. v0.1.4 adds a guarded preset reset for supported MK2 Flash; see [Device Flash reset](device-flash-reset.md). A [named Trigger](trigger-routing.md) can play a saved Pattern on a bound device.
 
 ## Follow the Job
 

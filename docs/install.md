@@ -1,18 +1,18 @@
-# Install and use nb1 v0.1.3
+# Install and use nb1 v0.1.4
 
 [简体中文](install.zh-CN.md)
 
-The v0.1.3 platform executable contains the CLI, daemon, MCP and embedded debugger. Follow the steps below for that version. Available downloads are listed in [nb1 Releases](https://github.com/b1ug/nb1/releases).
+The v0.1.4 platform executable contains the CLI, daemon, MCP and embedded debugger. Follow the steps below for that version. Available downloads are listed in [nb1 Releases](https://github.com/b1ug/nb1/releases).
 
 ## Choose and verify a download
 
 | Computer | nb1 archive |
 | --- | --- |
-| Apple Silicon Mac | `nb1-v0.1.3-darwin-arm64.tar.gz` |
-| Intel Mac | `nb1-v0.1.3-darwin-amd64.tar.gz` |
-| Linux arm64 | `nb1-v0.1.3-linux-arm64.tar.gz` |
-| Linux amd64 | `nb1-v0.1.3-linux-amd64.tar.gz` |
-| Windows amd64 | `nb1-v0.1.3-windows-amd64.zip` |
+| Apple Silicon Mac | `nb1-v0.1.4-darwin-arm64.tar.gz` |
+| Intel Mac | `nb1-v0.1.4-darwin-amd64.tar.gz` |
+| Linux arm64 | `nb1-v0.1.4-linux-arm64.tar.gz` |
+| Linux amd64 | `nb1-v0.1.4-linux-amd64.tar.gz` |
+| Windows amd64 | `nb1-v0.1.4-windows-amd64.zip` |
 
 The prebuilt executable requires macOS 15.0 or later on Mac and glibc 2.38 or later on Linux. The same requirements apply to `nb1 mcp`. The macOS downloads are not Developer ID notarized.
 
@@ -21,7 +21,7 @@ These binary requirements are separate from source compatibility and do not guar
 Download the selected archive, `release.json` and the global `SHA256SUMS` from the same release. Compare the archive's complete SHA-256 and exact filename with that manifest. For example, on an Apple Silicon Mac:
 
 ```sh
-shasum -a 256 nb1-v0.1.3-darwin-arm64.tar.gz
+shasum -a 256 nb1-v0.1.4-darwin-arm64.tar.gz
 ```
 
 Linux can use `sha256sum`; Windows PowerShell can use `Get-FileHash -Algorithm SHA256`. The global manifest also lists other platform archives, so checking every line requires downloading every listed file. Checksums detect inconsistency, not independent origin; obtain the archive and expected manifest from the trusted release page.
@@ -29,16 +29,16 @@ Linux can use `sha256sum`; Windows PowerShell can use `Get-FileHash -Algorithm S
 Unpack the CLI archive into its own new directory. The archive contains the executable, license notices, a short README, build identity and an inner checksum manifest. On macOS:
 
 ```sh
-mkdir nb1-v0.1.3
-tar -xzf nb1-v0.1.3-darwin-arm64.tar.gz -C nb1-v0.1.3
-cd nb1-v0.1.3
+mkdir nb1-v0.1.4
+tar -xzf nb1-v0.1.4-darwin-arm64.tar.gz -C nb1-v0.1.4
+cd nb1-v0.1.4
 shasum -a 256 -c SHA256SUMS
 ./nb1 version --json
 ```
 
 Use `tar -xzf` and `sha256sum -c` for a Linux tar archive. Extract the Windows ZIP into a new folder and run `nb1.exe`. Compare `build.json`, the release manifest and `version --json`; they describe the downloaded executable, not another already-running daemon. Keep this directory at a stable location if a service will use it.
 
-There are eight download assets: five platform archives, the optional `blink1-control-v0.1.3.zip`, `release.json` and `SHA256SUMS`.
+There are eight download assets: five platform archives, the optional `blink1-control-v0.1.4.zip`, `release.json` and `SHA256SUMS`.
 
 ## Install with Homebrew
 
@@ -145,6 +145,6 @@ For local authentication, add `--token-file PATH`. A client on another computer 
 
 ### Add the optional Skill
 
-Unpack `blink1-control-v0.1.3.zip` into a new `blink1-control` folder and copy that folder to the project's `.agents/skills/`. Keep `SKILL.md`, `agents/` and `references/` together. [Agent setup](agents.md)
+Unpack `blink1-control-v0.1.4.zip` into a new `blink1-control` folder and copy that folder to the project's `.agents/skills/`. Keep `SKILL.md`, `agents/` and `references/` together. [Agent setup](agents.md)
 
-The release provides the current Action/Sequence, Job and computer-side library contract. Use a named Trigger to play a saved Pattern. The daemon can resolve an omitted serial and records the selected device on the Job. Editable multi-format directories, public queue/preemption and new device-native deployment APIs remain planned. [Trigger configuration and target selection](trigger-routing.md) [Development candidate installation](https://github.com/b1ug/nb1/blob/48895be5babc11d6f3b2a7ab16e316bd564e726e/docs/candidate-install.md) documents CI suites marked `release:false`; those artifacts are not interchangeable with this tagged release contract.
+The release provides the current Action/Sequence, Job and computer-side library contract. Use a named Trigger to play a saved Pattern. The daemon resolves an omitted serial using its configured default, or the sole managed device; multiple devices without a target or default return an actionable error. Each device has an independent scheduler with `reject` (default), `queue` and `preempt` policies. Editable multi-format directories and generic device-native Sequence upload/RAM playback remain planned. [Trigger configuration and target selection](trigger-routing.md) [Development candidate installation](https://github.com/b1ug/nb1/blob/v0.1.4/docs/candidate-install.md) documents CI suites marked `release:false`; those artifacts are not interchangeable with this tagged release contract.

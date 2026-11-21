@@ -2,11 +2,11 @@
 
 [English](agents.md) · [安装](install.zh-CN.md) · [Agent 通知](agent-notifications.zh-CN.md)
 
-MCP 随 v0.1.3 的 `nb1` 主程序提供，使用官方 Go MCP SDK，本机和跨机均可接入。灯由 daemon 控制。
+MCP 随 v0.1.4 的 `nb1` 主程序提供，使用官方 Go MCP SDK，本机和跨机均可接入。灯由 daemon 控制。
 
 如果这是一台新电脑，也可以把安装工作交给 AI：
 
-> 请参照 https://b1ug.github.io/nb1-guide/zh/getting-started 为本机平台安装 nb1 v0.1.3 并核对版本。如果已有 daemon 就沿用，否则为我选定的序列号启动服务。告诉我服务地址、设备序列号与连接状态，再做一次预览。等我要求播放时再点灯。
+> 请参照 https://b1ug.github.io/nb1-guide/zh/getting-started 为本机平台安装 nb1 v0.1.4 并核对版本。如果已有 daemon 就沿用，否则为我选定的序列号启动服务。告诉我服务地址、设备序列号与连接状态，再做一次预览。等我要求播放时再点灯。
 
 ## 配置 MCP
 
@@ -33,7 +33,7 @@ stdio 的 stdout 只传输 JSON-RPC。旧配置请将 `nb1-mcp` 改成 `nb1` 并
 
 ## 使用共同词汇
 
-十二个工具为 `list_devices`、`get_device_state`、`resolve_color`、`preview_light`、`run_light`、`get_job`、`cancel_job`、`list_colors`、`save_color`、`list_patterns`、`get_pattern` 与 `save_pattern`。[完整 schema 与示例](https://github.com/b1ug/nb1/blob/48895be5babc11d6f3b2a7ab16e316bd564e726e/adapters/mcp/README.md)。
+十二个工具为 `list_devices`、`get_device_state`、`resolve_color`、`preview_light`、`run_light`、`get_job`、`cancel_job`、`list_colors`、`save_color`、`list_patterns`、`get_pattern` 与 `save_pattern`。[完整 schema 与示例](https://github.com/b1ug/nb1/blob/0a2199cab89621888782baa154522c37ad83b641/adapters/mcp/README.md)。
 
 Preview 可选。直接调用工具也会校验并播放：
 
@@ -41,13 +41,13 @@ Preview 可选。直接调用工具也会校验并播放：
 {"name":"run_light","arguments":{"serial":"20000001","action":{"kind":"breathe","color":"coral","cycles":3}}}
 ```
 
-用 `list_devices` 的真实序列号替换示例。保留返回的 ID 与 endpoint；接受不等于完成。尤其在响应丢失或结果不确定时，用 `get_job` 查原任务，不自动重新提交。已配置的 Trigger 可用 `run_light` 和 `{"id":"turn-42","trigger":"build.done"}` 播放。省略 `serial` 时由 daemon 解析目标。不同序列号能独立执行，同设备上的竞争请求返回 `device_busy`。[选灯与取消](trigger-routing.zh-CN.md)
+用 `list_devices` 的真实序列号替换示例。保留返回的 ID 与 endpoint；接受不等于完成。尤其在响应丢失或结果不确定时，用 `get_job` 查原任务，不自动重新提交。已配置的 Trigger 可用 `run_light` 和 `{"id":"turn-42","trigger":"build.done"}` 播放。省略 `serial` 时，daemon 会使用已配置的默认设备，或在只管理一台灯时选择该灯。不同序列号能独立执行。默认策略会对同设备竞争请求返回 `device_busy`；`run_light` 也可选择 `queue` 或 `preempt`。[选灯与取消](trigger-routing.zh-CN.md)
 
 ## 添加 Skill
 
-下载[可选的 v0.1.3 Skill ZIP](https://github.com/b1ug/nb1/releases/download/v0.1.3/blink1-control-v0.1.3.zip)，解压到新的 `blink1-control` 文件夹，完整复制到项目 `.agents/skills/`，保留 `SKILL.md`、`agents/`、`references/` 和 `LICENSE`。阅读其适用范围与触发方式。Skill 为既有连接提供指引，不安装软件、注册 MCP、启动服务或启用 hook。
+下载[可选的 v0.1.4 Skill ZIP](https://github.com/b1ug/nb1/releases/download/v0.1.4/blink1-control-v0.1.4.zip)，解压到新的 `blink1-control` 文件夹，完整复制到项目 `.agents/skills/`，保留 `SKILL.md`、`agents/`、`references/` 和 `LICENSE`。阅读其适用范围与触发方式。Skill 为既有连接提供指引，不安装软件、注册 MCP、启动服务或启用 hook。
 
-[核心 Agent 指引](https://github.com/b1ug/nb1/blob/48895be5babc11d6f3b2a7ab16e316bd564e726e/docs/agent-guide.zh-CN.md) · [机器可读站点指引](/llms.txt)
+[核心 Agent 指引](https://github.com/b1ug/nb1/blob/0a2199cab89621888782baa154522c37ad83b641/docs/agent-guide.zh-CN.md) · [机器可读站点指引](/llms.txt)
 
 ## 可选通知
 
